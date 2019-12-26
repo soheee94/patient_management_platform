@@ -1,9 +1,10 @@
 import React from "react";
+import Nav from "./components/PatientManagement/Nav";
 
 function PatientManagement() {
   return (
     <div>
-      <h1>환자 관리</h1>
+      <Nav />
     </div>
   );
 }

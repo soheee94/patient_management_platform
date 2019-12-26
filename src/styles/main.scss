@@ -1,4 +1,6 @@
 @import "mixins";
 @import "variables";
 
-@import "./components/container";
+@import "./components/common";
+
+@import "./components/patientManagement/nav.scss";

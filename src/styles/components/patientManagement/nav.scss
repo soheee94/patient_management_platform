@@ -1,0 +1,84 @@
+.nav {
+  height: 60px;
+  background-color: $mainColor;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+}
+
+.nav__right__dropdown {
+  position: relative;
+  width: auto;
+
+  &__text {
+    color: white;
+    padding: 10px 16px;
+    cursor: pointer;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    &:after {
+      content: "";
+      transition: all 0.3s;
+      border: solid $white;
+      border-width: 0 1px 1px 0;
+      float: right;
+      margin-left: 15px;
+      padding: 3px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+  }
+
+  &.active &__text:after {
+    margin-top: 5px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+  }
+
+  &__items {
+    width: 100%;
+    position: absolute;
+    height: auto;
+    visibility: hidden;
+    max-height: 0px;
+    transition: max-height 0.6s ease;
+  }
+
+  &.active &__items {
+    visibility: visible;
+    height: auto;
+    max-height: 290px;
+    transition: max-height 0.7s, visibility 4s ease;
+  }
+
+  &__item {
+    background: $mainColor;
+    cursor: pointer;
+    padding: 15px 18px;
+    height: 50px;
+
+    &:hover {
+      color: white;
+      background: #3a4143;
+    }
+  }
+}
+
+.nav__right__tutorial-btn {
+  line-height: 24px;
+  font-size: 25px;
+  margin-left: 15px;
+  cursor: pointer;
+
+  &:hover {
+    color: gray;
+  }
+}
