@@ -46,20 +46,20 @@
   &__items {
     width: 100%;
     position: absolute;
-    height: auto;
     visibility: hidden;
-    max-height: 0px;
-    transition: max-height 0.6s ease;
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.7s ease;
   }
 
   &.active &__items {
     visibility: visible;
-    height: auto;
-    max-height: 290px;
-    transition: max-height 0.7s, visibility 4s ease;
+    height: 100px;
+    transition: all 0.7s ease;
   }
 
   &__item {
+    position: relative;
     background: $mainColor;
     cursor: pointer;
     padding: 15px 18px;
