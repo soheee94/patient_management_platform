@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
-  border-bottom: 1px solid $lightGray;
+  border-bottom: 1px solid $gray;
 }
 
 .nav__logo {
@@ -79,7 +79,7 @@
     }
 
     &:hover {
-      color: white;
+      // color: white;
       background: $gray;
     }
   }

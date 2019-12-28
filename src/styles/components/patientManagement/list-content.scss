@@ -1,0 +1,14 @@
+.list-content {
+  height: calc(100% - 60px);
+  overflow-y: scroll;
+}
+
+.list-content__header {
+  height: 50px;
+  background-color: red;
+}
+
+.list-content__item {
+  height: 500px;
+  background-color: blue;
+}

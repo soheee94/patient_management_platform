@@ -7,23 +7,21 @@ import MeasurementResultList from "./MeasurementResultList";
 
 function ListContainer() {
   return (
-    <div className="list-container">
-      <Grid container>
-        {/* 측정 환자 리스트 */}
-        <Grid item xs={3} className="measurement-patient-list">
-          <WaitingPatientList />
-          <CompletedPatientList />
-        </Grid>
-        {/* 환자 리스트 */}
-        <Grid item xs={6}>
-          <PatientList />
-        </Grid>
-        {/* 환자 측정 결과 리스트 */}
-        <Grid item xs={3}>
-          <MeasurementResultList />
-        </Grid>
+    <Grid container className="list-container">
+      {/* 측정 환자 리스트 */}
+      <Grid item xs={3} className="measurement-patient-list">
+        <WaitingPatientList />
+        <CompletedPatientList />
       </Grid>
-    </div>
+      {/* 환자 리스트 */}
+      <Grid item xs={6}>
+        <PatientList />
+      </Grid>
+      {/* 환자 측정 결과 리스트 */}
+      <Grid item xs={3}>
+        <MeasurementResultList />
+      </Grid>
+    </Grid>
   );
 }
 
