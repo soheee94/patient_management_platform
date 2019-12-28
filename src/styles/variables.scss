@@ -8,8 +8,8 @@
   src: url("./font/NotoSans-Medium.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Noto Sans KR Light";
-  src: url("./font/NotoSans-Light.woff2") format("woff2");
+  font-family: "Noto Sans KR Bold";
+  src: url("./font/NotoSans-Bold.woff2") format("woff2");
 }
 
 $fontFamily: "Noto Sans KR Regular";
@@ -17,5 +17,7 @@ $fontFamily: "Noto Sans KR Regular";
 // color
 $white: #fff;
 $black: #333;
+$lightGray: #e9ecef;
+$gray: gray;
 
 $mainColor: #222e38;

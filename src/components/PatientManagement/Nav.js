@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { MdHelpOutline } from "react-icons/md";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 import Tutorial from "./Tutorial";
+import logo from "../../assets/logo_cordia.png";
 
 function Nav() {
   const today = new Date();
@@ -17,9 +18,16 @@ function Nav() {
   return (
     <>
       <div className="nav">
-        <p className="nav__date">{dateString}</p>
+        {/* <p className="nav__date">{dateString}</p> */}
+        <img src={logo} alt="logo" className="nav__logo" />
         <div className="nav__right">
-          <div className={isDropdownOpen ? "nav__right__dropdown active" : "nav__right__dropdown"}>
+          <div
+            className={
+              isDropdownOpen
+                ? "nav__right__dropdown active"
+                : "nav__right__dropdown"
+            }
+          >
             <div
               className="nav__right__dropdown__text"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
@@ -35,7 +43,7 @@ function Nav() {
             className="nav__right__tutorial-btn"
             onClick={() => setTutorialOpen(!isTutorialOpen)}
           >
-            <MdHelpOutline />
+            <IoIosHelpCircleOutline />
           </div>
         </div>
       </div>
