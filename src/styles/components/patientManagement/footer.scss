@@ -1,0 +1,16 @@
+footer {
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-top: 1px solid $lightGray;
+  color: $gray;
+}
+
+a {
+  text-decoration: none;
+  color: $black;
+  font-family: "Noto Sans KR Medium";
+  &:hover {
+    text-decoration: underline;
+  }
+}

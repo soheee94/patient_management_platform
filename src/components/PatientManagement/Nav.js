@@ -4,13 +4,14 @@ import Tutorial from "./Tutorial";
 import logo from "../../assets/logo_cordia.png";
 
 function Nav() {
-  const today = new Date();
-  const dateString = today.toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    weekday: "long"
-  });
+  // Date String
+  // const today = new Date();
+  // const dateString = today.toLocaleDateString("ko-KR", {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  //   weekday: "long"
+  // });
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isTutorialOpen, setTutorialOpen] = useState(false);
