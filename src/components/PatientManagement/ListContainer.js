@@ -14,7 +14,7 @@ function ListContainer() {
         <CompletedPatientList />
       </Grid>
       {/* 환자 리스트 */}
-      <Grid item xs={6}>
+      <Grid item xs={6} className="patient-list">
         <PatientList />
       </Grid>
       {/* 환자 측정 결과 리스트 */}
