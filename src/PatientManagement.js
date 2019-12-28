@@ -1,10 +1,11 @@
 import React from "react";
 import Nav from "./components/PatientManagement/Nav";
-
+import ListContainer from "./components/PatientManagement/ListContainer";
 function PatientManagement() {
   return (
-    <div>
+    <>
       <Nav />
+      <ListContainer />
       <footer>
         ©{" "}
         <a href="http://teamelysium.kr/" target="blank">
@@ -12,7 +13,7 @@ function PatientManagement() {
         </a>{" "}
         All Rights Reserved.
       </footer>
-    </div>
+    </>
   );
 }
 
