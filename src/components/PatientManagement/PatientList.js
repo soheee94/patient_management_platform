@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import { fade, withStyles } from "@material-ui/core/styles";
 import InputBase from "@material-ui/core/InputBase";
+import Button from "@material-ui/core/Button";
 
 const SearchInput = withStyles(theme => ({
   root: {
@@ -31,6 +32,7 @@ function PatientList() {
     <>
       <div className="list-header">
         <SearchInput type="text" placeholder="검색" id="list-header__search" />
+        <Button variant="contained">환자 추가</Button>
       </div>
       <div className="list-content-wrapper">
         <div className="list-content">
