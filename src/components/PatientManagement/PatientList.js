@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
+import PatientInfoModal from "./PatientInfoModal";
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
   return (
     <>
       <div className="list-header">
         <input type="text" placeholder="검색" id="list-header__search" />
-        <button className="common-button common-button--black">환자 추가</button>
+        <button className="common-button common-button--black" onClick={openModal}>
+          환자 추가
+        </button>
       </div>
       <div className="list-content-wrapper">
         <div className="list-content">
@@ -26,12 +31,17 @@ function PatientList() {
             <div className="list-content__item__cell">환자 번호</div>
             <div className="list-content__item__cell">버튼</div>
             <div className="list-content__item__cell">
-              <button className="common-button common-button--darkGray">수정</button>
+              <button className="common-button common-button--darkGray" onClick={openModal}>
+                수정
+              </button>
               <button className="common-button common-button--pink">측정 등록</button>
             </div>
           </div>
         </div>
       </div>
+      {isModalOpen && (
+        <PatientInfoModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} />
+      )}
     </>
   );
 }
