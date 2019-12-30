@@ -67,6 +67,10 @@
     }
     &:last-of-type {
       border-right-style: solid;
+      text-align: right;
+      button {
+        margin-left: 10px;
+      }
     }
   }
 }

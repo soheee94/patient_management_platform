@@ -30,4 +30,12 @@
       background: lighten($color: $pink, $amount: 10%);
     }
   }
+
+  &--darkGray {
+    background: $darkGray;
+
+    &:hover {
+      background: lighten($color: $darkGray, $amount: 10%);
+    }
+  }
 }

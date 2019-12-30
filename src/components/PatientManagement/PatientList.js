@@ -18,14 +18,17 @@ function PatientList() {
             <div className="list-content__header__cell">등록 일자</div>
             <div className="list-content__header__cell">이름</div>
             <div className="list-content__header__cell">환자 번호</div>
-            <div className="list-content__header__cell">버튼</div>
+            <div className="list-content__header__cell"></div>
           </div>
           <div className="list-content__item">
             <div className="list-content__item__cell">대기 번호</div>
             <div className="list-content__item__cell">이름</div>
             <div className="list-content__item__cell">환자 번호</div>
             <div className="list-content__item__cell">버튼</div>
-            <div className="list-content__item__cell">버튼</div>
+            <div className="list-content__item__cell">
+              <button className="common-button common-button--darkGray">수정</button>
+              <button className="common-button common-button--pink">측정 등록</button>
+            </div>
           </div>
         </div>
       </div>
