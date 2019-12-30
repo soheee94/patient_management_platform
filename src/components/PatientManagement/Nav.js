@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import Tutorial from "./Tutorial";
-import logo from "../../assets/logo_cordia.png";
+import logo from "../../assets/logo.png";
 
 function Nav() {
   // Date String
@@ -22,13 +22,7 @@ function Nav() {
         {/* <p className="nav__date">{dateString}</p> */}
         <img src={logo} alt="logo" className="nav__logo" />
         <div className="nav__right">
-          <div
-            className={
-              isDropdownOpen
-                ? "nav__right__dropdown active"
-                : "nav__right__dropdown"
-            }
-          >
+          <div className={isDropdownOpen ? "nav__right__dropdown active" : "nav__right__dropdown"}>
             <div
               className="nav__right__dropdown__text"
               onClick={() => setDropdownOpen(!isDropdownOpen)}

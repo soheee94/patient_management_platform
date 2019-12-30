@@ -3,7 +3,9 @@ import React from "react";
 function WaitingPatientList() {
   return (
     <div>
-      <div className="list-header">대기 환자</div>
+      <div className="list-header">
+        <span>대기 환자</span>
+      </div>
       <div className="list-content-wrapper">
         <div className="list-content">
           <div className="list-content__header">

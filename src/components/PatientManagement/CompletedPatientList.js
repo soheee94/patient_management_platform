@@ -3,7 +3,9 @@ import React from "react";
 function CompletedPatientList() {
   return (
     <div>
-      <div className="list-header">측정 완료</div>
+      <div className="list-header">
+        <span>측정 완료</span>
+      </div>
       <div className="list-content-wrapper">
         <div className="list-content">
           <div className="list-content__item">
