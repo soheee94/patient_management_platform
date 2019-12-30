@@ -1,4 +1,5 @@
 import React from "react";
+import { MdClose } from "react-icons/md";
 
 function WaitingPatientList() {
   return (
@@ -12,13 +13,15 @@ function WaitingPatientList() {
             <div className="list-content__header__cell">대기 번호</div>
             <div className="list-content__header__cell">이름</div>
             <div className="list-content__header__cell">환자 번호</div>
-            <div className="list-content__header__cell">버튼</div>
+            <div className="list-content__header__cell"></div>
           </div>
           <div className="list-content__item">
             <div className="list-content__item__cell">대기 번호</div>
             <div className="list-content__item__cell">이름</div>
             <div className="list-content__item__cell">환자 번호</div>
-            <div className="list-content__item__cell">버튼</div>
+            <div className="list-content__item__cell">
+              <MdClose />
+            </div>
           </div>
         </div>
       </div>

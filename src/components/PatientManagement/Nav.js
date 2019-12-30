@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoIosHelpCircleOutline } from "react-icons/io";
+import { FiHelpCircle } from "react-icons/fi";
 import Tutorial from "./Tutorial";
 import logo from "../../assets/logo.png";
 
@@ -38,7 +38,7 @@ function Nav() {
             className="nav__right__tutorial-btn"
             onClick={() => setTutorialOpen(!isTutorialOpen)}
           >
-            <IoIosHelpCircleOutline />
+            <FiHelpCircle />
           </div>
         </div>
       </div>
