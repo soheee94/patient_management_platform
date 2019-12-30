@@ -3,6 +3,17 @@
   max-height: calc(100% - 60px);
   overflow-y: auto;
 }
+
+.list-content-background {
+  height: calc(100% - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 60%;
+  }
+}
+
 .list-content {
   padding: 10px 15px;
   display: table;
