@@ -1,33 +1,5 @@
 import React, { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-
-const BootstrapButton = withStyles({
-  root: {
-    boxShadow: "none",
-    textTransform: "none",
-    fontSize: 16,
-    padding: "6px 12px",
-    border: "1px solid",
-    lineHeight: 1.5,
-    backgroundColor: "#007bff",
-    borderColor: "#007bff",
-    "&:hover": {
-      backgroundColor: "#0069d9",
-      borderColor: "#0062cc",
-      boxShadow: "none"
-    },
-    "&:active": {
-      boxShadow: "none",
-      backgroundColor: "#0062cc",
-      borderColor: "#005cbf"
-    },
-    "&:focus": {
-      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)"
-    }
-  }
-})(Button);
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
@@ -35,9 +7,7 @@ function PatientList() {
     <>
       <div className="list-header">
         <input type="text" placeholder="검색" id="list-header__search" />
-        <BootstrapButton variant="contained" disableRipple>
-          환자 추가
-        </BootstrapButton>
+        <button className="common-button common-button--black">환자 추가</button>
       </div>
       <div className="list-content-wrapper">
         <div className="list-content">

@@ -14,6 +14,10 @@
   span {
     line-height: 50px;
   }
+
+  &--end {
+    justify-content: flex-end;
+  }
 }
 
 #list-header__search {
