@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
-import PatientInfoModal from "./PatientInfoModal";
+import Modal from "../Modal/Modal";
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
   return (
     <>
       <div className="list-header">
@@ -39,9 +40,7 @@ function PatientList() {
           </div>
         </div>
       </div>
-      {isModalOpen && (
-        <PatientInfoModal isOpen={isModalOpen} handleClose={() => setModalOpen(false)} />
-      )}
+      {isModalOpen && <Modal isOpen={isModalOpen} handleClose={closeModal} />}
     </>
   );
 }
