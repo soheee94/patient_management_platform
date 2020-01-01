@@ -19,7 +19,7 @@ function Modal({ isOpen, handleClose }) {
     <ThemeProvider theme={theme}>
       <ModalTemplate open={isOpen} onClose={handleClose}>
         <ModalHead title="환자 추가" onClose={handleClose} />
-        <ModalContent />
+        <ModalContent onClose={handleClose} />
       </ModalTemplate>
     </ThemeProvider>
   );

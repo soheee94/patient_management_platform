@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
 import ModalInput from "./ModalInput";
 import { withStyles } from "@material-ui/core/styles";
 const ModalContentBlock = withStyles({
@@ -9,7 +11,17 @@ const ModalContentBlock = withStyles({
   }
 })(DialogContent);
 
-function ModalContent() {
+const ModalActionsBlock = withStyles({
+  root: {
+    padding: "15px 15px 30px 15px",
+    "& button": {
+      width: "100%",
+      height: "35px"
+    }
+  }
+})(DialogActions);
+
+function ModalContent({ onClose }) {
   const [checkboxState, setCheckboxState] = useState({
     nearby: false,
     online: false,
@@ -70,6 +82,11 @@ function ModalContent() {
           checkboxes={checkboxes}
           handleChange={handleChange}
         />
+        <ModalActionsBlock>
+          <button onClick={onClose} className="common-button--black">
+            등록
+          </button>
+        </ModalActionsBlock>
       </form>
     </ModalContentBlock>
   );
