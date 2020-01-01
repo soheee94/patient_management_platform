@@ -8,18 +8,23 @@ const ModalTemplateBlock = withStyles({
     alignItems: "flex-start"
   },
   paper: {
-    padding: "15px",
+    // padding: "15px",
     width: "380px"
   }
 })(Dialog);
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="down" ref={ref} {...props} />;
 });
 
 function ModalTemplate({ children, open, onClose }) {
   return (
-    <ModalTemplateBlock open={open} TransitionComponent={Transition} keepMounted onClose={onClose}>
+    <ModalTemplateBlock
+      open={open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={onClose}
+    >
       {children}
     </ModalTemplateBlock>
   );

@@ -3,22 +3,38 @@ import { fade, withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputBase from "@material-ui/core/InputBase";
 import InputLabel from "@material-ui/core/InputLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import FormHelperText from "@material-ui/core/FormHelperText";
+import Checkbox from "@material-ui/core/Checkbox";
 
-const FormControlBlock = withStyles({
+const FormControlBlock = withStyles(theme => ({
   root: {
     width: "100%",
-    marginBottom: "20px"
+    padding: "15px",
+    "& label.Mui-focused": {
+      color: theme.palette.black
+    }
   }
-})(FormControl);
+}))(FormControl);
 
-const FormLabel = withStyles({
+const FormGroupBlock = withStyles(theme => ({
   root: {
+    marginTop: "24px"
+  }
+}))(FormGroup);
+
+const FormLabel = withStyles(theme => ({
+  root: {
+    color: theme.palette.black,
     fontFamily: "Noto Sans KR Regular",
     fontWeight: "bold",
     fontSize: "15px",
-    transform: "none"
+    transform: "none",
+    top: "15px",
+    left: "15px"
   }
-})(InputLabel);
+}))(InputLabel);
 
 const FormInput = withStyles(theme => ({
   root: {
@@ -31,26 +47,58 @@ const FormInput = withStyles(theme => ({
     borderRadius: 4,
     position: "relative",
     backgroundColor: theme.palette.common.white,
-    border: "1px solid #ced4da",
+    border: `1px solid ${theme.palette.gray}`,
     fontSize: 14,
+    color: theme.palette.black,
     width: "100%",
     padding: "10px 12px",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:focus": {
-      boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main
+      boxShadow: `${fade(theme.palette.darkGray, 0.25)} 0 0 0 0.2rem`,
+      borderColor: theme.palette.darkGray
     }
   }
 }))(InputBase);
-function ModalInput({ label, placeholder }) {
+
+const FormCheckbox = withStyles(theme => ({
+  root: {
+    color: theme.palette.gray,
+    "&$checked": {
+      color: theme.palette.pink
+    }
+  }
+}))(Checkbox);
+
+function ModalInput({ label, placeholder, type, ...props }) {
   return (
     <FormControlBlock>
-      <FormLabel shrink htmlFor="bootstrap-input">
+      <FormLabel shrink htmlFor={label}>
         {label}
       </FormLabel>
-      <FormInput placeholder={placeholder} id="bootstrap-input" />
+      {type === "text" && <FormInput placeholder={placeholder} id={label} />}
+      {type === "checkbox" && (
+        <FormGroupBlock>
+          {props.checkboxes.map((checkbox, index) => (
+            <FormControlLabel
+              key={index}
+              control={
+                <FormCheckbox
+                  checked={checkbox.state}
+                  onChange={props.handleChange(checkbox.value)}
+                  value={checkbox.label}
+                />
+              }
+              label={checkbox.label}
+            />
+          ))}
+        </FormGroupBlock>
+      )}
     </FormControlBlock>
   );
 }
+
+ModalInput.defaultProps = {
+  placeholder: ""
+};
 
 export default ModalInput;

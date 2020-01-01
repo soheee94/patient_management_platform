@@ -4,28 +4,30 @@ import { MdClose } from "react-icons/md";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/core/styles";
 
-const ModalHeadBlock = withStyles({
+const ModalHeadBlock = withStyles(theme => ({
   root: {
     justifyContent: "space-between",
-    padding: 0,
+    padding: "15px",
     display: "flex",
+    alignItems: "center",
     "& h4": {
+      color: theme.palette.black,
       fontWeight: "bold",
       fontSize: "19px"
     },
     "& button": {
-      padding: "3px",
-      marginRight: "-3px"
+      padding: "5px",
+      marginRight: "-5px"
     }
   }
-})(DialogTitle);
+}))(DialogTitle);
 
-function ModalHead({ title, handleClose }) {
+function ModalHead({ title, onClose }) {
   return (
     <>
       <ModalHeadBlock disableTypography>
         <h4>{title}</h4>
-        <IconButton aria-label="close" onClick={handleClose}>
+        <IconButton aria-label="close" onClick={onClose}>
           <MdClose />
         </IconButton>
       </ModalHeadBlock>
