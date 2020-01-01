@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import Modal from "../Modal/Modal";
 
