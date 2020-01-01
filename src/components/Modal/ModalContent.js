@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
 import ModalInput from "./ModalInput";
 import { withStyles } from "@material-ui/core/styles";
 const ModalContentBlock = withStyles({

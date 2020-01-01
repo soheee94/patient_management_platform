@@ -14,11 +14,11 @@ const theme = createMuiTheme({
   }
 });
 
-function Modal({ isOpen, handleClose }) {
+function Modal({ isOpen, handleClose, title }) {
   return (
     <ThemeProvider theme={theme}>
       <ModalTemplate open={isOpen} onClose={handleClose}>
-        <ModalHead title="환자 추가" onClose={handleClose} />
+        <ModalHead title={title} onClose={handleClose} />
         <ModalContent onClose={handleClose} />
       </ModalTemplate>
     </ThemeProvider>
