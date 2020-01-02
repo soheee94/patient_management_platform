@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaSortDown, FaSortUp } from "react-icons/fa";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Modal from "../Modal/Modal";
 
 function PatientList() {
@@ -36,7 +37,7 @@ function PatientList() {
         <div className="list-content">
           <div className="list-content__header">
             <div className="list-content__header__cell" onClick={() => setSortDown(!isSortDown)}>
-              최근 측정 일자 {isSortDown ? <FaSortDown /> : <FaSortUp />}
+              <span>최근 측정 일자</span> {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
             </div>
             <div className="list-content__header__cell">등록 일자</div>
             <div className="list-content__header__cell">이름</div>

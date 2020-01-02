@@ -26,6 +26,9 @@
   display: table-cell;
   vertical-align: middle;
   padding: 0 15px;
+  & > * {
+    vertical-align: middle;
+  }
 
   &:first-of-type {
     border-top-left-radius: 4px;
@@ -52,7 +55,7 @@
   height: 50px;
   border: 1px solid $lightGray;
   display: table-row;
-  cursor: move;
+  cursor: pointer;
 
   &:hover {
     background-color: $lightGray;
