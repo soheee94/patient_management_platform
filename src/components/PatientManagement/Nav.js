@@ -1,26 +1,14 @@
 import React, { useState } from "react";
 import { FiHelpCircle } from "react-icons/fi";
-import Tutorial from "./Tutorial";
 import logo from "../../assets/logo.png";
+import IconButton from "../IconButton";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 
-function Nav() {
-  // Date String
-  // const today = new Date();
-  // const dateString = today.toLocaleDateString("ko-KR", {
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric",
-  //   weekday: "long"
-  // });
-
+function Nav({ onTutorialOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [isTutorialOpen, setTutorialOpen] = useState(false);
-  const onTutorialClose = () => setTutorialOpen(false);
-
   return (
     <>
       <div className="nav">
-        {/* <p className="nav__date">{dateString}</p> */}
         <img src={logo} alt="logo" className="nav__logo" />
         <div className="nav__right">
           <div className={isDropdownOpen ? "nav__right__dropdown active" : "nav__right__dropdown"}>
@@ -35,18 +23,13 @@ function Nav() {
               <div className="nav__right__dropdown__item">로그아웃</div>
             </div>
           </div>
-          <div
-            className="nav__right__tutorial-btn"
-            onClick={() => setTutorialOpen(!isTutorialOpen)}
-          >
-            <FiHelpCircle />
-          </div>
+          <IconButton label="tutorial" onClick={onTutorialOpen}>
+            <HelpOutlineIcon />
+          </IconButton>
         </div>
       </div>
-
-      {isTutorialOpen && <Tutorial onClose={onTutorialClose} />}
     </>
   );
 }
 
-export default Nav;
+export default React.memo(Nav);
