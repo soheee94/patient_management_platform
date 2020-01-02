@@ -52,7 +52,7 @@
   height: 50px;
   border: 1px solid $lightGray;
   display: table-row;
-  cursor: pointer;
+  cursor: move;
 
   &:hover {
     background-color: $lightGray;
@@ -68,10 +68,7 @@
     &:last-of-type {
       border-right-style: solid;
       text-align: right;
-      svg {
-        font-size: 25px;
-        padding-top: 7px;
-      }
+
       button {
         margin-left: 10px;
       }

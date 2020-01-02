@@ -1,6 +1,6 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import { MdClose } from "react-icons/md";
+import IconButton from "../IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -27,8 +27,8 @@ function ModalHead({ title, onClose }) {
     <>
       <ModalHeadBlock disableTypography>
         <h4>{title}</h4>
-        <IconButton aria-label="close" onClick={onClose}>
-          <MdClose />
+        <IconButton label="close" onClick={onClose}>
+          <CloseIcon />
         </IconButton>
       </ModalHeadBlock>
     </>

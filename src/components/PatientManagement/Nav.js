@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FiHelpCircle } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 import IconButton from "../IconButton";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";

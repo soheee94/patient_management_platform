@@ -1,5 +1,6 @@
 import React from "react";
-import { MdClose } from "react-icons/md";
+import IconButton from "../IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 function WaitingPatientList() {
   return (
@@ -20,7 +21,9 @@ function WaitingPatientList() {
             <div className="list-content__item__cell">이름</div>
             <div className="list-content__item__cell">환자 번호</div>
             <div className="list-content__item__cell">
-              <MdClose />
+              <IconButton label="close" onClick={() => console.log("close")}>
+                <CloseIcon />
+              </IconButton>
             </div>
           </div>
         </div>
