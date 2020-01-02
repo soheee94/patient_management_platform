@@ -11,7 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 const FormControlBlock = withStyles(theme => ({
   root: {
     width: "100%",
-    padding: "15px",
+    padding: "15px 15px 5px 15px;",
     "& label.Mui-focused": {
       color: theme.palette.black
     }
@@ -20,7 +20,8 @@ const FormControlBlock = withStyles(theme => ({
 
 const FormGroupBlock = withStyles(theme => ({
   root: {
-    marginTop: "24px"
+    marginTop: "24px",
+    fontFamily: "Noto Sans KR Regular"
   }
 }))(FormGroup);
 
@@ -51,7 +52,7 @@ const FormInput = withStyles(theme => ({
     fontSize: 14,
     color: theme.palette.black,
     width: "100%",
-    padding: "10px 12px",
+    padding: "7px 12px",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:focus": {
       boxShadow: `${fade(theme.palette.darkGray, 0.25)} 0 0 0 0.2rem`,
@@ -65,6 +66,10 @@ const FormCheckbox = withStyles(theme => ({
     color: theme.palette.gray,
     "&$checked": {
       color: theme.palette.pink
+    },
+    "& + span": {
+      fontFamily: "Noto Sans KR Regular",
+      fontSize: "14px"
     }
   }
 }))(Checkbox);
