@@ -15,7 +15,7 @@ function Nav() {
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isTutorialOpen, setTutorialOpen] = useState(false);
-  const tutorialClose = () => setTutorialOpen(false);
+  const onTutorialClose = () => setTutorialOpen(false);
 
   return (
     <>
@@ -44,7 +44,7 @@ function Nav() {
         </div>
       </div>
 
-      {isTutorialOpen && <Tutorial onClose={tutorialClose} />}
+      {isTutorialOpen && <Tutorial onClose={onTutorialClose} />}
     </>
   );
 }
