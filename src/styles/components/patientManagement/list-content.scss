@@ -68,6 +68,10 @@
     &:last-of-type {
       border-right-style: solid;
       text-align: right;
+      svg {
+        font-size: 25px;
+        padding-top: 7px;
+      }
       button {
         margin-left: 10px;
       }
