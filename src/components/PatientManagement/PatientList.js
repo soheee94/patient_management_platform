@@ -20,6 +20,7 @@ function PatientList() {
       ...modalOpen,
       isOpen: false
     });
+
   return (
     <>
       <div className="list-header">
@@ -34,10 +35,7 @@ function PatientList() {
       <div className="list-content-wrapper">
         <div className="list-content">
           <div className="list-content__header">
-            <div
-              className="list-content__header__cell"
-              onClick={() => setSortDown(!isSortDown)}
-            >
+            <div className="list-content__header__cell" onClick={() => setSortDown(!isSortDown)}>
               최근 측정 일자 {isSortDown ? <FaSortDown /> : <FaSortUp />}
             </div>
             <div className="list-content__header__cell">등록 일자</div>
@@ -57,20 +55,12 @@ function PatientList() {
               >
                 수정
               </button>
-              <button className="common-button common-button--pink">
-                측정 등록
-              </button>
+              <button className="common-button common-button--pink">측정 등록</button>
             </div>
           </div>
         </div>
       </div>
-      {modalOpen.isOpen && (
-        <Modal
-          isOpen={modalOpen.isOpen}
-          handleClose={closeModal}
-          title={modalOpen.title}
-        />
-      )}
+      <Modal isOpen={modalOpen.isOpen} handleClose={closeModal} title={modalOpen.title} />
     </>
   );
 }

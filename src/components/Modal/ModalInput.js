@@ -52,7 +52,7 @@ const FormInput = withStyles(theme => ({
     fontSize: 14,
     color: theme.palette.black,
     width: "100%",
-    padding: "7px 12px",
+    padding: "8px 12px",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:focus": {
       boxShadow: `${fade(theme.palette.darkGray, 0.25)} 0 0 0 0.2rem`,
