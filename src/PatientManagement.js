@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Nav from "./components/PatientManagement/Nav";
 import ListContainer from "./components/PatientManagement/ListContainer";
 import Tutorial from "./components/PatientManagement/Tutorial";
+import Footer from "./components/PatientManagement/Footer";
 function PatientManagement() {
   const [isTutorialOpen, setTutorialOpen] = useState(false);
   const onTutorialOpen = () => setTutorialOpen(true);
@@ -10,14 +11,7 @@ function PatientManagement() {
     <>
       <Nav onTutorialOpen={onTutorialOpen} />
       <ListContainer />
-      <footer>
-        ©{" "}
-        <a href="http://teamelysium.kr/" target="blank">
-          Team Elysium Inc.
-        </a>{" "}
-        All Rights Reserved.
-      </footer>
-
+      <Footer />
       {isTutorialOpen && <Tutorial onClose={onTutorialClose} />}
     </>
   );

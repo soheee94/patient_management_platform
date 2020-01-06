@@ -8,9 +8,8 @@ import PatientManagement from "./PatientManagement";
 const GlobalStyle = createGlobalStyle`
   body{
     font-size: 14px;
-    color: "#333";
+    color: #333;
     font-family: "Noto Sans KR Regular";
-    src: url("./styles/font/NotoSans-Regular.woff2") format("woff2");
   }
   * {
     margin: 0;
