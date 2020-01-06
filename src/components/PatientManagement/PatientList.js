@@ -3,6 +3,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Modal from "../Modal/Modal";
 import ListTitle from "./ListTitle";
+import Input from "../Input";
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
@@ -26,7 +27,7 @@ function PatientList() {
   return (
     <>
       <ListTitle>
-        <input type="text" placeholder="검색" id="list-header__search" />
+        <Input type="text" placeholder="검색" id="list-header__search" />
         <button
           className="common-button common-button--black"
           onClick={() => openModal("환자 추가")}
