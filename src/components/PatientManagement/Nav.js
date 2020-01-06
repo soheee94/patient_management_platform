@@ -15,6 +15,7 @@ function Nav({ onTutorialOpen }) {
             <div
               className="nav__right__dropdown__text"
               onClick={() => setDropdownOpen(!isDropdownOpen)}
+              onBlur={() => console.log("blur")}
             >
               바른손성형외과
             </div>
