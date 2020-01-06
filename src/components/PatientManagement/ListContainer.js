@@ -6,7 +6,7 @@ import PatientList from "./PatientList";
 import MeasurementResultList from "./MeasurementResultList";
 import styled from "styled-components";
 
-const GridContainer = styled(Grid)`
+const Container = styled(Grid)`
   flex-grow: 1;
   height: calc(100vh - 100px);
   min-height: 768px;
@@ -25,7 +25,7 @@ const PatientListContainer = styled(Grid)`
 
 function ListContainer() {
   return (
-    <GridContainer container>
+    <Container container>
       {/* 측정 환자 리스트 */}
       <MeasurementPatientListContainer item xs={3}>
         <WaitingPatientList />
@@ -39,7 +39,7 @@ function ListContainer() {
       <Grid item xs={3}>
         <MeasurementResultList />
       </Grid>
-    </GridContainer>
+    </Container>
   );
 }
 

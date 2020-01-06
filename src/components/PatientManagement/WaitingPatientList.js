@@ -1,13 +1,14 @@
 import React from "react";
 import IconButton from "../IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import ListTitle from "./ListTitle";
 
 function WaitingPatientList() {
   return (
     <div>
-      <div className="list-header">
+      <ListTitle>
         <span>대기 환자</span>
-      </div>
+      </ListTitle>
       <div className="list-content-wrapper">
         <div className="list-content">
           <div className="list-content__header">

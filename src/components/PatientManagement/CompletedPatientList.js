@@ -1,13 +1,14 @@
 import React from "react";
 import IconButton from "../IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import ListTitle from "./ListTitle";
 
 function CompletedPatientList() {
   return (
     <div>
-      <div className="list-header">
+      <ListTitle>
         <span>측정 완료</span>
-      </div>
+      </ListTitle>
       <div className="list-content-wrapper">
         <div className="list-content">
           <div className="list-content__item">

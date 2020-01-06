@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Modal from "../Modal/Modal";
+import ListTitle from "./ListTitle";
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
@@ -24,7 +25,7 @@ function PatientList() {
 
   return (
     <>
-      <div className="list-header">
+      <ListTitle>
         <input type="text" placeholder="검색" id="list-header__search" />
         <button
           className="common-button common-button--black"
@@ -32,7 +33,7 @@ function PatientList() {
         >
           환자 추가
         </button>
-      </div>
+      </ListTitle>
       <div className="list-content-wrapper">
         <div className="list-content">
           <div className="list-content__header">
