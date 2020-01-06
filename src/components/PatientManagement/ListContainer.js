@@ -4,24 +4,42 @@ import WaitingPatientList from "./WaitingPatientList";
 import CompletedPatientList from "./CompletedPatientList";
 import PatientList from "./PatientList";
 import MeasurementResultList from "./MeasurementResultList";
+import styled from "styled-components";
+
+const GridContainer = styled(Grid)`
+  flex-grow: 1;
+  height: calc(100vh - 100px);
+  min-height: 768px;
+`;
+
+const MeasurementPatientListContainer = styled(Grid)`
+  & > * {
+    height: 50%;
+  }
+`;
+
+const PatientListContainer = styled(Grid)`
+  border-left: 1px solid ${props => props.theme.palette.gray};
+  border-right: 1px solid ${props => props.theme.palette.gray};
+`;
 
 function ListContainer() {
   return (
-    <Grid container className="list-container">
+    <GridContainer container>
       {/* 측정 환자 리스트 */}
-      <Grid item xs={3} className="measurement-patient-list">
+      <MeasurementPatientListContainer item xs={3}>
         <WaitingPatientList />
         <CompletedPatientList />
-      </Grid>
+      </MeasurementPatientListContainer>
       {/* 환자 리스트 */}
-      <Grid item xs={6} className="patient-list">
+      <PatientListContainer item xs={6}>
         <PatientList />
-      </Grid>
+      </PatientListContainer>
       {/* 환자 측정 결과 리스트 */}
       <Grid item xs={3}>
         <MeasurementResultList />
       </Grid>
-    </Grid>
+    </GridContainer>
   );
 }
 
