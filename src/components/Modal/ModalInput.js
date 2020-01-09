@@ -13,7 +13,7 @@ const FormControlBlock = withStyles(theme => ({
     width: "100%",
     padding: "15px 15px 5px 15px;",
     "& label.Mui-focused": {
-      color: theme.palette.black
+      color: theme.palette.pink
     }
   }
 }))(FormControl);

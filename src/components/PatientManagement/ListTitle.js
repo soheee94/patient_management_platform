@@ -18,4 +18,4 @@ function ListTitle({ children, style }) {
   return <ListTitleBlock style={style}>{children}</ListTitleBlock>;
 }
 
-export default ListTitle;
+export default React.memo(ListTitle);

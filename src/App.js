@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { darken } from "polished";
+import { createMuiTheme } from "@material-ui/core/styles";
 import Login from "./Login";
 import PatientManagement from "./PatientManagement";
 
@@ -17,18 +17,17 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 `;
-
-const theme = {
+const theme = createMuiTheme({
   palette: {
     white: "#fff",
     black: "#333",
     lighterGray: "#f1f3f5",
     lightGray: "#e9ecef",
-    gray: "#ccc",
-    darkGray: darken("20%", "#ccc"),
+    gray: "#cccccc",
+    darkGray: "#999999",
     pink: "#e84d6a"
   }
-};
+});
 
 function App() {
   return (

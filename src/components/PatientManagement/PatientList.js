@@ -4,6 +4,7 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Modal from "../Modal/Modal";
 import ListTitle from "./ListTitle";
 import Input from "../Input";
+import Button from "../Button";
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
@@ -28,12 +29,9 @@ function PatientList() {
     <>
       <ListTitle>
         <Input type="text" placeholder="검색" id="list-header__search" />
-        <button
-          className="common-button common-button--black"
-          onClick={() => openModal("환자 추가")}
-        >
+        <Button color="black" onClick={() => openModal("환자 추가")}>
           환자 추가
-        </button>
+        </Button>
       </ListTitle>
       <div className="list-content-wrapper">
         <div className="list-content">
