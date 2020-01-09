@@ -5,7 +5,7 @@ import ListTitle from "./ListTitle";
 
 function WaitingPatientList() {
   return (
-    <div>
+    <>
       <ListTitle>
         <span>대기 환자</span>
       </ListTitle>
@@ -23,7 +23,7 @@ function WaitingPatientList() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

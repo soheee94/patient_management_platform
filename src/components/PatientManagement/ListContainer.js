@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import WaitingPatientList from "./WaitingPatientList";
-import CompletedPatientList from "./CompletedPatientList";
+import MeasurePatientList from "./MeasurePatientList";
 import PatientList from "./PatientList";
 import MeasurementResultList from "./MeasurementResultList";
 import styled from "styled-components";
@@ -13,9 +13,9 @@ const Container = styled(Grid)`
 `;
 
 const MeasurementPatientListContainer = styled(Grid)`
-  & > * {
+  /* & > * {
     height: 50%;
-  }
+  } */
 `;
 
 const PatientListContainer = styled(Grid)`
@@ -28,8 +28,8 @@ function ListContainer() {
     <Container container>
       {/* 측정 환자 리스트 */}
       <MeasurementPatientListContainer item xs={3}>
+        <MeasurePatientList />
         <WaitingPatientList />
-        <CompletedPatientList />
       </MeasurementPatientListContainer>
       {/* 환자 리스트 */}
       <PatientListContainer item xs={6}>

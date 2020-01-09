@@ -3,11 +3,11 @@ import IconButton from "../IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import ListTitle from "./ListTitle";
 
-function CompletedPatientList() {
+function MeasurePatientList() {
   return (
-    <div>
+    <>
       <ListTitle>
-        <span>측정 완료</span>
+        <span>현재 측정 환자</span>
       </ListTitle>
       <div className="list-content-wrapper">
         <div className="list-content">
@@ -23,8 +23,8 @@ function CompletedPatientList() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default CompletedPatientList;
+export default MeasurePatientList;
