@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Nav from "./components/PatientManagement/Nav";
-import ListContainer from "./components/PatientManagement/ListContainer";
+import Container from "./components/PatientManagement/Container";
 import Tutorial from "./components/PatientManagement/Tutorial";
 import Footer from "./components/PatientManagement/Footer";
 function PatientManagement() {
@@ -10,7 +10,7 @@ function PatientManagement() {
   return (
     <>
       <Nav onTutorialOpen={onTutorialOpen} />
-      <ListContainer />
+      <Container />
       <Footer />
       {isTutorialOpen && <Tutorial onClose={onTutorialClose} />}
     </>
