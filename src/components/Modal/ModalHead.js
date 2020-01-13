@@ -1,26 +1,27 @@
 import React from "react";
 import IconButton from "../IconButton";
+import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { withStyles } from "@material-ui/core/styles";
 
-const ModalHeadBlock = withStyles(theme => ({
-  root: {
-    justifyContent: "space-between",
-    padding: "15px",
-    display: "flex",
-    alignItems: "center",
-    "& h4": {
-      color: theme.palette.black,
-      fontWeight: "bold",
-      fontSize: "19px"
-    },
-    "& button": {
-      padding: "5px",
-      marginRight: "-5px"
-    }
+const ModalHeadBlock = styled(DialogTitle)`
+  && {
+    justify-content: space-between;
+    padding: 15px;
+    display: flex;
+    align-items: center;
   }
-}))(DialogTitle);
+
+  & h4 {
+    color: ${props => props.theme.palette.black};
+    font-weight: bold;
+    font-size: 19px;
+  }
+  & button {
+    padding: 5px;
+    margin-right: -5px;
+  }
+`;
 
 function ModalHead({ title, onClose }) {
   return (
@@ -35,4 +36,4 @@ function ModalHead({ title, onClose }) {
   );
 }
 
-export default ModalHead;
+export default React.memo(ModalHead);

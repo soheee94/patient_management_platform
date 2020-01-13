@@ -16,4 +16,4 @@ function ListContent({ children }) {
   return <ListContentBlock>{children}</ListContentBlock>;
 }
 
-export default ListContent;
+export default React.memo(ListContent);

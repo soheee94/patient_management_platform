@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import ModalInput from "./ModalInput";
 import { withStyles } from "@material-ui/core/styles";
+import Button from "../Button";
+import Input from "../Input";
+import Checkbox from "../Checkbox";
 const ModalContentBlock = withStyles({
   root: {
     width: "100%",
@@ -12,7 +14,7 @@ const ModalContentBlock = withStyles({
 
 const ModalActionsBlock = withStyles({
   root: {
-    padding: "15px 15px 30px 15px",
+    padding: "30px 15px",
     "& button": {
       width: "100%",
       height: "35px"
@@ -62,33 +64,25 @@ function ModalContent({ onClose }) {
     <ModalContentBlock>
       {/* onSubmit={} */}
       <form autoComplete="off">
-        <ModalInput label="이름" placeholder="이름을 입력하세요." type="text" />
-        <ModalInput
-          label="주민번호"
-          placeholder="ex)123456-4567890"
-          type="text"
-        />
-        <ModalInput label="주소" placeholder="주소를 입력하세요." type="text" />
-        <ModalInput
-          label="핸드폰번호"
-          placeholder="ex)01012345678"
-          type="text"
-        />
-        <ModalInput label="환자번호(식별번호)" type="text" />
-        <ModalInput
+        <Input label="이름" placeholder="이름을 입력하세요." type="text" />
+        <Input label="주민번호" placeholder="ex)123456-4567890" type="text" />
+        <Input label="주소" placeholder="주소를 입력하세요." type="text" />
+        <Input label="핸드폰번호" placeholder="ex)01012345678" type="text" />
+        <Input label="환자번호(식별번호)" type="text" />
+        <Checkbox
           label="내원경로"
           type="checkbox"
           checkboxes={checkboxes}
           handleChange={handleChange}
         />
         <ModalActionsBlock>
-          <button onClick={onClose} className="common-button--black">
+          <Button onClick={onClose} color="black">
             등록
-          </button>
+          </Button>
         </ModalActionsBlock>
       </form>
     </ModalContentBlock>
   );
 }
 
-export default ModalContent;
+export default React.memo(ModalContent);

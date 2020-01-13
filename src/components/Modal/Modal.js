@@ -1,28 +1,25 @@
 import React from "react";
-import ModalTemplate from "./ModalTemplate";
 import ModalHead from "./ModalHead";
 import ModalContent from "./ModalContent";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
 
-const theme = createMuiTheme({
-  palette: {
-    black: "#333",
-    gray: "#ccc",
-    darkGray: "#999",
-    pink: "#e84d6a"
+const ModalTemplate = withStyles({
+  scrollPaper: {
+    alignItems: "flex-start"
+  },
+  paper: {
+    width: "380px"
   }
-});
+})(Dialog);
 
 function Modal({ isOpen, handleClose, title }) {
   return (
-    <ThemeProvider theme={theme}>
-      <ModalTemplate open={isOpen} onClose={handleClose}>
-        <ModalHead title={title} onClose={handleClose} />
-        <ModalContent onClose={handleClose} />
-      </ModalTemplate>
-    </ThemeProvider>
+    <ModalTemplate open={isOpen} onClose={handleClose}>
+      <ModalHead title={title} onClose={handleClose} />
+      <ModalContent onClose={handleClose} />
+    </ModalTemplate>
   );
 }
 
-export default Modal;
+export default React.memo(Modal);

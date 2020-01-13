@@ -45,4 +45,4 @@ ListItem.defaultProps = {
   head: false
 };
 
-export default ListItem;
+export default React.memo(ListItem);

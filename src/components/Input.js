@@ -1,23 +1,44 @@
 import React from "react";
 import styled from "styled-components";
-import FormControl from "@material-ui/core/FormControl";
+import FormControl from "./FormControl";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles";
+// import InputLabel from "@material-ui/core/InputLabel";
 
-const FormControlBlock = styled(FormControl)`
-  width: 250px;
-`;
-/* const FormControlBlock = withStyles(theme => ({
-  root: {
-    width: "250px",
-    // padding: "15px 15px 5px 15px;",
-    "& label.Mui-focused": {
-      color: theme.palette.pink
-    }
-  }
-}))(FormControl); */
+// const FormControlBlock = styled(FormControl)`
+//   && {
+//     width: 100%;
+//     padding: 15px 15px 5px 15px;
+
+//     ${props =>
+//       !props.label &&
+//       css`
+//         padding: 0;
+//       `}
+
+//     & label.Mui-focused {
+//       color: ${props => props.theme.palette.pink};
+//     }
+//   }
+// `;
+
+// const FormLabel = styled(InputLabel)`
+//   && {
+//     color: ${props => props.theme.palette.black};
+//     font-family: "Noto Sans KR Regular";
+//     font-weight: bold;
+//     font-size: 15px;
+//     transform: none;
+//     top: 15px;
+//     left: 15px;
+//   }
+// `;
 
 const StyledInput = styled(InputBase)`
+  label + & {
+    margin-top: 24px;
+  }
+
   input {
     font-family: "Noto Sans KR Regular";
     box-sizing: border-box;
@@ -37,14 +58,24 @@ const StyledInput = styled(InputBase)`
       outline: 0;
     }
   }
+
+  /* Search Input Style */
+  & #list-header__search {
+    width: 250px;
+  }
 `;
 
-function Input({ placeholder, id }) {
+function Input({ placeholder, id, label }) {
   return (
-    <FormControlBlock>
+    <FormControl label={label} id={id}>
       <StyledInput placeholder={placeholder} id={id} />
-    </FormControlBlock>
+    </FormControl>
   );
 }
 
-export default Input;
+Input.defaultProps = {
+  label: "",
+  placeholder: ""
+};
+
+export default React.memo(Input);
