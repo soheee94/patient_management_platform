@@ -12,12 +12,6 @@ const Container = styled(Grid)`
   min-height: 768px;
 `;
 
-const MeasurementPatientListContainer = styled(Grid)`
-  /* & > * {
-    height: 50%;
-  } */
-`;
-
 const PatientListContainer = styled(Grid)`
   border-left: 1px solid ${props => props.theme.palette.gray};
   border-right: 1px solid ${props => props.theme.palette.gray};
@@ -27,10 +21,10 @@ function ListContainer() {
   return (
     <Container container>
       {/* 측정 환자 리스트 */}
-      <MeasurementPatientListContainer item xs={3}>
+      <Grid item xs={3}>
         <MeasurePatientList />
         <WaitingPatientList />
-      </MeasurementPatientListContainer>
+      </Grid>
       {/* 환자 리스트 */}
       <PatientListContainer item xs={6}>
         <PatientList />
