@@ -5,6 +5,8 @@ import MeasurePatientList from "./MeasurePatientList";
 import PatientList from "./PatientList";
 import MeasurementResultList from "./MeasurementResultList";
 import styled from "styled-components";
+import ListTitle from "./ListTitle";
+import Button from "../Button";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -31,6 +33,9 @@ function ListContainer() {
       </PatientListContainer>
       {/* 환자 측정 결과 리스트 */}
       <Grid item xs={3}>
+        <ListTitle style={{ justifyContent: "flex-end" }}>
+          <Button color="pink">측정 결과</Button>
+        </ListTitle>
         <MeasurementResultList />
       </Grid>
     </Container>

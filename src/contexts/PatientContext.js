@@ -36,7 +36,6 @@ export const PatientIdContext = createContext(null);
 export function PatientsProvider({ children }) {
   const [state, dispatch] = useReducer(patientsReducer, initialState);
   const [patientId, setPatientId] = useState("");
-  // const updatePatientId = id => setPatientId(id);
 
   return (
     <PatientsStateContext.Provider value={state}>
