@@ -1,75 +1,26 @@
-import React, { createContext, useReducer, useContext } from "react";
-import axios from "axios";
-// 요청 상태 관리 : 요청 결과, 로딩 상태, 에러
+import React, { createContext, useReducer, useContext, useState } from "react";
+import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
+import * as api from "./api";
 
-// 기본 상태
 const initialState = {
-  patients: {
-    loading: false,
-    data: null,
-    error: null
-  },
-  patient: {
-    loading: false,
-    data: null,
-    error: null
-  }
+  patients: initialAsyncState,
+  patient: initialAsyncState
 };
 
-// 로딩 중일 때 상태 객체
-const loadingState = {
-  loading: true,
-  data: null,
-  error: null
-};
-
-// 성공 상태 객체
-const success = data => ({
-  loading: false,
-  data,
-  error: null
-});
-
-// 실패 상태 객체
-const error = error => ({
-  loading: false,
-  data: null,
-  error: error
-});
+const patientsHandler = createAsyncHandler("GET_PATIENTS", "patients");
+const patientHandler = createAsyncHandler("GET_PATIENT", "patient");
 
 // 리듀서
 function patientsReducer(state, action) {
   switch (action.type) {
     case "GET_PATIENTS":
-      return {
-        ...state,
-        patients: loadingState
-      };
     case "GET_PATIENTS_SUCCESS":
-      return {
-        ...state,
-        patients: success(action.data)
-      };
     case "GET_PATIENTS_ERROR":
-      return {
-        ...state,
-        patients: error(action.error)
-      };
+      return patientsHandler(state, action);
     case "GET_PATIENT":
-      return {
-        ...state,
-        patient: loadingState
-      };
     case "GET_PATIENT_SUCCESS":
-      return {
-        ...state,
-        patient: success(action.data)
-      };
     case "GET_PATIENT_ERROR":
-      return {
-        ...state,
-        patient: error(action.error)
-      };
+      return patientHandler(state, action);
     default:
       throw new Error(`Unhandled action type : ${action.type}`);
   }
@@ -78,14 +29,21 @@ function patientsReducer(state, action) {
 // STATE 용 Context와 Dispatch용 Context생성
 const PatientsStateContext = createContext(null);
 const PatientsDispatchContext = createContext(null);
+// 환자 선택 ID Context
+export const PatientIdContext = createContext(null);
 
 // Context 감싸는 Provider 컴포넌트
 export function PatientsProvider({ children }) {
   const [state, dispatch] = useReducer(patientsReducer, initialState);
+  const [patientId, setPatientId] = useState("");
+  // const updatePatientId = id => setPatientId(id);
+
   return (
     <PatientsStateContext.Provider value={state}>
       <PatientsDispatchContext.Provider value={dispatch}>
-        {children}
+        <PatientIdContext.Provider value={{ patientId, setPatientId }}>
+          {children}
+        </PatientIdContext.Provider>
       </PatientsDispatchContext.Provider>
     </PatientsStateContext.Provider>
   );
@@ -109,28 +67,13 @@ export function usePatientsDispatch() {
   return dispatch;
 }
 
-// 전체 환자 가져오기
-export async function getPatients(dispatch) {
-  dispatch({ type: "GET_PATIENTS" });
-  try {
-    const response = await axios.get("http://127.0.0.1/php/cordia/GetPatients.php");
-    dispatch({ type: "GET_PATIENTS_SUCCESS", data: response.data });
-  } catch (e) {
-    dispatch({ type: "GET_PATIENTS_ERROR", error: e });
+export function usePatientId() {
+  const patientId = useContext(PatientIdContext);
+  if (!patientId) {
+    throw new Error("Can not find PatientsProvider");
   }
+  return patientId;
 }
 
-// 선택 환자 정보 가져오기
-export async function getPatient(dispatch, id) {
-  dispatch({ type: "GET_PATIENT" });
-  try {
-    const response = await axios.get("http://127.0.0.1/php/cordia/GetPatients.php", {
-      params: {
-        ID: id
-      }
-    });
-    dispatch({ type: "GET_PATEINT_SUCCESS", data: response.data });
-  } catch (e) {
-    dispatch({ type: "GET_PATIENT_ERROR", error: e });
-  }
-}
+export const getPatients = createAsyncDispatcher("GET_PATIENTS", api.getPatients);
+export const getPatient = createAsyncDispatcher("GET_PATIENT", api.getPatient);

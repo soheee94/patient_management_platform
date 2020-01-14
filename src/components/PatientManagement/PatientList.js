@@ -8,7 +8,12 @@ import Button from "../Button";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import { usePatientsState, usePatientsDispatch, getPatients } from "../../contexts/PatientContext";
+import {
+  usePatientsState,
+  usePatientsDispatch,
+  getPatients,
+  usePatientId
+} from "../../contexts/PatientContext";
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
@@ -36,7 +41,9 @@ function PatientList() {
   // const [patientId, setPatientId] = useState(null);
   const state = usePatientsState();
   const dispatch = usePatientsDispatch();
+  const patientId = usePatientId();
   const { data: patients, loading, error } = state.patients;
+
   useEffect(() => {
     getPatients(dispatch);
   }, [dispatch]);
@@ -65,7 +72,10 @@ function PatientList() {
         {error && <div>불러오는 중에 에러가 발생하였습니다.</div>}
         {patients &&
           patients.map(patient => (
-            <ListItem key={patient.PATIENT_ID}>
+            <ListItem
+              key={patient.PATIENT_ID}
+              onClick={() => patientId.setPatientId(patient.PATIENT_ID)}
+            >
               <ListItemCell>{patient.PATIENT_ID}</ListItemCell>
               <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
               <ListItemCell>{patient.NAME}</ListItemCell>

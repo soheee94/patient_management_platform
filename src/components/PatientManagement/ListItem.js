@@ -37,8 +37,12 @@ const ListItemBlock = styled.div`
   ${rowStyle}
 `;
 
-function ListItem({ children, head }) {
-  return <ListItemBlock head={head}>{children}</ListItemBlock>;
+function ListItem({ children, head, onClick }) {
+  return (
+    <ListItemBlock head={head} onClick={onClick}>
+      {children}
+    </ListItemBlock>
+  );
 }
 
 ListItem.defaultProps = {
