@@ -21,7 +21,7 @@ function WaitingPatientList() {
   return (
     <ListContent>
       {waintingPatients.map(waitingPatient => (
-        <ListItem>
+        <ListItem key={waitingPatient.QUEUE_ID}>
           <ListItemCell>{waitingPatient.NAME}</ListItemCell>
           <ListItemCell>{waitingPatient.SEX}</ListItemCell>
           <ListItemCell>
