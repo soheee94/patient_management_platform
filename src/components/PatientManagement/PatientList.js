@@ -48,6 +48,20 @@ function PatientList() {
     getPatients(dispatch);
   }, [dispatch]);
 
+  const onClick = patient => {
+    dispatch({
+      type: "ADD_WAITING_PATIENT",
+      data: {
+        PATIENT_ID: "11111111",
+        QUEUE_ID: "100",
+        PRIORITY: "0",
+        NAME: "tester",
+        SEX: "여성",
+        BIRTHDAY: "1992-09-01"
+      }
+    });
+  };
+
   return (
     <>
       {/* 타이틀 */}
@@ -61,7 +75,8 @@ function PatientList() {
       <ListContent>
         <ListItem head>
           <ListItemCell head onClick={() => setSortDown(!isSortDown)}>
-            <span>최근 측정 일자</span> {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            <span>최근 측정 일자</span>{" "}
+            {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </ListItemCell>
           <ListItemCell head>등록 일자</ListItemCell>
           <ListItemCell head>이름</ListItemCell>
@@ -84,12 +99,18 @@ function PatientList() {
                 <Button color="darkGray" onClick={() => openModal("환자 수정")}>
                   수정
                 </Button>
-                <Button color="pink">측정 등록</Button>
+                <Button color="pink" onClick={() => onClick(patient)}>
+                  측정 등록
+                </Button>
               </ListItemCell>
             </ListItem>
           ))}
       </ListContent>
-      <Modal isOpen={modalOpen.isOpen} handleClose={closeModal} title={modalOpen.title} />
+      <Modal
+        isOpen={modalOpen.isOpen}
+        handleClose={closeModal}
+        title={modalOpen.title}
+      />
     </>
   );
 }

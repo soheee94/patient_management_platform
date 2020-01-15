@@ -27,6 +27,15 @@ function patientsReducer(state, action) {
     case "GET_WAITING_PATIENTS_SUCCESS":
     case "GET_WAITING_PATIENTS_ERROR":
       return measurePatientsHandler(state, action);
+    case "ADD_WAITING_PATIENT":
+      return {
+        ...state,
+        waitingPatients: {
+          data: state.waitingPatients.data.concat(action.data)
+        }
+      };
+    case "DELETE_WAITING_PATIENT":
+      return state.waitingPatients.data.filter(data => data.id !== action.id);
     default:
       throw new Error(`Unhandled action type : ${action.type}`);
   }
