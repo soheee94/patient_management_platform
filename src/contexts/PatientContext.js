@@ -1,14 +1,20 @@
 import React, { createContext, useReducer, useContext, useState } from "react";
-import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
+import createAsyncDispatcher, {
+  initialAsyncState,
+  createAsyncHandler
+} from "./asyncActionUtils";
 import * as api from "./api";
 
 const initialState = {
   patients: initialAsyncState,
-  patient: initialAsyncState
+  waitingPatients: initialAsyncState
 };
 
 const patientsHandler = createAsyncHandler("GET_PATIENTS", "patients");
-const patientHandler = createAsyncHandler("GET_PATIENT", "patient");
+const measurePatientsHandler = createAsyncHandler(
+  "GET_WAITING_PATIENTS",
+  "waitingPatients"
+);
 
 // 리듀서
 function patientsReducer(state, action) {
@@ -17,10 +23,10 @@ function patientsReducer(state, action) {
     case "GET_PATIENTS_SUCCESS":
     case "GET_PATIENTS_ERROR":
       return patientsHandler(state, action);
-    case "GET_PATIENT":
-    case "GET_PATIENT_SUCCESS":
-    case "GET_PATIENT_ERROR":
-      return patientHandler(state, action);
+    case "GET_WAITING_PATIENTS":
+    case "GET_WAITING_PATIENTS_SUCCESS":
+    case "GET_WAITING_PATIENTS_ERROR":
+      return measurePatientsHandler(state, action);
     default:
       throw new Error(`Unhandled action type : ${action.type}`);
   }
@@ -74,5 +80,11 @@ export function usePatientId() {
   return patientId;
 }
 
-export const getPatients = createAsyncDispatcher("GET_PATIENTS", api.getPatients);
-export const getPatient = createAsyncDispatcher("GET_PATIENT", api.getPatient);
+export const getPatients = createAsyncDispatcher(
+  "GET_PATIENTS",
+  api.getPatients
+);
+export const getWaitingPatients = createAsyncDispatcher(
+  "GET_WAITING_PATIENTS",
+  api.getWaitingPatients
+);
