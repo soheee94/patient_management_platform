@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo_big from "../../assets/logo_big.png";
 import { PatientIdContext } from "../../contexts/PatientContext";
+import ListContent from "./ListContent";
 
 const ListBackground = styled.div`
   height: calc(100% - 50px);
@@ -13,13 +14,111 @@ const ListBackground = styled.div`
   }
 `;
 
+const MeasurementResultBox = styled.div`
+  border: 1px solid ${props => props.theme.palette.gray};
+  border-radius: 4px;
+  padding: 0 15px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${props => props.theme.palette.lightGray};
+  }
+
+  & > div {
+    padding: 20px 5px;
+    border-bottom: 1px solid ${props => props.theme.palette.gray};
+    display: flex;
+    align-items: center;
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    span {
+      display: inline-block;
+      padding: 0 5px;
+    }
+  }
+
+  .date {
+    font-family: "Noto Sans KR Bold";
+  }
+
+  .cup-size {
+    font-family: "Noto Sans KR Medium";
+    &--detail {
+      color: ${props => props.theme.palette.pink};
+      font-family: "Noto Sans KR Bold";
+      font-size: 16px;
+    }
+  }
+`;
+
+const MeausrementResult = styled.div`
+  display: flex;
+  align-items: center;
+  & > div {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: Center;
+    &:first-of-type {
+      margin-right: 10px;
+    }
+    &:last-of-type {
+      margin-left: 10px;
+    }
+
+    .data {
+      font-family: "Noto Sans KR Bold";
+      font-size: 16px;
+      margin: 0 10px;
+    }
+  }
+`;
+
 function MeasurementResultList() {
   return (
     <>
       <PatientIdContext.Consumer>
         {value =>
           value.patientId ? (
-            <div>{value.patientId}</div>
+            <ListContent>
+              <MeasurementResultBox>
+                <div>
+                  <span className="date">2020-01-05</span>
+                  <span className="cup-size">컵사이즈</span>
+                  <span className="cup-size--detail">D</span>
+                  <span className="cup-size">cup</span>
+                </div>
+                <MeausrementResult>
+                  <div>
+                    <span>좌측 가슴 부피</span>
+                    <span>
+                      <span className="data">386</span> cc
+                    </span>
+                  </div>
+                  <div>
+                    <span>우측 가슴 부피</span>
+                    <span>
+                      <span className="data">386</span> cc
+                    </span>
+                  </div>
+                </MeausrementResult>
+                <MeausrementResult>
+                  <div>
+                    <span>가슴 둘레</span>
+                    <span>
+                      <span className="data">86</span> cm
+                    </span>
+                  </div>
+                  <div>
+                    <span>밑가슴 둘레</span>
+                    <span>
+                      <span className="data">69</span> cm
+                    </span>
+                  </div>
+                </MeausrementResult>
+              </MeasurementResultBox>
+            </ListContent>
           ) : (
             <ListBackground>
               <img src={logo_big} alt="배경 로고" />

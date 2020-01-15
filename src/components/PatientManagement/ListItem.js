@@ -16,7 +16,6 @@ const rowStyle = css`
     !props.head &&
     css`
       height: 50px;
-      border: 1px solid ${props => props.theme.palette.lightGray};
       cursor: pointer;
       &:hover {
         background-color: ${props => props.theme.palette.lightGray};
