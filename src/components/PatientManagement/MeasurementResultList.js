@@ -5,7 +5,6 @@ import { PatientIdContext } from "../../contexts/PatientContext";
 import ListContent from "./ListContent";
 import useAsync from "../../useAsync";
 import axios from "axios";
-import { copyFileSync } from "fs";
 
 const ListBackground = styled.div`
   height: calc(100% - 50px);
@@ -91,51 +90,55 @@ async function getPatientMeasurementList(id) {
 const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
   const [state, refetch] = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
-  console.log(measurementResults);
-  if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
-  if (!measurementResults || measurementResults.length === 0)
-    return <div>측정 결과가 없습니다.</div>;
+  if (loading || !measurementResults || measurementResults.length === 0)
+    return (
+      <ListBackground>
+        <img src={logo_big} alt="배경 로고" />
+      </ListBackground>
+    );
   return (
     <>
-      {measurementResults.map(measurementResult => (
-        <MeasurementResultBox key={measurementResult.MEASURE_ID}>
-          <div>
-            <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
-            <span className="cup-size">컵사이즈</span>
-            <span className="cup-size--detail">D</span>
-            <span className="cup-size">cup</span>
-          </div>
-          <MeausrementResult>
+      <ListContent>
+        {measurementResults.map(measurementResult => (
+          <MeasurementResultBox key={measurementResult.MEASURE_ID}>
             <div>
-              <span>좌측 가슴 부피</span>
-              <span>
-                <span className="data">{parseInt(measurementResult.LEFT_VOLUME)}</span> cc
-              </span>
+              <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
+              <span className="cup-size">컵사이즈</span>
+              <span className="cup-size--detail">D</span>
+              <span className="cup-size">cup</span>
             </div>
-            <div>
-              <span>우측 가슴 부피</span>
-              <span>
-                <span className="data">{parseInt(measurementResult.RIGHT_VOLUME)}</span> cc
-              </span>
-            </div>
-          </MeausrementResult>
-          <MeausrementResult>
-            <div>
-              <span>가슴 둘레</span>
-              <span>
-                <span className="data">{parseInt(measurementResult.BUST_SIZE)}</span> cm
-              </span>
-            </div>
-            <div>
-              <span>밑가슴 둘레</span>
-              <span>
-                <span className="data">{parseInt(measurementResult.BOTTOM_BUST_SIZE)}</span> cm
-              </span>
-            </div>
-          </MeausrementResult>
-        </MeasurementResultBox>
-      ))}
+            <MeausrementResult>
+              <div>
+                <span>좌측 가슴 부피</span>
+                <span>
+                  <span className="data">{parseInt(measurementResult.LEFT_VOLUME)}</span> cc
+                </span>
+              </div>
+              <div>
+                <span>우측 가슴 부피</span>
+                <span>
+                  <span className="data">{parseInt(measurementResult.RIGHT_VOLUME)}</span> cc
+                </span>
+              </div>
+            </MeausrementResult>
+            <MeausrementResult>
+              <div>
+                <span>가슴 둘레</span>
+                <span>
+                  <span className="data">{parseInt(measurementResult.BUST_SIZE)}</span> cm
+                </span>
+              </div>
+              <div>
+                <span>밑가슴 둘레</span>
+                <span>
+                  <span className="data">{parseInt(measurementResult.BOTTOM_BUST_SIZE)}</span> cm
+                </span>
+              </div>
+            </MeausrementResult>
+          </MeasurementResultBox>
+        ))}
+      </ListContent>
     </>
   );
 });
@@ -146,9 +149,7 @@ function MeasurementResultList() {
       <PatientIdContext.Consumer>
         {value =>
           value.patientId ? (
-            <ListContent>
-              <MeasurementResultItems id={value.patientId} />
-            </ListContent>
+            <MeasurementResultItems id={value.patientId} />
           ) : (
             <ListBackground>
               <img src={logo_big} alt="배경 로고" />

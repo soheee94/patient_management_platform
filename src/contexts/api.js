@@ -14,13 +14,3 @@ export async function getPatient(id) {
   });
   return response.data;
 }
-
-// 선택 환자 측정 정보 리스트 가져오기
-export async function getPatientMeasurementList(id) {
-  const response = await axios.get("http://127.0.0.1/cordia/GetPatientMeausremnetList.php", {
-    params: {
-      ID: id
-    }
-  });
-  return response.data;
-}
