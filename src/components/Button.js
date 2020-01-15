@@ -46,4 +46,4 @@ function Button({ children, color, onClick }) {
   );
 }
 
-export default Button;
+export default React.memo(Button);

@@ -88,7 +88,7 @@ async function getPatientMeasurementList(id) {
 }
 
 const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
-  const [state, refetch] = useAsync(() => getPatientMeasurementList(id), [id]);
+  const state = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
   if (error) return <div>에러가 발생했습니다</div>;
   if (loading || !measurementResults || measurementResults.length === 0)

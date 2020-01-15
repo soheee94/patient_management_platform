@@ -54,4 +54,4 @@ ListItemCell.defaultProps = {
   head: false
 };
 
-export default ListItemCell;
+export default React.memo(ListItemCell);

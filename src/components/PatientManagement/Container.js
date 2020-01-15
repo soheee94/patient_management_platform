@@ -24,7 +24,13 @@ function ListContainer() {
     <Container container>
       {/* 측정 환자 리스트 */}
       <Grid item xs={3}>
+        <ListTitle>
+          <span>현재 측정 환자</span>
+        </ListTitle>
         <MeasurePatientList />
+        <ListTitle>
+          <span>대기 환자</span>
+        </ListTitle>
         <WaitingPatientList />
       </Grid>
       {/* 환자 리스트 */}

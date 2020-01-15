@@ -48,7 +48,7 @@ function useAsync(callback, deps = []) {
     // eslint-disable-next-line
   }, deps);
 
-  return [state, fetchData];
+  return state;
 }
 
 export default useAsync;
