@@ -35,7 +35,14 @@ function patientsReducer(state, action) {
         }
       };
     case "DELETE_WAITING_PATIENT":
-      return state.waitingPatients.data.filter(data => data.id !== action.id);
+      return {
+        ...state,
+        waitingPatients: {
+          data: state.waitingPatients.data.filter(
+            data => data.QUEUE_ID !== action.id
+          )
+        }
+      };
     default:
       throw new Error(`Unhandled action type : ${action.type}`);
   }

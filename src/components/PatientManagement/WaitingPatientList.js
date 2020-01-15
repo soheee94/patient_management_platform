@@ -19,6 +19,13 @@ function WaitingPatientList() {
     getWaitingPatients(dispatch);
   }, [dispatch]);
 
+  const deleteWaitingPatient = QUEUE_ID => {
+    dispatch({
+      type: "DELETE_WAITING_PATIENT",
+      id: QUEUE_ID
+    });
+  };
+
   if (error) return <div>에러가 발생했습니다</div>;
   if (loading || !waitingPatients || waitingPatients.length === 0) return <></>;
   return (
@@ -32,7 +39,10 @@ function WaitingPatientList() {
             {calculateAge(waitingPatient.BIRTHDAY)}세)
           </ListItemCell>
           <ListItemCell>
-            <IconButton label="close" onClick={() => console.log("close")}>
+            <IconButton
+              label="close"
+              onClick={() => deleteWaitingPatient(waitingPatient.QUEUE_ID)}
+            >
               <CloseIcon />
             </IconButton>
           </ListItemCell>
