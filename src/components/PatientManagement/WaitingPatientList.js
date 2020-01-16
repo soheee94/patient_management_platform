@@ -18,30 +18,26 @@ function WaitingPatientList() {
   useEffect(() => {
     getWaitingPatients(dispatch);
   }, [dispatch]);
-
-  const deleteWaitingPatient = QUEUE_ID => {
-    dispatch({
-      type: "DELETE_WAITING_PATIENT",
-      id: QUEUE_ID
-    });
-  };
-
   if (error) return <div>에러가 발생했습니다</div>;
   if (loading || !waitingPatients || waitingPatients.length === 0) return <></>;
   return (
-    <ListContent>
+    <ListContent style={{ maxHeight: "calc(100% - 180px)" }}>
       {waitingPatients.map(waitingPatient => (
         <ListItem key={waitingPatient.QUEUE_ID}>
           <ListItemCell>{waitingPatient.NAME}</ListItemCell>
           <ListItemCell>{waitingPatient.SEX}</ListItemCell>
           <ListItemCell>
-            {waitingPatient.BIRTHDAY} (만{" "}
-            {calculateAge(waitingPatient.BIRTHDAY)}세)
+            {waitingPatient.BIRTHDAY} (만 {calculateAge(waitingPatient.BIRTHDAY)}세)
           </ListItemCell>
           <ListItemCell>
             <IconButton
               label="close"
-              onClick={() => deleteWaitingPatient(waitingPatient.QUEUE_ID)}
+              onClick={() =>
+                dispatch({
+                  type: "DELETE_WAITING_PATIENT",
+                  id: waitingPatient.QUEUE_ID
+                })
+              }
             >
               <CloseIcon />
             </IconButton>

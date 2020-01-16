@@ -79,20 +79,15 @@ const MeausrementResult = styled.div`
 `;
 
 async function getPatientMeasurementList(id) {
-  const response = await axios.get(
-    "http://localhost:8888/cordia/GetPatientMeasurementList.php",
-    {
-      params: {
-        ID: id
-      }
+  const response = await axios.get("http://127.0.0.1/cordia/GetPatientMeasurementList.php", {
+    params: {
+      ID: id
     }
-  );
+  });
   return response.data;
 }
 
-const MeasurementResultItems = React.memo(function MeasurementResultItems({
-  id
-}) {
+const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
   const state = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
   if (error) return <div>에러가 발생했습니다</div>;
@@ -108,9 +103,7 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({
         {measurementResults.map(measurementResult => (
           <MeasurementResultBox key={measurementResult.MEASURE_ID}>
             <div>
-              <span className="date">
-                {measurementResult.MEASURE_DATE.split(" ")[0]}
-              </span>
+              <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
               <span className="cup-size">컵사이즈</span>
               <span className="cup-size--detail">D</span>
               <span className="cup-size">cup</span>
@@ -119,19 +112,13 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({
               <div>
                 <span>좌측 가슴 부피</span>
                 <span>
-                  <span className="data">
-                    {parseInt(measurementResult.LEFT_VOLUME)}
-                  </span>{" "}
-                  cc
+                  <span className="data">{parseInt(measurementResult.LEFT_VOLUME)}</span> cc
                 </span>
               </div>
               <div>
                 <span>우측 가슴 부피</span>
                 <span>
-                  <span className="data">
-                    {parseInt(measurementResult.RIGHT_VOLUME)}
-                  </span>{" "}
-                  cc
+                  <span className="data">{parseInt(measurementResult.RIGHT_VOLUME)}</span> cc
                 </span>
               </div>
             </MeausrementResult>
@@ -139,19 +126,13 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({
               <div>
                 <span>가슴 둘레</span>
                 <span>
-                  <span className="data">
-                    {parseInt(measurementResult.BUST_SIZE)}
-                  </span>{" "}
-                  cm
+                  <span className="data">{parseInt(measurementResult.BUST_SIZE)}</span> cm
                 </span>
               </div>
               <div>
                 <span>밑가슴 둘레</span>
                 <span>
-                  <span className="data">
-                    {parseInt(measurementResult.BOTTOM_BUST_SIZE)}
-                  </span>{" "}
-                  cm
+                  <span className="data">{parseInt(measurementResult.BOTTOM_BUST_SIZE)}</span> cm
                 </span>
               </div>
             </MeausrementResult>

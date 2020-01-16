@@ -1,9 +1,7 @@
 import axios from "axios";
 // 전체 환자 가져오기
 export async function getPatients() {
-  const response = await axios.get(
-    "http://localhost:8888/cordia/GetPatients.php"
-  );
+  const response = await axios.get("http://127.0.0.1/cordia/GetPatients.php");
   return response.data;
 }
 
@@ -18,8 +16,6 @@ export async function getPatients() {
 // }
 
 export async function getWaitingPatients() {
-  const response = await axios.get(
-    "http://localhost:8888/cordia/GetWaitingPatientList.php"
-  );
+  const response = await axios.get("http://127.0.0.1/cordia/GetWaitingPatientList.php");
   return response.data;
 }

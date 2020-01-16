@@ -12,6 +12,10 @@ const Container = styled(Grid)`
   flex-grow: 1;
   height: calc(100vh - 100px);
   min-height: 768px;
+
+  & > div {
+    height: 100%;
+  }
 `;
 
 const PatientListContainer = styled(Grid)`
