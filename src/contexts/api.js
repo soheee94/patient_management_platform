@@ -40,3 +40,11 @@ export async function PostWaitingPatient(data) {
   const response = await axios.post("http://127.0.0.1/cordia/PostWaitingPatient.php", form);
   return response.data;
 }
+
+// 대기 환자 삭제
+export async function DeleteWaitingPatient(QUEUE_ID) {
+  let form = new FormData();
+  form.append("QUEUE_ID", QUEUE_ID);
+  const response = await axios.post("http://127.0.0.1/cordia/DeleteWaitingPatient.php", form);
+  return response.data;
+}

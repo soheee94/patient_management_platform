@@ -2,7 +2,6 @@ import React, { createContext, useReducer, useContext, useState } from "react";
 import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import * as api from "./api";
 import { createHash } from "../common";
-import useAsync from "../useAsync";
 
 // 전역 Context -> waitingPatients, patientId
 
@@ -31,14 +30,14 @@ function patientsReducer(state, action) {
         PRIORITY: PRIORITY,
         QUEUE_ID: QUEUE_ID
       };
-      api.PostWaitingPatient(data);
+      console.log("ADD_WAITING_PATIENT", api.PostWaitingPatient(data));
       return {
         ...state,
         data: state.data.concat(data)
       };
 
     case "DELETE_WAITING_PATIENT":
-      // TODO 대기열 PHP 수정
+      console.log("DELETE_WAITING_PATIENT", api.DeleteWaitingPatient(action.id));
       return {
         ...state,
         data: state.data.filter(data => data.QUEUE_ID !== action.id)
