@@ -4,7 +4,7 @@ import logo_big from "../../assets/logo_big.png";
 import { PatientIdContext } from "../../contexts/PatientContext";
 import ListContent from "./ListContent";
 import useAsync from "../../useAsync";
-import axios from "axios";
+import { getPatientMeasurementList } from "../../contexts/api";
 
 const ListBackground = styled.div`
   height: calc(100% - 50px);
@@ -77,15 +77,6 @@ const MeausrementResult = styled.div`
     }
   }
 `;
-
-async function getPatientMeasurementList(id) {
-  const response = await axios.get("http://127.0.0.1/cordia/GetPatientMeasurementList.php", {
-    params: {
-      ID: id
-    }
-  });
-  return response.data;
-}
 
 const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
   const state = useAsync(() => getPatientMeasurementList(id), [id]);

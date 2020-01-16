@@ -6,16 +6,25 @@ export async function getPatients() {
 }
 
 // 선택 환자 정보 가져오기
-// export async function getPatient(id) {
-//   const response = await axios.get("http://127.0.0.1/cordia/GetPatients.php", {
-//     params: {
-//       ID: id
-//     }
-//   });
-//   return response.data;
-// }
+export async function getPatient(id) {
+  const response = await axios.get("http://127.0.0.1/cordia/GetPatients.php", {
+    params: {
+      ID: id
+    }
+  });
+  return response.data;
+}
 
 export async function getWaitingPatients() {
   const response = await axios.get("http://127.0.0.1/cordia/GetWaitingPatientList.php");
+  return response.data;
+}
+
+export async function getPatientMeasurementList(id) {
+  const response = await axios.get("http://127.0.0.1/cordia/GetPatientMeasurementList.php", {
+    params: {
+      ID: id
+    }
+  });
   return response.data;
 }

@@ -7,6 +7,7 @@ import MeasurementResultList from "./MeasurementResultList";
 import styled from "styled-components";
 import ListTitle from "./ListTitle";
 import Button from "../Button";
+import Input from "../Input";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -39,6 +40,13 @@ function ListContainer() {
       </Grid>
       {/* 환자 리스트 */}
       <PatientListContainer item xs={6}>
+        {/* 타이틀 */}
+        <ListTitle>
+          <Input type="text" placeholder="검색" id="list-header__search" />
+          <Button color="black" onClick={() => console.log("환자 추가")}>
+            환자 추가
+          </Button>
+        </ListTitle>
         <PatientList />
       </PatientListContainer>
       {/* 환자 측정 결과 리스트 */}

@@ -1,28 +1,22 @@
 import React, { createContext, useReducer, useContext, useState } from "react";
-import createAsyncDispatcher, {
-  initialAsyncState,
-  createAsyncHandler
-} from "./asyncActionUtils";
+import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import * as api from "./api";
 
 const initialState = {
-  patients: initialAsyncState,
+  // patients: initialAsyncState,
   waitingPatients: initialAsyncState
 };
 
-const patientsHandler = createAsyncHandler("GET_PATIENTS", "patients");
-const measurePatientsHandler = createAsyncHandler(
-  "GET_WAITING_PATIENTS",
-  "waitingPatients"
-);
+// const patientsHandler = createAsyncHandler("GET_PATIENTS", "patients");
+const measurePatientsHandler = createAsyncHandler("GET_WAITING_PATIENTS", "waitingPatients");
 
 // 리듀서
 function patientsReducer(state, action) {
   switch (action.type) {
-    case "GET_PATIENTS":
-    case "GET_PATIENTS_SUCCESS":
-    case "GET_PATIENTS_ERROR":
-      return patientsHandler(state, action);
+    // case "GET_PATIENTS":
+    // case "GET_PATIENTS_SUCCESS":
+    // case "GET_PATIENTS_ERROR":
+    //   return patientsHandler(state, action);
     case "GET_WAITING_PATIENTS":
     case "GET_WAITING_PATIENTS_SUCCESS":
     case "GET_WAITING_PATIENTS_ERROR":
@@ -38,9 +32,7 @@ function patientsReducer(state, action) {
       return {
         ...state,
         waitingPatients: {
-          data: state.waitingPatients.data.filter(
-            data => data.QUEUE_ID !== action.id
-          )
+          data: state.waitingPatients.data.filter(data => data.QUEUE_ID !== action.id)
         }
       };
     default:
@@ -49,8 +41,9 @@ function patientsReducer(state, action) {
 }
 
 // STATE 용 Context와 Dispatch용 Context생성
-const PatientsStateContext = createContext(null);
-const PatientsDispatchContext = createContext(null);
+// const PatientsStateContext = createContext(null);
+const WaitingPatientsStateContext = createContext(null);
+const WaitingPatientsDispatchContext = createContext(null);
 // 환자 선택 ID Context
 export const PatientIdContext = createContext(null);
 
@@ -60,19 +53,29 @@ export function PatientsProvider({ children }) {
   const [patientId, setPatientId] = useState("");
 
   return (
-    <PatientsStateContext.Provider value={state}>
-      <PatientsDispatchContext.Provider value={dispatch}>
+    <WaitingPatientsStateContext.Provider value={state.waitingPatients}>
+      <WaitingPatientsDispatchContext.Provider value={dispatch}>
         <PatientIdContext.Provider value={{ patientId, setPatientId }}>
           {children}
         </PatientIdContext.Provider>
-      </PatientsDispatchContext.Provider>
-    </PatientsStateContext.Provider>
+      </WaitingPatientsDispatchContext.Provider>
+    </WaitingPatientsStateContext.Provider>
   );
 }
 
+export function WaitingPatientsProvider({ children }) {}
+
 // State 조회
-export function usePatientsState() {
-  const state = useContext(PatientsStateContext);
+// export function usePatientsState() {
+//   const state = useContext(PatientsStateContext);
+//   if (!state) {
+//     throw new Error("Can not find PatientsProvider");
+//   }
+//   return state;
+// }
+
+export function useWaitingPatientsState() {
+  const state = useContext(WaitingPatientsStateContext);
   if (!state) {
     throw new Error("Can not find PatientsProvider");
   }
@@ -80,8 +83,8 @@ export function usePatientsState() {
 }
 
 // dispatch 사용
-export function usePatientsDispatch() {
-  const dispatch = useContext(PatientsDispatchContext);
+export function useWaitingPatientsDispatch() {
+  const dispatch = useContext(WaitingPatientsDispatchContext);
   if (!dispatch) {
     throw new Error("Can not find PatientsProvider");
   }
@@ -96,10 +99,7 @@ export function usePatientId() {
   return patientId;
 }
 
-export const getPatients = createAsyncDispatcher(
-  "GET_PATIENTS",
-  api.getPatients
-);
+// export const getPatients = createAsyncDispatcher("GET_PATIENTS", api.getPatients);
 export const getWaitingPatients = createAsyncDispatcher(
   "GET_WAITING_PATIENTS",
   api.getWaitingPatients
