@@ -15,12 +15,6 @@ export async function getPatient(id) {
   return response.data;
 }
 
-// 대기 환자 리스트 가져오기
-export async function getWaitingPatients() {
-  const response = await axios.get("http://127.0.0.1/cordia/GetWaitingPatientList.php");
-  return response.data;
-}
-
 // 선택 환자의 측정 정보 가져오기
 export async function getPatientMeasurementList(id) {
   const response = await axios.get("http://127.0.0.1/cordia/GetPatientMeasurementList.php", {
@@ -28,6 +22,12 @@ export async function getPatientMeasurementList(id) {
       ID: id
     }
   });
+  return response.data;
+}
+
+// 대기 환자 리스트 가져오기
+export async function getWaitingPatients() {
+  const response = await axios.get("http://127.0.0.1/cordia/GetWaitingPatientList.php");
   return response.data;
 }
 
@@ -48,3 +48,8 @@ export async function DeleteWaitingPatient(QUEUE_ID) {
   const response = await axios.post("http://127.0.0.1/cordia/DeleteWaitingPatient.php", form);
   return response.data;
 }
+
+// TODO
+// 환자 추가
+// 환자 수정
+// 환자 삭제

@@ -12,40 +12,57 @@ import { useWaitingPatientsDispatch, usePatientId } from "../../contexts/Patient
 import useAsync from "../../useAsync";
 import { getPatients } from "../../contexts/api";
 
-const PatientItems = React.memo(function PatientItems({ state, dispatch, setPatientId }) {
+const Patient = React.memo(function Patient({ patient, setPatientId, dispatch }) {
+  return (
+    <ListItem onClick={() => setPatientId(patient.PATIENT_ID)} id={patient.PATIENT_ID}>
+      <ListItemCell>{patient.PATIENT_ID}</ListItemCell>
+      <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
+      <ListItemCell>{patient.NAME}</ListItemCell>
+      <ListItemCell>{patient.PATIENT_NUMBER}</ListItemCell>
+      <ListItemCell>
+        <Button color="darkGray" onClick={() => console.log("환자 수정")}>
+          수정
+        </Button>
+        <Button
+          color="pink"
+          onClick={() =>
+            dispatch({
+              type: "ADD_WAITING_PATIENT",
+              data: {
+                PATIENT_ID: patient.PATIENT_ID,
+                NAME: patient.NAME,
+                SEX: patient.SEX,
+                BIRTHDAY: patient.BIRTHDAY
+              }
+            })
+          }
+        >
+          측정 등록
+        </Button>
+      </ListItemCell>
+    </ListItem>
+  );
+});
+
+const Patients = React.memo(function PatientItems({
+  state,
+  dispatch,
+  setPatientId,
+  selectedPatientId
+}) {
   const { data: patients, loading, error } = state;
   if (loading) return <div>로딩중</div>;
   if (error) return <div>불러오는 중에 에러가 발생하였습니다.</div>;
-  if (patients)
+  if (patients) {
     return patients.map(patient => (
-      <ListItem key={patient.PATIENT_ID} onClick={() => setPatientId(patient.PATIENT_ID)}>
-        <ListItemCell>{patient.PATIENT_ID}</ListItemCell>
-        <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
-        <ListItemCell>{patient.NAME}</ListItemCell>
-        <ListItemCell>{patient.PATIENT_NUMBER}</ListItemCell>
-        <ListItemCell>
-          <Button color="darkGray" onClick={() => console.log("환자 수정")}>
-            수정
-          </Button>
-          <Button
-            color="pink"
-            onClick={() =>
-              dispatch({
-                type: "ADD_WAITING_PATIENT",
-                data: {
-                  PATIENT_ID: patient.PATIENT_ID,
-                  NAME: patient.NAME,
-                  SEX: patient.SEX,
-                  BIRTHDAY: patient.BIRTHDAY
-                }
-              })
-            }
-          >
-            측정 등록
-          </Button>
-        </ListItemCell>
-      </ListItem>
+      <Patient
+        key={patient.PATIENT_ID}
+        patient={patient}
+        dispatch={dispatch}
+        setPatientId={setPatientId}
+      />
     ));
+  }
 });
 
 function PatientList() {
@@ -71,7 +88,7 @@ function PatientList() {
     [modalOpen]
   );
 
-  const setPatientId = usePatientId().setPatientId;
+  const { patientId, setPatientId } = usePatientId();
   const dispatch = useWaitingPatientsDispatch();
   const [state] = useAsync(() => getPatients(), []);
 
@@ -88,7 +105,7 @@ function PatientList() {
           <ListItemCell head>환자 번호</ListItemCell>
           <ListItemCell head></ListItemCell>
         </ListItem>
-        <PatientItems dispatch={dispatch} setPatientId={setPatientId} state={state} />
+        <Patients dispatch={dispatch} setPatientId={setPatientId} state={state} />
       </ListContent>
       <Modal isOpen={modalOpen.isOpen} handleClose={closeModal} title={modalOpen.title} />
     </>

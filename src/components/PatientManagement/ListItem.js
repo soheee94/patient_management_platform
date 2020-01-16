@@ -36,9 +36,9 @@ const ListItemBlock = styled.div`
   ${rowStyle}
 `;
 
-function ListItem({ children, head, onClick }) {
+function ListItem({ children, head, onClick, ...rest }) {
   return (
-    <ListItemBlock head={head} onClick={onClick}>
+    <ListItemBlock head={head} onClick={onClick} {...rest}>
       {children}
     </ListItemBlock>
   );
