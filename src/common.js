@@ -12,3 +12,13 @@ export function calculateAge(birth) {
   let age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
   return age;
 }
+
+export function createHash(string_length = 40) {
+  let chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+  let randomstring = "";
+  for (var i = 0; i < string_length; i++) {
+    var rnum = Math.floor(Math.random() * chars.length);
+    randomstring += chars.substring(rnum, rnum + 1);
+  }
+  return randomstring;
+}

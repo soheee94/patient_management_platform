@@ -58,20 +58,11 @@ export function createAsyncHandler(type, key) {
   function handler(state, action) {
     switch (action.type) {
       case type:
-        return {
-          ...state,
-          [key]: loadingState
-        };
+        return loadingState;
       case SUCCESS:
-        return {
-          ...state,
-          [key]: success(action.data)
-        };
+        return success(action.data);
       case ERROR:
-        return {
-          ...state,
-          [key]: error(action.error)
-        };
+        return error(action.error);
 
       default:
         return state;

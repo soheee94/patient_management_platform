@@ -11,7 +11,12 @@ import {
   getWaitingPatients
 } from "../../contexts/PatientContext";
 
-const WaitingPatientItem = React.memo(function WaitingPatientItem({ waitingPatient, dispatch }) {
+const WaitingPatient = React.memo(function WaitingPatient({ waitingPatient, dispatch }) {
+  const onDelete = () =>
+    dispatch({
+      type: "DELETE_WAITING_PATIENT",
+      id: waitingPatient.QUEUE_ID
+    });
   return (
     <ListItem>
       <ListItemCell>{waitingPatient.NAME}</ListItemCell>
@@ -20,15 +25,7 @@ const WaitingPatientItem = React.memo(function WaitingPatientItem({ waitingPatie
         {waitingPatient.BIRTHDAY} (만 {calculateAge(waitingPatient.BIRTHDAY)}세)
       </ListItemCell>
       <ListItemCell>
-        <IconButton
-          label="close"
-          onClick={() =>
-            dispatch({
-              type: "DELETE_WAITING_PATIENT",
-              id: waitingPatient.QUEUE_ID
-            })
-          }
-        >
+        <IconButton label="close" onClick={onDelete}>
           <CloseIcon />
         </IconButton>
       </ListItemCell>
@@ -36,12 +33,13 @@ const WaitingPatientItem = React.memo(function WaitingPatientItem({ waitingPatie
   );
 });
 
-const WaitingPatientItems = React.memo(function WaitingPatientItems({ state, dispatch }) {
+const WaitingPatients = React.memo(function WaitingPatients({ state, dispatch }) {
   const { data: waitingPatients, loading, error } = state;
+
   if (error) return <div>에러가 발생했습니다</div>;
   if (loading || !waitingPatients || waitingPatients.length === 0) return <></>;
   return waitingPatients.map(waitingPatient => (
-    <WaitingPatientItem
+    <WaitingPatient
       waitingPatient={waitingPatient}
       dispatch={dispatch}
       key={waitingPatient.QUEUE_ID}
@@ -59,7 +57,7 @@ function WaitingPatientList() {
 
   return (
     <ListContent style={{ maxHeight: "calc(100% - 180px)" }}>
-      <WaitingPatientItems state={state} dispatch={dispatch} />
+      <WaitingPatients state={state} dispatch={dispatch} />
     </ListContent>
   );
 }

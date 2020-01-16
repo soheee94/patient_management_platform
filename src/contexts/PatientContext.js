@@ -2,38 +2,31 @@ import React, { createContext, useReducer, useContext, useState } from "react";
 import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import * as api from "./api";
 
-const initialState = {
-  // patients: initialAsyncState,
-  waitingPatients: initialAsyncState
-};
+// 전역 Context -> waitingPatients, patientId
 
-// const patientsHandler = createAsyncHandler("GET_PATIENTS", "patients");
-const measurePatientsHandler = createAsyncHandler("GET_WAITING_PATIENTS", "waitingPatients");
+const waitingPatientsState = initialAsyncState;
+
+const measurePatientsHandler = createAsyncHandler("GET_WAITING_PATIENTS");
 
 // 리듀서
 function patientsReducer(state, action) {
   switch (action.type) {
-    // case "GET_PATIENTS":
-    // case "GET_PATIENTS_SUCCESS":
-    // case "GET_PATIENTS_ERROR":
-    //   return patientsHandler(state, action);
     case "GET_WAITING_PATIENTS":
     case "GET_WAITING_PATIENTS_SUCCESS":
     case "GET_WAITING_PATIENTS_ERROR":
       return measurePatientsHandler(state, action);
     case "ADD_WAITING_PATIENT":
+      // TODO 대기열 PHP 수정
+      // CREATE HASH, PRORITY
       return {
         ...state,
-        waitingPatients: {
-          data: state.waitingPatients.data.concat(action.data)
-        }
+        data: state.data.concat(action.data)
       };
     case "DELETE_WAITING_PATIENT":
+      // TODO 대기열 PHP 수정
       return {
         ...state,
-        waitingPatients: {
-          data: state.waitingPatients.data.filter(data => data.QUEUE_ID !== action.id)
-        }
+        data: state.data.filter(data => data.QUEUE_ID !== action.id)
       };
     default:
       throw new Error(`Unhandled action type : ${action.type}`);
@@ -41,7 +34,6 @@ function patientsReducer(state, action) {
 }
 
 // STATE 용 Context와 Dispatch용 Context생성
-// const PatientsStateContext = createContext(null);
 const WaitingPatientsStateContext = createContext(null);
 const WaitingPatientsDispatchContext = createContext(null);
 // 환자 선택 ID Context
@@ -49,11 +41,11 @@ export const PatientIdContext = createContext(null);
 
 // Context 감싸는 Provider 컴포넌트
 export function PatientsProvider({ children }) {
-  const [state, dispatch] = useReducer(patientsReducer, initialState);
+  const [state, dispatch] = useReducer(patientsReducer, waitingPatientsState);
   const [patientId, setPatientId] = useState("");
 
   return (
-    <WaitingPatientsStateContext.Provider value={state.waitingPatients}>
+    <WaitingPatientsStateContext.Provider value={state}>
       <WaitingPatientsDispatchContext.Provider value={dispatch}>
         <PatientIdContext.Provider value={{ patientId, setPatientId }}>
           {children}
@@ -63,19 +55,10 @@ export function PatientsProvider({ children }) {
   );
 }
 
-export function WaitingPatientsProvider({ children }) {}
-
-// State 조회
-// export function usePatientsState() {
-//   const state = useContext(PatientsStateContext);
-//   if (!state) {
-//     throw new Error("Can not find PatientsProvider");
-//   }
-//   return state;
-// }
-
+// state 조회
 export function useWaitingPatientsState() {
   const state = useContext(WaitingPatientsStateContext);
+  console.log(state);
   if (!state) {
     throw new Error("Can not find PatientsProvider");
   }
@@ -90,7 +73,7 @@ export function useWaitingPatientsDispatch() {
   }
   return dispatch;
 }
-
+// 선택 환자 ID 조회
 export function usePatientId() {
   const patientId = useContext(PatientIdContext);
   if (!patientId) {
@@ -99,7 +82,6 @@ export function usePatientId() {
   return patientId;
 }
 
-// export const getPatients = createAsyncDispatcher("GET_PATIENTS", api.getPatients);
 export const getWaitingPatients = createAsyncDispatcher(
   "GET_WAITING_PATIENTS",
   api.getWaitingPatients

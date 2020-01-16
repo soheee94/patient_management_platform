@@ -2,8 +2,8 @@ import React, { useState, useCallback } from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Modal from "../Modal/Modal";
-import ListTitle from "./ListTitle";
-import Input from "../Input";
+// import ListTitle from "./ListTitle";
+// import Input from "../Input";
 import Button from "../Button";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
@@ -34,11 +34,11 @@ const PatientItems = React.memo(function PatientItems({ state, dispatch, setPati
                 type: "ADD_WAITING_PATIENT",
                 data: {
                   PATIENT_ID: patient.PATIENT_ID,
-                  QUEUE_ID: "100",
-                  PRIORITY: "0",
                   NAME: patient.NAME,
-                  SEX: "여성",
-                  BIRTHDAY: "1992-09-01"
+                  SEX: patient.SEX,
+                  BIRTHDAY: patient.BIRTHDAY,
+                  PRIORITY: "11",
+                  QUEUE_ID: "CDCD"
                 }
               })
             }
@@ -57,12 +57,12 @@ function PatientList() {
     title: ""
   });
 
-  const openModal = useCallback(title => {
-    setModalOpen({
-      isOpen: true,
-      title: title
-    });
-  }, []);
+  // const openModal = useCallback(title => {
+  //   setModalOpen({
+  //     isOpen: true,
+  //     title: title
+  //   });
+  // }, []);
 
   const closeModal = useCallback(
     () =>
@@ -75,7 +75,7 @@ function PatientList() {
 
   const setPatientId = usePatientId().setPatientId;
   const dispatch = useWaitingPatientsDispatch();
-  const [state, refetch] = useAsync(() => getPatients(), []);
+  const [state] = useAsync(() => getPatients(), []);
 
   return (
     <>

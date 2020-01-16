@@ -79,7 +79,7 @@ const MeausrementResult = styled.div`
 `;
 
 const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
-  const state = useAsync(() => getPatientMeasurementList(id), [id]);
+  const [state] = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
   if (error) return <div>에러가 발생했습니다</div>;
   if (loading || !measurementResults || measurementResults.length === 0)
@@ -88,50 +88,51 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }
         <img src={logo_big} alt="배경 로고" />
       </ListBackground>
     );
-  return (
-    <>
-      <ListContent>
-        {measurementResults.map(measurementResult => (
-          <MeasurementResultBox key={measurementResult.MEASURE_ID}>
-            <div>
-              <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
-              <span className="cup-size">컵사이즈</span>
-              <span className="cup-size--detail">D</span>
-              <span className="cup-size">cup</span>
-            </div>
-            <MeausrementResult>
+  if (measurementResults)
+    return (
+      <>
+        <ListContent>
+          {measurementResults.map(measurementResult => (
+            <MeasurementResultBox key={measurementResult.MEASURE_ID}>
               <div>
-                <span>좌측 가슴 부피</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.LEFT_VOLUME)}</span> cc
-                </span>
+                <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
+                <span className="cup-size">컵사이즈</span>
+                <span className="cup-size--detail">D</span>
+                <span className="cup-size">cup</span>
               </div>
-              <div>
-                <span>우측 가슴 부피</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.RIGHT_VOLUME)}</span> cc
-                </span>
-              </div>
-            </MeausrementResult>
-            <MeausrementResult>
-              <div>
-                <span>가슴 둘레</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.BUST_SIZE)}</span> cm
-                </span>
-              </div>
-              <div>
-                <span>밑가슴 둘레</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.BOTTOM_BUST_SIZE)}</span> cm
-                </span>
-              </div>
-            </MeausrementResult>
-          </MeasurementResultBox>
-        ))}
-      </ListContent>
-    </>
-  );
+              <MeausrementResult>
+                <div>
+                  <span>좌측 가슴 부피</span>
+                  <span>
+                    <span className="data">{parseInt(measurementResult.LEFT_VOLUME)}</span> cc
+                  </span>
+                </div>
+                <div>
+                  <span>우측 가슴 부피</span>
+                  <span>
+                    <span className="data">{parseInt(measurementResult.RIGHT_VOLUME)}</span> cc
+                  </span>
+                </div>
+              </MeausrementResult>
+              <MeausrementResult>
+                <div>
+                  <span>가슴 둘레</span>
+                  <span>
+                    <span className="data">{parseInt(measurementResult.BUST_SIZE)}</span> cm
+                  </span>
+                </div>
+                <div>
+                  <span>밑가슴 둘레</span>
+                  <span>
+                    <span className="data">{parseInt(measurementResult.BOTTOM_BUST_SIZE)}</span> cm
+                  </span>
+                </div>
+              </MeausrementResult>
+            </MeasurementResultBox>
+          ))}
+        </ListContent>
+      </>
+    );
 });
 
 function MeasurementResultList() {
