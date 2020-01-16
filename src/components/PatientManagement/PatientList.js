@@ -36,9 +36,7 @@ const PatientItems = React.memo(function PatientItems({ state, dispatch, setPati
                   PATIENT_ID: patient.PATIENT_ID,
                   NAME: patient.NAME,
                   SEX: patient.SEX,
-                  BIRTHDAY: patient.BIRTHDAY,
-                  PRIORITY: "11",
-                  QUEUE_ID: "CDCD"
+                  BIRTHDAY: patient.BIRTHDAY
                 }
               })
             }

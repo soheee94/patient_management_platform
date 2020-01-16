@@ -1,11 +1,12 @@
 import React, { createContext, useReducer, useContext, useState } from "react";
 import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import * as api from "./api";
+import { createHash } from "../common";
+import useAsync from "../useAsync";
 
 // 전역 Context -> waitingPatients, patientId
 
 const waitingPatientsState = initialAsyncState;
-
 const measurePatientsHandler = createAsyncHandler("GET_WAITING_PATIENTS");
 
 // 리듀서
@@ -15,13 +16,27 @@ function patientsReducer(state, action) {
     case "GET_WAITING_PATIENTS_SUCCESS":
     case "GET_WAITING_PATIENTS_ERROR":
       return measurePatientsHandler(state, action);
+
     case "ADD_WAITING_PATIENT":
-      // TODO 대기열 PHP 수정
-      // CREATE HASH, PRORITY
+      const PRIORITY =
+        Math.max.apply(
+          Math,
+          state.data.map(function(arr) {
+            return arr.PRIORITY;
+          })
+        ) + 1;
+      const QUEUE_ID = createHash();
+      const data = {
+        ...action.data,
+        PRIORITY: PRIORITY,
+        QUEUE_ID: QUEUE_ID
+      };
+      api.PostWaitingPatient(data);
       return {
         ...state,
-        data: state.data.concat(action.data)
+        data: state.data.concat(data)
       };
+
     case "DELETE_WAITING_PATIENT":
       // TODO 대기열 PHP 수정
       return {
@@ -58,7 +73,6 @@ export function PatientsProvider({ children }) {
 // state 조회
 export function useWaitingPatientsState() {
   const state = useContext(WaitingPatientsStateContext);
-  console.log(state);
   if (!state) {
     throw new Error("Can not find PatientsProvider");
   }
