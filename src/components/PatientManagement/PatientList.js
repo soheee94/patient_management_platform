@@ -1,21 +1,35 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Modal from "../Modal/Modal";
-// import ListTitle from "./ListTitle";
-// import Input from "../Input";
+import ListTitle from "./ListTitle";
+import Input from "../Input";
 import Button from "../Button";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import { useWaitingPatientsDispatch, usePatientId } from "../../contexts/PatientContext";
-import useAsync from "../../useAsync";
-import { getPatients } from "../../contexts/api";
+import {
+  useWaitingPatientsDispatch,
+  usePatientId
+} from "../../contexts/PatientContext";
 
-const Patient = React.memo(function Patient({ patient, setPatientId, dispatch }) {
+import {
+  usePatientsState,
+  getPatients,
+  usePatientsDispatch
+} from "../../contexts/PatientListContext";
+
+const Patient = React.memo(function Patient({
+  patient,
+  setPatientId,
+  dispatch
+}) {
   return (
-    <ListItem onClick={() => setPatientId(patient.PATIENT_ID)} id={patient.PATIENT_ID}>
-      <ListItemCell>{patient.PATIENT_ID}</ListItemCell>
+    <ListItem
+      onClick={() => setPatientId(patient.PATIENT_ID)}
+      id={patient.PATIENT_ID}
+    >
+      <ListItemCell>{patient.PHONE}</ListItemCell>
       <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
       <ListItemCell>{patient.NAME}</ListItemCell>
       <ListItemCell>{patient.PATIENT_NUMBER}</ListItemCell>
@@ -72,12 +86,12 @@ function PatientList() {
     title: ""
   });
 
-  // const openModal = useCallback(title => {
-  //   setModalOpen({
-  //     isOpen: true,
-  //     title: title
-  //   });
-  // }, []);
+  const openModal = useCallback(title => {
+    setModalOpen({
+      isOpen: true,
+      title: title
+    });
+  }, []);
 
   const closeModal = useCallback(
     () =>
@@ -88,26 +102,48 @@ function PatientList() {
     [modalOpen]
   );
 
-  const { patientId, setPatientId } = usePatientId();
+  const { setPatientId } = usePatientId();
+
   const dispatch = useWaitingPatientsDispatch();
-  const [state] = useAsync(() => getPatients(), []);
+  const patientsState = usePatientsState();
+  const patientsDispatch = usePatientsDispatch();
+
+  useEffect(() => {
+    getPatients(patientsDispatch);
+  }, [patientsDispatch]);
 
   return (
     <>
+      {/* 타이틀 */}
+      <ListTitle>
+        <Input type="text" placeholder="검색" id="list-header__search" />
+        <Button color="black" onClick={() => openModal("환자 추가")}>
+          환자 추가
+        </Button>
+      </ListTitle>
       {/* 컨텐츠 리스트 */}
       <ListContent>
         <ListItem head>
           <ListItemCell head onClick={() => setSortDown(!isSortDown)}>
-            <span>최근 측정 일자</span> {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            <span>최근 측정 일자</span>{" "}
+            {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </ListItemCell>
           <ListItemCell head>등록 일자</ListItemCell>
           <ListItemCell head>이름</ListItemCell>
           <ListItemCell head>환자 번호</ListItemCell>
           <ListItemCell head></ListItemCell>
         </ListItem>
-        <Patients dispatch={dispatch} setPatientId={setPatientId} state={state} />
+        <Patients
+          dispatch={dispatch}
+          setPatientId={setPatientId}
+          state={patientsState}
+        />
       </ListContent>
-      <Modal isOpen={modalOpen.isOpen} handleClose={closeModal} title={modalOpen.title} />
+      <Modal
+        isOpen={modalOpen.isOpen}
+        handleClose={closeModal}
+        title={modalOpen.title}
+      />
     </>
   );
 }

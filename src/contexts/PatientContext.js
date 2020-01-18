@@ -1,5 +1,8 @@
 import React, { createContext, useReducer, useContext, useState } from "react";
-import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
+import createAsyncDispatcher, {
+  initialAsyncState,
+  createAsyncHandler
+} from "./asyncActionUtils";
 import * as api from "./api";
 import { createHash } from "../common";
 
@@ -37,7 +40,10 @@ function patientsReducer(state, action) {
       };
 
     case "DELETE_WAITING_PATIENT":
-      console.log("DELETE_WAITING_PATIENT", api.DeleteWaitingPatient(action.id));
+      console.log(
+        "DELETE_WAITING_PATIENT",
+        api.DeleteWaitingPatient(action.id)
+      );
       return {
         ...state,
         data: state.data.filter(data => data.QUEUE_ID !== action.id)
@@ -54,7 +60,7 @@ const WaitingPatientsDispatchContext = createContext(null);
 export const PatientIdContext = createContext(null);
 
 // Context 감싸는 Provider 컴포넌트
-export function PatientsProvider({ children }) {
+export function WaitingPatientsProvider({ children }) {
   const [state, dispatch] = useReducer(patientsReducer, waitingPatientsState);
   const [patientId, setPatientId] = useState("");
 
@@ -73,7 +79,7 @@ export function PatientsProvider({ children }) {
 export function useWaitingPatientsState() {
   const state = useContext(WaitingPatientsStateContext);
   if (!state) {
-    throw new Error("Can not find PatientsProvider");
+    throw new Error("Can not find WaitingPatientsProvider");
   }
   return state;
 }
@@ -82,7 +88,7 @@ export function useWaitingPatientsState() {
 export function useWaitingPatientsDispatch() {
   const dispatch = useContext(WaitingPatientsDispatchContext);
   if (!dispatch) {
-    throw new Error("Can not find PatientsProvider");
+    throw new Error("Can not find WaitingPatientsProvider");
   }
   return dispatch;
 }
@@ -90,7 +96,7 @@ export function useWaitingPatientsDispatch() {
 export function usePatientId() {
   const patientId = useContext(PatientIdContext);
   if (!patientId) {
-    throw new Error("Can not find PatientsProvider");
+    throw new Error("Can not find WaitingPatientsProvider");
   }
   return patientId;
 }

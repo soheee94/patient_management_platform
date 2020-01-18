@@ -65,10 +65,15 @@ const StyledInput = styled(InputBase)`
   }
 `;
 
-function Input({ placeholder, id, label }) {
+function Input({ placeholder, id, label, onChange, ...rest }) {
   return (
     <FormControl label={label} id={id}>
-      <StyledInput placeholder={placeholder} id={id} />
+      <StyledInput
+        placeholder={placeholder}
+        id={id}
+        onChange={onChange}
+        {...rest}
+      />
     </FormControl>
   );
 }
