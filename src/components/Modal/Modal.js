@@ -13,11 +13,11 @@ const ModalTemplate = withStyles({
   }
 })(Dialog);
 
-function Modal({ isOpen, handleClose, title }) {
+function Modal({ isOpen, handleClose, title, id }) {
   return (
     <ModalTemplate open={isOpen} onClose={handleClose}>
       <ModalHead title={title} onClose={handleClose} />
-      <ModalContent onClose={handleClose} />
+      <ModalContent onClose={handleClose} id={id} />
     </ModalTemplate>
   );
 }

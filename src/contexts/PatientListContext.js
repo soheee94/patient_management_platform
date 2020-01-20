@@ -1,7 +1,4 @@
-import createAsyncDispatcher, {
-  initialAsyncState,
-  createAsyncHandler
-} from "./asyncActionUtils";
+import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import React, { createContext, useReducer, useContext } from "react";
 import * as api from "./api";
 import { createHash } from "../common";
@@ -42,9 +39,7 @@ export function PateintsProvider({ children }) {
 
   return (
     <PatientStateContext.Provider value={state}>
-      <PatientDispatchContext.Provider value={dispatch}>
-        {children}
-      </PatientDispatchContext.Provider>
+      <PatientDispatchContext.Provider value={dispatch}>{children}</PatientDispatchContext.Provider>
     </PatientStateContext.Provider>
   );
 }
@@ -65,7 +60,4 @@ export function usePatientsDispatch() {
   return dispatch;
 }
 
-export const getPatients = createAsyncDispatcher(
-  "GET_PATIENTS",
-  api.getPatients
-);
+export const getPatients = createAsyncDispatcher("GET_PATIENTS", api.getPatients);

@@ -16,7 +16,7 @@ import {
 } from "../../contexts/PatientListContext";
 import { getBirthday } from "../../common";
 
-const Patient = React.memo(function Patient({ patient, setPatientId, dispatch }) {
+const Patient = React.memo(function Patient({ patient, setPatientId, dispatch, openModal }) {
   return (
     <ListItem onClick={() => setPatientId(patient.PATIENT_ID)} id={patient.PATIENT_ID}>
       <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
@@ -25,7 +25,7 @@ const Patient = React.memo(function Patient({ patient, setPatientId, dispatch })
       <ListItemCell>{getBirthday(patient.ID_NUMBER)}</ListItemCell>
       <ListItemCell>{patient.PATIENT_NUMBER}</ListItemCell>
       <ListItemCell>
-        <Button color="darkGray" onClick={() => console.log("환자 수정")}>
+        <Button color="darkGray" onClick={() => openModal("환자 수정", patient.PATIENT_ID)}>
           수정
         </Button>
         <Button
@@ -49,12 +49,7 @@ const Patient = React.memo(function Patient({ patient, setPatientId, dispatch })
   );
 });
 
-const Patients = React.memo(function PatientItems({
-  state,
-  dispatch,
-  setPatientId,
-  selectedPatientId
-}) {
+const Patients = React.memo(function PatientItems({ state, dispatch, setPatientId, openModal }) {
   const { data: patients, loading, error } = state;
   if (loading) return <div>로딩중</div>;
   if (error) return <div>불러오는 중에 에러가 발생하였습니다.</div>;
@@ -65,6 +60,7 @@ const Patients = React.memo(function PatientItems({
         patient={patient}
         dispatch={dispatch}
         setPatientId={setPatientId}
+        openModal={openModal}
       />
     ));
   }
@@ -77,10 +73,11 @@ function PatientList() {
     title: ""
   });
 
-  const openModal = useCallback(title => {
+  const openModal = useCallback((title, id) => {
     setModalOpen({
       isOpen: true,
-      title: title
+      title: title,
+      id: id
     });
   }, []);
 
@@ -88,7 +85,8 @@ function PatientList() {
     () =>
       setModalOpen({
         ...modalOpen,
-        isOpen: false
+        isOpen: false,
+        id: ""
       }),
     [modalOpen]
   );
@@ -108,7 +106,7 @@ function PatientList() {
       {/* 타이틀 */}
       <ListTitle>
         <Input type="text" placeholder="검색" id="list-header__search" />
-        <Button color="black" onClick={() => openModal("환자 추가")}>
+        <Button color="black" onClick={() => openModal("환자 추가", "")}>
           환자 추가
         </Button>
       </ListTitle>
@@ -124,9 +122,19 @@ function PatientList() {
           <ListItemCell head>환자 번호</ListItemCell>
           <ListItemCell head></ListItemCell>
         </ListItem>
-        <Patients dispatch={dispatch} setPatientId={setPatientId} state={patientsState} />
+        <Patients
+          dispatch={dispatch}
+          setPatientId={setPatientId}
+          state={patientsState}
+          openModal={openModal}
+        />
       </ListContent>
-      <Modal isOpen={modalOpen.isOpen} handleClose={closeModal} title={modalOpen.title} />
+      <Modal
+        isOpen={modalOpen.isOpen}
+        handleClose={closeModal}
+        title={modalOpen.title}
+        id={modalOpen.id}
+      />
     </>
   );
 }

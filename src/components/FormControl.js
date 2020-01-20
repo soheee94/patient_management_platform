@@ -16,7 +16,7 @@ const FormControlBlock = styled(MaterialFormControl)`
 
     /* focus */
     & label.Mui-focused {
-      color: ${props => props.theme.palette.pink};
+      color: ${props => props.theme.palette.black};
     }
 
     /* error */

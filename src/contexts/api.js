@@ -54,12 +54,12 @@ export async function DeleteWaitingPatient(QUEUE_ID) {
 export async function AddPatient(data) {
   let form = new FormData();
   form.append("PATIENT_ID", data.PATIENT_ID);
+  form.append("LAST_UPDATE", data.LAST_UPDATE);
   form.append("PATIENT_NUMBER", data.PATIENT_NUMBER);
   form.append("NAME", data.NAME);
   form.append("SEX", data.SEX);
   form.append("PHONE", data.PHONE);
-  form.append("BIRTHDAY", data.BIRTHDAY);
-  form.append("HOSPITAL_ID", data.HOSPITAL_ID);
+  form.append("ID_NUMBER", data.ID_NUMBER);
   form.append("ADMISSIVE_CH", data.ADMISSIVE_CH);
   const response = await axios.post("http://127.0.0.1/cordia/PostPatient.php", form);
   return response.data;

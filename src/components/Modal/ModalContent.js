@@ -7,6 +7,8 @@ import Input from "../Input";
 import Checkbox from "../Checkbox";
 import { usePatientsDispatch } from "../../contexts/PatientListContext";
 import { now } from "../../common";
+import { getPatient } from "../../contexts/api";
+import useAsync from "../../useAsync";
 
 const ModalContentBlock = withStyles({
   root: {
@@ -25,7 +27,7 @@ const ModalActionsBlock = withStyles({
   }
 })(DialogActions);
 
-function ModalContent({ onClose }) {
+function ModalContent({ onClose, id }) {
   const [checkboxState, setCheckboxState] = useState({
     nearby: false,
     online: false,
@@ -78,6 +80,10 @@ function ModalContent({ onClose }) {
 
   const { name, id_number, address, phone, number } = inputs;
 
+  if (id) {
+    // const [patient] = useAsync(getPatient(id), []);
+  }
+
   const onChange = e => {
     const { value, name } = e.target;
     setInputs({
@@ -92,7 +98,6 @@ function ModalContent({ onClose }) {
 
   const dispatch = usePatientsDispatch();
   const addPatient = e => {
-    console.log(checkboxState);
     e.preventDefault();
     if (
       Object.values(inputs).filter(function(input) {
@@ -109,7 +114,7 @@ function ModalContent({ onClose }) {
           SEX: parseInt(id_number.value.split("-")[1].slice(0, 1)) % 2 === 1 ? "남성" : "여성",
           PHONE: phone.value,
           ID_NUMBER: id_number.value,
-          ADMISSIVE_CH: "0/1/2/3/4",
+          ADMISSIVE_CH: Object.values(checkboxState),
           LAST_UPDATE: now()
         }
       });
