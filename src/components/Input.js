@@ -1,8 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import FormControl from "./FormControl";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles";
+import { FormHelperText } from "@material-ui/core";
 
 const StyledInput = styled(InputBase)`
   label + & {
@@ -27,6 +28,12 @@ const StyledInput = styled(InputBase)`
       border-color: ${props => props.theme.palette.darkGray};
       outline: 0;
     }
+
+    ${props =>
+      props.error &&
+      css`
+        border: 1px solid ${props => props.theme.palette.pink};
+      `};
   }
 
   /* Search Input Style */
@@ -35,10 +42,11 @@ const StyledInput = styled(InputBase)`
   }
 `;
 
-function Input({ placeholder, id, label, onChange, ...rest }) {
+function Input({ placeholder, id, label, onChange, error, ...rest }) {
   return (
-    <FormControl label={label} id={id}>
-      <StyledInput placeholder={placeholder} id={id} onChange={onChange} {...rest} />
+    <FormControl label={label} id={id} error={error}>
+      <StyledInput placeholder={placeholder} id={id} onChange={onChange} error={error} {...rest} />
+      <FormHelperText>정확하게 입력해주세요.</FormHelperText>
     </FormControl>
   );
 }

@@ -38,9 +38,9 @@ const StyledButton = styled.button`
   ${colorStyles}
 `;
 
-function Button({ children, color, onClick }) {
+function Button({ children, color, onClick, ...rest }) {
   return (
-    <StyledButton onClick={onClick} color={color}>
+    <StyledButton onClick={onClick} color={color} {...rest}>
       {children}
     </StyledButton>
   );

@@ -65,11 +65,15 @@ function ModalContent({ onClose }) {
   };
 
   const [inputs, setInputs] = useState({
-    name: "",
-    id_number: "",
-    address: "",
-    phone: "",
-    number: ""
+    name: { value: "", error: false, regex: "" },
+    id_number: {
+      value: "",
+      error: false,
+      regex: /(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-4]{1}[0-9]{6}\b/gi
+    },
+    address: { value: "", error: false, regex: "" },
+    phone: { value: "", error: false, regex: /\d{2,3}\d{3,4}\d{4}/gi },
+    number: { value: "", error: false, regex: "" }
   });
 
   const { name, id_number, address, phone, number } = inputs;
@@ -77,63 +81,90 @@ function ModalContent({ onClose }) {
   const onChange = e => {
     const { value, name } = e.target;
     setInputs({
-      ...inputs, // 기존의 input 객체를 복사한 뒤
-      [name]: value // name 키를 가진 값을 value 로 설정
+      ...inputs,
+      [name]: {
+        ...inputs[name],
+        value: value,
+        error: !value.match(inputs[name]["regex"]) || !(value.length > 1)
+      }
     });
   };
 
   const dispatch = usePatientsDispatch();
   const addPatient = e => {
+    console.log(checkboxState);
     e.preventDefault();
-    dispatch({
-      type: "ADD_PATIENT",
-      data: {
-        PATIENT_NUMBER: number,
-        NAME: name,
-        SEX: parseInt(id_number.split("-")[1].slice(0, 1)) % 2 === 1 ? "남성" : "여성",
-        PHONE: phone,
-        ID_NUMBER: id_number,
-        HOSPITAL_ID: "?",
-        ADMISSIVE_CH: "0/1/2/3/4",
-        LAST_UPDATE: now()
-      }
-    });
-    onClose();
+    if (
+      Object.values(inputs).filter(function(input) {
+        return input.error === true;
+      }).length > 0
+    ) {
+      alert("error!");
+    } else {
+      dispatch({
+        type: "ADD_PATIENT",
+        data: {
+          PATIENT_NUMBER: number.value,
+          NAME: name.value,
+          SEX: parseInt(id_number.value.split("-")[1].slice(0, 1)) % 2 === 1 ? "남성" : "여성",
+          PHONE: phone.value,
+          ID_NUMBER: id_number.value,
+          ADMISSIVE_CH: "0/1/2/3/4",
+          LAST_UPDATE: now()
+        }
+      });
+      onClose();
+    }
   };
 
   return (
     <ModalContentBlock>
       {/* onSubmit={} */}
-      <form autoComplete="off">
+      <form autoComplete="off" onSubmit={addPatient}>
         <Input
           label="이름"
           placeholder="이름을 입력하세요."
           name="name"
           onChange={onChange}
-          value={name}
+          value={name.value}
+          error={name.error}
+          required
         />
         <Input
           label="주민번호"
           placeholder="ex)123456-4567890"
           name="id_number"
           onChange={onChange}
-          value={id_number}
+          value={id_number.value}
+          error={id_number.error}
+          required
         />
         <Input
           label="주소"
           placeholder="주소를 입력하세요."
           name="address"
           onChange={onChange}
-          value={address}
+          value={address.value}
+          error={address.error}
+          required
         />
         <Input
           label="핸드폰번호"
           placeholder="ex)01012345678"
           onChange={onChange}
           name="phone"
-          value={phone}
+          value={phone.value}
+          error={phone.error}
+          required
         />
-        <Input label="환자번호(식별번호)" name="number" value={number} onChange={onChange} />
+        <Input
+          label="환자번호(식별번호)"
+          name="number"
+          value={number.value}
+          onChange={onChange}
+          error={number.error}
+          required
+        />
         <Checkbox
           label="내원경로"
           type="checkbox"
@@ -141,7 +172,7 @@ function ModalContent({ onClose }) {
           handleChange={handleChange}
         />
         <ModalActionsBlock>
-          <Button onClick={addPatient} color="black">
+          <Button color="black" type="submit">
             등록
           </Button>
         </ModalActionsBlock>

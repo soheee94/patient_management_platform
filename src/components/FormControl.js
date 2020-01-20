@@ -14,8 +14,20 @@ const FormControlBlock = styled(MaterialFormControl)`
         padding: 0;
       `}
 
+    /* focus */
     & label.Mui-focused {
       color: ${props => props.theme.palette.pink};
+    }
+
+    /* error */
+    & .MuiFormHelperText-root {
+      display: none;
+      font-family: "Noto Sans KR Regular";
+      ${props =>
+        props.error &&
+        css`
+          display: block;
+        `};
     }
   }
 `;
@@ -32,9 +44,9 @@ const FormLabel = styled(InputLabel)`
   }
 `;
 
-function FormControl({ children, label, id }) {
+function FormControl({ children, label, id, error }) {
   return (
-    <FormControlBlock label={label}>
+    <FormControlBlock label={label} error={error}>
       {label && (
         <FormLabel shrink htmlFor={id}>
           {label}
