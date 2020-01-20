@@ -6,6 +6,8 @@ import Button from "../Button";
 import Input from "../Input";
 import Checkbox from "../Checkbox";
 import { usePatientsDispatch } from "../../contexts/PatientListContext";
+import { now } from "../../common";
+
 const ModalContentBlock = withStyles({
   root: {
     width: "100%",
@@ -64,13 +66,13 @@ function ModalContent({ onClose }) {
 
   const [inputs, setInputs] = useState({
     name: "",
-    identification: "",
+    id_number: "",
     address: "",
     phone: "",
     number: ""
   });
 
-  const { name, identification, address, phone, number } = inputs;
+  const { name, id_number, address, phone, number } = inputs;
 
   const onChange = e => {
     const { value, name } = e.target;
@@ -88,14 +90,14 @@ function ModalContent({ onClose }) {
       data: {
         PATIENT_NUMBER: number,
         NAME: name,
-        SEX: "여성",
+        SEX: parseInt(id_number.split("-")[1].slice(0, 1)) % 2 === 1 ? "남성" : "여성",
         PHONE: phone,
-        BIRTHDAY: identification,
+        ID_NUMBER: id_number,
         HOSPITAL_ID: "?",
-        ADMISSIVE_CH: "0/1/2/3/4"
+        ADMISSIVE_CH: "0/1/2/3/4",
+        LAST_UPDATE: now()
       }
     });
-
     onClose();
   };
 
@@ -113,9 +115,9 @@ function ModalContent({ onClose }) {
         <Input
           label="주민번호"
           placeholder="ex)123456-4567890"
-          name="identification"
+          name="id_number"
           onChange={onChange}
-          value={identification}
+          value={id_number}
         />
         <Input
           label="주소"
@@ -131,12 +133,7 @@ function ModalContent({ onClose }) {
           name="phone"
           value={phone}
         />
-        <Input
-          label="환자번호(식별번호)"
-          name="number"
-          value={number}
-          onChange={onChange}
-        />
+        <Input label="환자번호(식별번호)" name="number" value={number} onChange={onChange} />
         <Checkbox
           label="내원경로"
           type="checkbox"

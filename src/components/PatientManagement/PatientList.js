@@ -8,30 +8,21 @@ import Button from "../Button";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import {
-  useWaitingPatientsDispatch,
-  usePatientId
-} from "../../contexts/PatientContext";
-
+import { useWaitingPatientsDispatch, usePatientId } from "../../contexts/PatientContext";
 import {
   usePatientsState,
   getPatients,
   usePatientsDispatch
 } from "../../contexts/PatientListContext";
+import { getBirthday } from "../../common";
 
-const Patient = React.memo(function Patient({
-  patient,
-  setPatientId,
-  dispatch
-}) {
+const Patient = React.memo(function Patient({ patient, setPatientId, dispatch }) {
   return (
-    <ListItem
-      onClick={() => setPatientId(patient.PATIENT_ID)}
-      id={patient.PATIENT_ID}
-    >
-      <ListItemCell>{patient.PHONE}</ListItemCell>
+    <ListItem onClick={() => setPatientId(patient.PATIENT_ID)} id={patient.PATIENT_ID}>
       <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
       <ListItemCell>{patient.NAME}</ListItemCell>
+      <ListItemCell>{patient.SEX}</ListItemCell>
+      <ListItemCell>{getBirthday(patient.ID_NUMBER)}</ListItemCell>
       <ListItemCell>{patient.PATIENT_NUMBER}</ListItemCell>
       <ListItemCell>
         <Button color="darkGray" onClick={() => console.log("환자 수정")}>
@@ -46,7 +37,7 @@ const Patient = React.memo(function Patient({
                 PATIENT_ID: patient.PATIENT_ID,
                 NAME: patient.NAME,
                 SEX: patient.SEX,
-                BIRTHDAY: patient.BIRTHDAY
+                ID_NUMBER: patient.ID_NUMBER
               }
             })
           }
@@ -125,25 +116,17 @@ function PatientList() {
       <ListContent>
         <ListItem head>
           <ListItemCell head onClick={() => setSortDown(!isSortDown)}>
-            <span>최근 측정 일자</span>{" "}
-            {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            <span>등록 일자</span> {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </ListItemCell>
-          <ListItemCell head>등록 일자</ListItemCell>
           <ListItemCell head>이름</ListItemCell>
+          <ListItemCell head>성별</ListItemCell>
+          <ListItemCell head>생년월일</ListItemCell>
           <ListItemCell head>환자 번호</ListItemCell>
           <ListItemCell head></ListItemCell>
         </ListItem>
-        <Patients
-          dispatch={dispatch}
-          setPatientId={setPatientId}
-          state={patientsState}
-        />
+        <Patients dispatch={dispatch} setPatientId={setPatientId} state={patientsState} />
       </ListContent>
-      <Modal
-        isOpen={modalOpen.isOpen}
-        handleClose={closeModal}
-        title={modalOpen.title}
-      />
+      <Modal isOpen={modalOpen.isOpen} handleClose={closeModal} title={modalOpen.title} />
     </>
   );
 }

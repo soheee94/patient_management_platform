@@ -3,36 +3,6 @@ import styled from "styled-components";
 import FormControl from "./FormControl";
 import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles";
-// import InputLabel from "@material-ui/core/InputLabel";
-
-// const FormControlBlock = styled(FormControl)`
-//   && {
-//     width: 100%;
-//     padding: 15px 15px 5px 15px;
-
-//     ${props =>
-//       !props.label &&
-//       css`
-//         padding: 0;
-//       `}
-
-//     & label.Mui-focused {
-//       color: ${props => props.theme.palette.pink};
-//     }
-//   }
-// `;
-
-// const FormLabel = styled(InputLabel)`
-//   && {
-//     color: ${props => props.theme.palette.black};
-//     font-family: "Noto Sans KR Regular";
-//     font-weight: bold;
-//     font-size: 15px;
-//     transform: none;
-//     top: 15px;
-//     left: 15px;
-//   }
-// `;
 
 const StyledInput = styled(InputBase)`
   label + & {
@@ -68,12 +38,7 @@ const StyledInput = styled(InputBase)`
 function Input({ placeholder, id, label, onChange, ...rest }) {
   return (
     <FormControl label={label} id={id}>
-      <StyledInput
-        placeholder={placeholder}
-        id={id}
-        onChange={onChange}
-        {...rest}
-      />
+      <StyledInput placeholder={placeholder} id={id} onChange={onChange} {...rest} />
     </FormControl>
   );
 }

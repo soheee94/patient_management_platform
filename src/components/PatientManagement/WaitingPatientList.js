@@ -4,7 +4,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import { calculateAge } from "../../common";
+import { calculateAge, getBirthday } from "../../common";
 import {
   useWaitingPatientsState,
   useWaitingPatientsDispatch,
@@ -17,12 +17,14 @@ const WaitingPatient = React.memo(function WaitingPatient({ waitingPatient, disp
       type: "DELETE_WAITING_PATIENT",
       id: waitingPatient.QUEUE_ID
     });
+  const birthday = getBirthday(waitingPatient.ID_NUMBER);
+
   return (
     <ListItem>
       <ListItemCell>{waitingPatient.NAME}</ListItemCell>
       <ListItemCell>{waitingPatient.SEX}</ListItemCell>
       <ListItemCell>
-        {waitingPatient.BIRTHDAY} (만 {calculateAge(waitingPatient.BIRTHDAY)}세)
+        {birthday} (만 {calculateAge(birthday)}세)
       </ListItemCell>
       <ListItemCell>
         <IconButton label="close" onClick={onDelete}>
