@@ -7,7 +7,7 @@ export async function getPatients() {
 
 // 선택 환자 정보 가져오기
 export async function getPatient(id) {
-  const response = await axios.get("http://127.0.0.1/cordia/GetPatients.php", {
+  const response = await axios.get("http://127.0.0.1/cordia/GetPatient.php", {
     params: {
       ID: id
     }
@@ -65,4 +65,23 @@ export async function AddPatient(data) {
   return response.data;
 }
 // 환자 수정
+export async function UpdatePatient(data) {
+  let form = new FormData();
+  form.append("PATIENT_ID", data.PATIENT_ID);
+  form.append("LAST_UPDATE", data.LAST_UPDATE);
+  form.append("PATIENT_NUMBER", data.PATIENT_NUMBER);
+  form.append("NAME", data.NAME);
+  form.append("SEX", data.SEX);
+  form.append("PHONE", data.PHONE);
+  form.append("ID_NUMBER", data.ID_NUMBER);
+  form.append("ADMISSIVE_CH", data.ADMISSIVE_CH);
+  const response = await axios.post("http://127.0.0.1/cordia/UpdatePatient.php", form);
+  return response.data;
+}
 // 환자 삭제
+export async function DeletePatient(id) {
+  let form = new FormData();
+  form.append("PATIENT_ID", id);
+  const response = await axios.post("http://127.0.0.1/cordia/DeletePatient.php", form);
+  return response.data;
+}

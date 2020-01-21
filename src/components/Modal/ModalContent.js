@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import { withStyles } from "@material-ui/core/styles";
@@ -79,10 +79,32 @@ function ModalContent({ onClose, id }) {
   });
 
   const { name, id_number, address, phone, number } = inputs;
-
-  if (id) {
-    // const [patient] = useAsync(getPatient(id), []);
-  }
+  // 렌더링 전
+  const [state] = useAsync(() => getPatient(id), [id]);
+  useEffect(() => {
+    const patient = state.data;
+    if (patient && patient.length > 0) {
+      setInputs({
+        name: { value: patient[0].NAME, error: false, regex: "" },
+        id_number: {
+          value: patient[0].ID_NUMBER,
+          error: false,
+          regex: /(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-4]{1}[0-9]{6}\b/gi
+        },
+        address: { value: "", error: false, regex: "" },
+        phone: { value: patient[0].PHONE, error: false, regex: /\d{2,3}\d{3,4}\d{4}/gi },
+        number: { value: patient[0].PATIENT_NUMBER, error: false, regex: "" }
+      });
+      const ADMISSIVE_CH = patient[0].ADMISSIVE_CH.split(",");
+      setCheckboxState({
+        nearby: ADMISSIVE_CH[0] === "true",
+        online: ADMISSIVE_CH[1] === "true",
+        offline: ADMISSIVE_CH[2] === "true",
+        introduction: ADMISSIVE_CH[3] === "true",
+        etc: ADMISSIVE_CH[4] === "true"
+      });
+    }
+  }, [id, state.data]);
 
   const onChange = e => {
     const { value, name } = e.target;
@@ -97,7 +119,7 @@ function ModalContent({ onClose, id }) {
   };
 
   const dispatch = usePatientsDispatch();
-  const addPatient = e => {
+  const submitPatient = e => {
     e.preventDefault();
     if (
       Object.values(inputs).filter(function(input) {
@@ -107,8 +129,9 @@ function ModalContent({ onClose, id }) {
       alert("error!");
     } else {
       dispatch({
-        type: "ADD_PATIENT",
+        type: id ? "UPDATE_PATIENT" : "ADD_PATIENT",
         data: {
+          PATIENT_ID: id,
           PATIENT_NUMBER: number.value,
           NAME: name.value,
           SEX: parseInt(id_number.value.split("-")[1].slice(0, 1)) % 2 === 1 ? "남성" : "여성",
@@ -122,10 +145,19 @@ function ModalContent({ onClose, id }) {
     }
   };
 
+  const deletePatient = e => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      dispatch({
+        type: "DELETE_PATIENT",
+        id: id
+      });
+      onClose();
+    }
+  };
   return (
     <ModalContentBlock>
       {/* onSubmit={} */}
-      <form autoComplete="off" onSubmit={addPatient}>
+      <form autoComplete="off" onSubmit={submitPatient}>
         <Input
           label="이름"
           placeholder="이름을 입력하세요."
@@ -179,6 +211,9 @@ function ModalContent({ onClose, id }) {
         <ModalActionsBlock>
           <Button color="black" type="submit">
             등록
+          </Button>
+          <Button color="pink" type="button" onClick={deletePatient}>
+            삭제
           </Button>
         </ModalActionsBlock>
       </form>

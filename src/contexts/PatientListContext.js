@@ -22,10 +22,21 @@ function patientsReducer(state, action) {
         ...state,
         data: state.data.concat(data)
       };
-    case "MODIFY_PATIENT":
-      return 0;
+    case "UPDATE_PATIENT":
+      console.log("UPDATE_PATIENT", api.UpdatePatient(action.data));
+      // get waiting patient
+      return {
+        ...state,
+        data: state.data.map(patient =>
+          patient.PATIENT_ID === action.data.PATIENT_ID ? action.data : patient
+        )
+      };
     case "DELETE_PATIENT":
-      return 0;
+      console.log("DELETE_PATIENT", api.DeletePatient(action.id));
+      return {
+        ...state,
+        data: state.data.filter(patient => patient.PATIENT_ID !== action.id)
+      };
     default:
       throw new Error(`Unhandled action type ${action.type}`);
   }
