@@ -9,6 +9,7 @@ import { usePatientsDispatch } from "../../contexts/PatientListContext";
 import { now } from "../../common";
 import { getPatient } from "../../contexts/api";
 import useAsync from "../../useAsync";
+import { useWaitingPatientsDispatch } from "../../contexts/PatientContext";
 
 const ModalContentBlock = withStyles({
   root: {
@@ -91,7 +92,7 @@ function ModalContent({ onClose, id }) {
           error: false,
           regex: /(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-4]{1}[0-9]{6}\b/gi
         },
-        address: { value: "", error: false, regex: "" },
+        address: { value: patient[0].ADDRESS, error: false, regex: "" },
         phone: { value: patient[0].PHONE, error: false, regex: /\d{2,3}\d{3,4}\d{4}/gi },
         number: { value: patient[0].PATIENT_NUMBER, error: false, regex: "" }
       });
@@ -119,6 +120,7 @@ function ModalContent({ onClose, id }) {
   };
 
   const dispatch = usePatientsDispatch();
+  const waitingPatientsDispatch = useWaitingPatientsDispatch();
   const submitPatient = e => {
     e.preventDefault();
     if (
@@ -138,9 +140,22 @@ function ModalContent({ onClose, id }) {
           PHONE: phone.value,
           ID_NUMBER: id_number.value,
           ADMISSIVE_CH: Object.values(checkboxState),
-          LAST_UPDATE: now()
+          LAST_UPDATE: now(),
+          ADDRESS: address.value
         }
       });
+
+      if (id) {
+        waitingPatientsDispatch({
+          type: "UPDATE_WAITING_PATIENT_FOR_LIST",
+          data: {
+            PATIENT_ID: id,
+            NAME: name.value,
+            SEX: parseInt(id_number.value.split("-")[1].slice(0, 1)) % 2 === 1 ? "남성" : "여성",
+            ID_NUMBER: id_number.value
+          }
+        });
+      }
       onClose();
     }
   };
@@ -151,6 +166,11 @@ function ModalContent({ onClose, id }) {
         type: "DELETE_PATIENT",
         id: id
       });
+      waitingPatientsDispatch({
+        type: "DELETE_WAITING_PATIENT_FOR_LIST",
+        id: id
+      });
+
       onClose();
     }
   };
@@ -212,9 +232,11 @@ function ModalContent({ onClose, id }) {
           <Button color="black" type="submit">
             등록
           </Button>
-          <Button color="pink" type="button" onClick={deletePatient}>
-            삭제
-          </Button>
+          {id && (
+            <Button color="pink" type="button" onClick={deletePatient}>
+              삭제
+            </Button>
+          )}
         </ModalActionsBlock>
       </form>
     </ModalContentBlock>

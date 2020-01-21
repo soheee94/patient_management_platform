@@ -49,7 +49,6 @@ export async function DeleteWaitingPatient(QUEUE_ID) {
   return response.data;
 }
 
-// TODO
 // 환자 추가
 export async function AddPatient(data) {
   let form = new FormData();
@@ -61,6 +60,7 @@ export async function AddPatient(data) {
   form.append("PHONE", data.PHONE);
   form.append("ID_NUMBER", data.ID_NUMBER);
   form.append("ADMISSIVE_CH", data.ADMISSIVE_CH);
+  form.append("ADDRESS", data.ADDRESS);
   const response = await axios.post("http://127.0.0.1/cordia/PostPatient.php", form);
   return response.data;
 }
@@ -75,6 +75,7 @@ export async function UpdatePatient(data) {
   form.append("PHONE", data.PHONE);
   form.append("ID_NUMBER", data.ID_NUMBER);
   form.append("ADMISSIVE_CH", data.ADMISSIVE_CH);
+  form.append("ADDRESS", data.ADDRESS);
   const response = await axios.post("http://127.0.0.1/cordia/UpdatePatient.php", form);
   return response.data;
 }

@@ -1,8 +1,5 @@
 import React, { createContext, useReducer, useContext, useState } from "react";
-import createAsyncDispatcher, {
-  initialAsyncState,
-  createAsyncHandler
-} from "./asyncActionUtils";
+import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import * as api from "./api";
 import { createHash } from "../common";
 
@@ -40,13 +37,31 @@ function patientsReducer(state, action) {
       };
 
     case "DELETE_WAITING_PATIENT":
-      console.log(
-        "DELETE_WAITING_PATIENT",
-        api.DeleteWaitingPatient(action.id)
-      );
+      console.log("DELETE_WAITING_PATIENT", api.DeleteWaitingPatient(action.id));
       return {
         ...state,
         data: state.data.filter(data => data.QUEUE_ID !== action.id)
+      };
+    case "DELETE_WAITING_PATIENT_FOR_LIST":
+      console.log("DELETE_WAITING_PATIENT_FOR_LIST");
+      return {
+        ...state,
+        data: state.data.filter(data => data.PATIENT_ID !== action.id)
+      };
+    case "UPDATE_WAITING_PATIENT_FOR_LIST":
+      console.log("UPDATE_WAITING_PATIENT_FOR_LIST");
+      return {
+        ...state,
+        data: state.data.map(patient =>
+          patient.PATIENT_ID === action.data.PATIENT_ID
+            ? {
+                ...patient,
+                NAME: action.data.NAME,
+                ID_NUMBER: action.data.ID_NUMBER,
+                SEX: action.data.SEX
+              }
+            : patient
+        )
       };
     default:
       throw new Error(`Unhandled action type : ${action.type}`);
