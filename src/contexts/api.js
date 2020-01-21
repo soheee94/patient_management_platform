@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // 전체 환자 가져오기
 export async function getPatients() {
   const response = await axios.get("http://127.0.0.1/cordia/GetPatients.php");
@@ -25,6 +26,12 @@ export async function getPatientMeasurementList(id) {
   return response.data;
 }
 
+// 측정 환자 가져오기
+export async function getMeasurePatient() {
+  const response = await axios.get("http://127.0.0.1/cordia/GetMeasurePatient.php");
+  return response.data;
+}
+
 // 대기 환자 리스트 가져오기
 export async function getWaitingPatients() {
   const response = await axios.get("http://127.0.0.1/cordia/GetWaitingPatientList.php");
@@ -37,7 +44,7 @@ export async function PostWaitingPatient(data) {
   form.append("QUEUE_ID", data.QUEUE_ID);
   form.append("PATIENT_ID", data.PATIENT_ID);
   form.append("PRIORITY", data.PRIORITY);
-  const response = await axios.post("http://127.0.0.1/cordia/PostWaitingPatient.php", form);
+  const response = await axios.post("http://127.0.0.1/cordia/AddWaitingPatient.php", form);
   return response.data;
 }
 
@@ -61,7 +68,7 @@ export async function AddPatient(data) {
   form.append("ID_NUMBER", data.ID_NUMBER);
   form.append("ADMISSIVE_CH", data.ADMISSIVE_CH);
   form.append("ADDRESS", data.ADDRESS);
-  const response = await axios.post("http://127.0.0.1/cordia/PostPatient.php", form);
+  const response = await axios.post("http://127.0.0.1/cordia/AddPatient.php", form);
   return response.data;
 }
 // 환자 수정

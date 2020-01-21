@@ -1,25 +1,41 @@
 import React from "react";
-import IconButton from "../IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
+import useAsync from "../../useAsync";
+import { getMeasurePatient } from "../../contexts/api";
+import styled from "styled-components";
+import { getBirthday, calculateAge } from "../../common";
+
+const NoMeasurePatient = styled.div`
+  display: flex;
+  text-align: center;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+`;
 
 function MeasurePatientList() {
-  return (
-    <ListContent>
+  const [state, refetch] = useAsync(() => getMeasurePatient(), []);
+  const { loading, data: patient, error } = state;
+  const renderPatient = () => {
+    if (error) return <div>에러가 발생했습니다</div>;
+    if (loading || !patient || patient.length === 0)
+      return <NoMeasurePatient>측정 중인 환자가 없습니다</NoMeasurePatient>;
+    const birthday = getBirthday(patient[0].ID_NUMBER);
+    return (
       <ListItem>
-        <ListItemCell>대기 번호</ListItemCell>
-        <ListItemCell>이름</ListItemCell>
-        <ListItemCell>환자 번호</ListItemCell>
+        <ListItemCell>{patient[0].NAME}</ListItemCell>
+        <ListItemCell>{patient[0].SEX}</ListItemCell>
         <ListItemCell>
-          <IconButton label="close" onClick={() => console.log("close")}>
-            <CloseIcon />
-          </IconButton>
+          {birthday} (만 {calculateAge(birthday)}세)
         </ListItemCell>
+        <ListItemCell></ListItemCell>
       </ListItem>
-    </ListContent>
-  );
+    );
+  };
+
+  return <ListContent>{renderPatient()}</ListContent>;
 }
 
 export default MeasurePatientList;
