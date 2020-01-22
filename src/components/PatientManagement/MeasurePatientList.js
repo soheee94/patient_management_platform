@@ -2,10 +2,9 @@ import React from "react";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import useAsync from "../../useAsync";
-import { getMeasurePatient } from "../../contexts/api";
 import styled from "styled-components";
 import { getBirthday, calculateAge } from "../../common";
+import axios from "axios";
 
 const NoMeasurePatient = styled.div`
   display: flex;
@@ -15,12 +14,47 @@ const NoMeasurePatient = styled.div`
   justify-content: center;
 `;
 
-function MeasurePatientList() {
-  const [state, refetch] = useAsync(() => getMeasurePatient(), []);
-  const { loading, data: patient, error } = state;
-  const renderPatient = () => {
+class MeasurePatientList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [],
+      error: false
+    };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { data: patient, error } = this.state;
+    if (patient.length > 0 && nextState.data.length > 0) {
+      if (patient[0].QUEUE_ID !== nextState.data[0].QUEUE_ID) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (patient.length === 0 && nextState.data.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  componentDidMount() {
+    setInterval(() => {
+      axios
+        .get("http://127.0.0.1/cordia/GetMeasurePatient.php")
+        .then(response => {
+          this.setState({ ...this.state, data: response.data });
+        })
+        .catch(error => {
+          this.setState({ ...this.state, error: error });
+        });
+    }, 1000);
+  }
+
+  renderPatient = () => {
+    const { data: patient, error } = this.state;
     if (error) return <div>에러가 발생했습니다</div>;
-    if (loading || !patient || patient.length === 0)
+    if (!patient || patient.length === 0)
       return <NoMeasurePatient>측정 중인 환자가 없습니다</NoMeasurePatient>;
     const birthday = getBirthday(patient[0].ID_NUMBER);
     return (
@@ -35,7 +69,9 @@ function MeasurePatientList() {
     );
   };
 
-  return <ListContent>{renderPatient()}</ListContent>;
+  render() {
+    return <ListContent>{this.renderPatient()}</ListContent>;
+  }
 }
 
-export default MeasurePatientList;
+export default React.memo(MeasurePatientList);
