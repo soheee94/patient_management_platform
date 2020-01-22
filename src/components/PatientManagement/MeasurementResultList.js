@@ -79,6 +79,25 @@ const MeausrementResult = styled.div`
 `;
 
 const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
+  const calculateCupSize = abs => {
+    if (abs <= 7.5) {
+      return "AA";
+    } else if (7.5 < abs && abs <= 10) {
+      return "A";
+    } else if (10 < abs && abs <= 12.5) {
+      return "B";
+    } else if (12.5 < abs && abs <= 15) {
+      return "C";
+    } else if (15 < abs && abs <= 17.5) {
+      return "D";
+    } else if (17.5 < abs && abs <= 20) {
+      return "E";
+    } else if (20 < abs && abs <= 22.5) {
+      return "F";
+    } else if (22.5 < abs) {
+      return "G";
+    }
+  };
   const [state] = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
   if (error) return <div>에러가 발생했습니다</div>;
@@ -97,7 +116,14 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }
               <div>
                 <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
                 <span className="cup-size">컵사이즈</span>
-                <span className="cup-size--detail">D</span>
+                <span className="cup-size--detail">
+                  {calculateCupSize(
+                    Math.abs(
+                      parseInt(measurementResult.BUST_SIZE) -
+                        parseInt(measurementResult.BOTTOM_BUST_SIZE)
+                    )
+                  )}
+                </span>
                 <span className="cup-size">cup</span>
               </div>
               <MeausrementResult>
