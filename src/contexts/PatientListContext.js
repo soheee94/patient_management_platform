@@ -47,6 +47,20 @@ function patientsReducer(state, action) {
             getBirthday(patient.ID_NUMBER).search(action.search) >= 0
         )
       };
+    case "ORDER_BY_DATE_AESC":
+      return {
+        ...state,
+        data: state.data.sort(function(a, b) {
+          return new Date(b.LAST_UPDATE) - new Date(a.LAST_UPDATE);
+        })
+      };
+    case "ORDER_BY_DATE_DESC":
+      return {
+        ...state,
+        data: state.data.sort(function(a, b) {
+          return new Date(a.LAST_UPDATE) - new Date(b.LAST_UPDATE);
+        })
+      };
     default:
       throw new Error(`Unhandled action type ${action.type}`);
   }

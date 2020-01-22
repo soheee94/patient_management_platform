@@ -17,7 +17,6 @@ import {
 import { getBirthday } from "../../common";
 
 const Patient = React.memo(function Patient({ patient, dispatch, openModal, onClick, activeItem }) {
-  // onClick={() => setPatientId(patient.PATIENT_ID)}
   return (
     <ListItem
       id={patient.PATIENT_ID}
@@ -91,6 +90,12 @@ const Patients = React.memo(function PatientItems({ state, dispatch, setPatientI
 
 function PatientList() {
   const [isSortDown, setSortDown] = useState(false);
+  const ordering = () => {
+    setSortDown(!isSortDown);
+    patientsDispatch({
+      type: isSortDown ? "ORDER_BY_DATE_AESC" : "ORDER_BY_DATE_DESC"
+    });
+  };
   const [modalOpen, setModalOpen] = useState({
     isOpen: false,
     title: ""
@@ -144,7 +149,7 @@ function PatientList() {
       {/* 컨텐츠 리스트 */}
       <ListContent>
         <ListItem head>
-          <ListItemCell head onClick={() => setSortDown(!isSortDown)}>
+          <ListItemCell head onClick={ordering}>
             <span>등록 일자</span> {isSortDown ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
           </ListItemCell>
           <ListItemCell head>이름</ListItemCell>

@@ -144,6 +144,9 @@ function ModalContent({ onClose, id }) {
           ADDRESS: address.value
         }
       });
+      dispatch({
+        type: "ORDER_BY_DATE_AESC"
+      });
 
       if (id) {
         waitingPatientsDispatch({
