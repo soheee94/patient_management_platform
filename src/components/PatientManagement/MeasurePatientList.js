@@ -24,20 +24,31 @@ class MeasurePatientList extends React.Component {
     };
   }
 
+  // 업데이트 전 확인
   shouldComponentUpdate(nextProps, nextState) {
     const { data: patient, error } = this.state;
+    // 이전과 현재 둘 다 데이터가 있고
     if (patient.length > 0 && nextState.data.length > 0) {
+      // QUEUE_ID 가 다를 때 (새로운 환자 일 경우) 업데이트
       if (patient[0].QUEUE_ID !== nextState.data[0].QUEUE_ID) {
         return true;
-      } else {
+      }
+      // 같은 환자 일 때 업데이트 X
+      else {
         return false;
       }
-    } else if (patient.length === 0 && nextState.data.length === 0) {
+    }
+    // 이전과 현재 둘 다 측정환자가 없을 때 업데이트 X
+    else if (patient.length === 0 && nextState.data.length === 0) {
       return false;
-    } else {
+    }
+    // 이외 업데이트 (에러 확인)
+    else {
       return true;
     }
   }
+
+  // 렌더링 후 setInterval 설정
   componentDidMount() {
     setInterval(() => {
       axios
