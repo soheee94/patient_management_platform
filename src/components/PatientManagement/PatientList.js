@@ -16,9 +16,14 @@ import {
 } from "../../contexts/PatientListContext";
 import { getBirthday } from "../../common";
 
-const Patient = React.memo(function Patient({ patient, setPatientId, dispatch, openModal }) {
+const Patient = React.memo(function Patient({ patient, dispatch, openModal, onClick, activeItem }) {
+  // onClick={() => setPatientId(patient.PATIENT_ID)}
   return (
-    <ListItem onClick={() => setPatientId(patient.PATIENT_ID)} id={patient.PATIENT_ID}>
+    <ListItem
+      id={patient.PATIENT_ID}
+      onClick={() => onClick(patient.PATIENT_ID)}
+      className={activeItem === patient.PATIENT_ID && "active"}
+    >
       <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
       <ListItemCell>{patient.NAME}</ListItemCell>
       <ListItemCell>{patient.SEX}</ListItemCell>
@@ -51,6 +56,11 @@ const Patient = React.memo(function Patient({ patient, setPatientId, dispatch, o
 
 const Patients = React.memo(function PatientItems({ state, dispatch, setPatientId, openModal }) {
   const { data: patients, loading, error, filteredData } = state;
+  const [activeItem, setActiveItem] = useState("");
+  const onClick = id => {
+    setPatientId(id);
+    setActiveItem(id);
+  };
   if (loading) return <div>로딩중</div>;
   if (error) return <div>불러오는 중에 에러가 발생하였습니다.</div>;
   if (filteredData) {
@@ -59,8 +69,9 @@ const Patients = React.memo(function PatientItems({ state, dispatch, setPatientI
         key={patient.PATIENT_ID}
         patient={patient}
         dispatch={dispatch}
-        setPatientId={setPatientId}
         openModal={openModal}
+        onClick={onClick}
+        activeItem={activeItem}
       />
     ));
   }
@@ -70,8 +81,9 @@ const Patients = React.memo(function PatientItems({ state, dispatch, setPatientI
         key={patient.PATIENT_ID}
         patient={patient}
         dispatch={dispatch}
-        setPatientId={setPatientId}
         openModal={openModal}
+        onClick={onClick}
+        activeItem={activeItem}
       />
     ));
   }

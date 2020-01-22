@@ -34,6 +34,11 @@ const ListItemBlock = styled.div`
 
   /* 테이블 로우 스타일 */
   ${rowStyle}
+
+  /* 아이템 선택 시 */
+  &.active{
+    background-color: ${props => props.theme.palette.lightGray};
+  }
 `;
 
 function ListItem({ children, head, onClick, ...rest }) {

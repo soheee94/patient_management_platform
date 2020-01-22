@@ -37,7 +37,6 @@ function patientsReducer(state, action) {
         data: state.data.filter(patient => patient.PATIENT_ID !== action.id)
       };
     case "SEARCH_PATIENT":
-      //search
       return {
         ...state,
         filteredData: state.data.filter(
