@@ -1,7 +1,7 @@
 import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import React, { createContext, useReducer, useContext } from "react";
 import * as api from "./api";
-import { createHash } from "../common";
+import { createHash, getBirthday } from "../common";
 
 const patientsState = initialAsyncState;
 const patientsHandler = createAsyncHandler("GET_PATIENTS");
@@ -24,7 +24,6 @@ function patientsReducer(state, action) {
       };
     case "UPDATE_PATIENT":
       console.log("UPDATE_PATIENT", api.UpdatePatient(action.data));
-      // get waiting patient
       return {
         ...state,
         data: state.data.map(patient =>
@@ -36,6 +35,18 @@ function patientsReducer(state, action) {
       return {
         ...state,
         data: state.data.filter(patient => patient.PATIENT_ID !== action.id)
+      };
+    case "SEARCH_PATIENT":
+      //search
+      return {
+        ...state,
+        filteredData: state.data.filter(
+          patient =>
+            patient.NAME.search(action.search) >= 0 ||
+            patient.SEX.search(action.search) >= 0 ||
+            patient.PATIENT_NUMBER.search(action.search) >= 0 ||
+            getBirthday(patient.ID_NUMBER).search(action.search) >= 0
+        )
       };
     default:
       throw new Error(`Unhandled action type ${action.type}`);

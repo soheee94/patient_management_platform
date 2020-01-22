@@ -50,9 +50,20 @@ const Patient = React.memo(function Patient({ patient, setPatientId, dispatch, o
 });
 
 const Patients = React.memo(function PatientItems({ state, dispatch, setPatientId, openModal }) {
-  const { data: patients, loading, error } = state;
+  const { data: patients, loading, error, filteredData } = state;
   if (loading) return <div>로딩중</div>;
   if (error) return <div>불러오는 중에 에러가 발생하였습니다.</div>;
+  if (filteredData) {
+    return filteredData.map(patient => (
+      <Patient
+        key={patient.PATIENT_ID}
+        patient={patient}
+        dispatch={dispatch}
+        setPatientId={setPatientId}
+        openModal={openModal}
+      />
+    ));
+  }
   if (patients) {
     return patients.map(patient => (
       <Patient
@@ -96,7 +107,15 @@ function PatientList() {
   const dispatch = useWaitingPatientsDispatch();
   const patientsState = usePatientsState();
   const patientsDispatch = usePatientsDispatch();
-
+  const search = useCallback(
+    e => {
+      patientsDispatch({
+        type: "SEARCH_PATIENT",
+        search: e.target.value
+      });
+    },
+    [patientsDispatch]
+  );
   useEffect(() => {
     getPatients(patientsDispatch);
   }, [patientsDispatch]);
@@ -105,7 +124,7 @@ function PatientList() {
     <>
       {/* 타이틀 */}
       <ListTitle>
-        <Input type="text" placeholder="검색" id="list-header__search" />
+        <Input type="text" placeholder="검색" id="list-header__search" onChange={search} />
         <Button color="black" onClick={() => openModal("환자 추가", "")}>
           환자 추가
         </Button>

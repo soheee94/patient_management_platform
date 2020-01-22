@@ -28,7 +28,7 @@ function ListContainer() {
   return (
     <Container container>
       {/* 측정 환자 리스트 */}
-      <Grid item xs={3}>
+      <Grid item lg={3} xs={12}>
         <ListTitle>
           <span>현재 측정 환자</span>
         </ListTitle>
@@ -39,13 +39,13 @@ function ListContainer() {
         <WaitingPatientList />
       </Grid>
       {/* 환자 리스트 */}
-      <PatientListContainer item xs={6}>
+      <PatientListContainer item lg={6} xs={12}>
         <PateintsProvider>
           <PatientList />
         </PateintsProvider>
       </PatientListContainer>
       {/* 환자 측정 결과 리스트 */}
-      <Grid item xs={3}>
+      <Grid item lg={3} xs={12}>
         <ListTitle style={{ justifyContent: "flex-end" }}>
           <Button color="pink">측정 결과</Button>
         </ListTitle>
