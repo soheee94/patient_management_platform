@@ -26,7 +26,7 @@ class MeasurePatientList extends React.Component {
 
   // 업데이트 전 확인
   shouldComponentUpdate(nextProps, nextState) {
-    const { data: patient, error } = this.state;
+    const { data: patient } = this.state;
     // 이전과 현재 둘 다 데이터가 있고
     if (patient.length > 0 && nextState.data.length > 0) {
       // QUEUE_ID 가 다를 때 (새로운 환자 일 경우) 업데이트

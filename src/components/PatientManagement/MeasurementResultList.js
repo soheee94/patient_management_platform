@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logo_big from "../../assets/logo_big.png";
-import { PatientIdContext } from "../../contexts/PatientContext";
+import { PatientIdContext } from "../../contexts/WaitingPatientsContext";
 import ListContent from "./ListContent";
 import useAsync from "../../useAsync";
 import { getPatientMeasurementList } from "../../contexts/api";

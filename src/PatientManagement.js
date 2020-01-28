@@ -3,7 +3,7 @@ import Nav from "./components/PatientManagement/Nav";
 import Container from "./components/PatientManagement/Container";
 import Tutorial from "./components/PatientManagement/Tutorial";
 import Footer from "./components/PatientManagement/Footer";
-import { WaitingPatientsProvider } from "./contexts/PatientContext";
+
 function PatientManagement() {
   const [isTutorialOpen, setTutorialOpen] = useState(false);
   const onTutorialOpen = () => setTutorialOpen(true);
@@ -11,9 +11,7 @@ function PatientManagement() {
   return (
     <>
       <Nav onTutorialOpen={onTutorialOpen} />
-      <WaitingPatientsProvider>
-        <Container />
-      </WaitingPatientsProvider>
+      <Container />
       <Footer />
       {isTutorialOpen && <Tutorial onClose={onTutorialClose} />}
     </>

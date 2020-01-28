@@ -9,7 +9,7 @@ import {
   useWaitingPatientsState,
   useWaitingPatientsDispatch,
   getWaitingPatients
-} from "../../contexts/PatientContext";
+} from "../../contexts/WaitingPatientsContext";
 
 const WaitingPatient = React.memo(function WaitingPatient({ waitingPatient, dispatch }) {
   const onDelete = () =>

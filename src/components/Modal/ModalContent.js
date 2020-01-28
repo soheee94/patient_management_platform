@@ -9,7 +9,7 @@ import { usePatientsDispatch } from "../../contexts/PatientListContext";
 import { now } from "../../common";
 import { getPatient } from "../../contexts/api";
 import useAsync from "../../useAsync";
-import { useWaitingPatientsDispatch } from "../../contexts/PatientContext";
+import { useWaitingPatientsDispatch } from "../../contexts/WaitingPatientsContext";
 
 const ModalContentBlock = withStyles({
   root: {

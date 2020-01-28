@@ -37,9 +37,11 @@ const StyledInput = styled(InputBase)`
   }
 
   /* Search Input Style */
-  & #list-header__search {
-    width: 250px;
-  }
+  ${props =>
+    props.id === "list-header__search" &&
+    css`
+      width: 250px;
+    `};
 `;
 
 function Input({ placeholder, id, label, onChange, error, ...rest }) {

@@ -8,7 +8,7 @@ import Button from "../Button";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import { useWaitingPatientsDispatch, usePatientId } from "../../contexts/PatientContext";
+import { useWaitingPatientsDispatch, usePatientId } from "../../contexts/WaitingPatientsContext";
 import {
   usePatientsState,
   getPatients,
@@ -62,20 +62,8 @@ const Patients = React.memo(function PatientItems({ state, dispatch, setPatientI
   };
   if (loading) return <div>로딩중</div>;
   if (error) return <div>불러오는 중에 에러가 발생하였습니다.</div>;
-  if (filteredData) {
-    return filteredData.map(patient => (
-      <Patient
-        key={patient.PATIENT_ID}
-        patient={patient}
-        dispatch={dispatch}
-        openModal={openModal}
-        onClick={onClick}
-        activeItem={activeItem}
-      />
-    ));
-  }
-  if (patients) {
-    return patients.map(patient => (
+  if (filteredData || patients) {
+    return (filteredData ? filteredData : patients).map(patient => (
       <Patient
         key={patient.PATIENT_ID}
         patient={patient}

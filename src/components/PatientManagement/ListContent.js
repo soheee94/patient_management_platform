@@ -22,4 +22,4 @@ function ListContent({ children, ...rest }) {
   );
 }
 
-export default ListContent;
+export default React.memo(ListContent);
