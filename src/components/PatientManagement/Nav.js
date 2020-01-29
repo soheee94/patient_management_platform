@@ -89,15 +89,16 @@ const DropDownItems = styled.div`
 
 function Nav({ onTutorialOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const onClick = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
   return (
     <>
       <NavBlock>
         <img src={logo} alt="logo" />
         <NavRightMenu>
           <DropDown open={isDropdownOpen}>
-            <DropDownText onClick={() => setDropdownOpen(!isDropdownOpen)}>
-              바른손성형외과
-            </DropDownText>
+            <DropDownText onClick={onClick}>바른손성형외과</DropDownText>
             <DropDownItems>
               <div>병원정보</div>
               <div>로그아웃</div>

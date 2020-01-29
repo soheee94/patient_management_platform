@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logo_big from "../../assets/logo_big.png";
-import { PatientIdContext } from "../../contexts/WaitingPatientsContext";
+import { PatientIdContext } from "../../contexts/PatientContext";
 import ListContent from "./ListContent";
 import useAsync from "../../useAsync";
 import { getPatientMeasurementList } from "../../contexts/api";
@@ -101,15 +101,21 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }
   const [state] = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
   if (error) return <div>에러가 발생했습니다</div>;
-  if (loading || !measurementResults || measurementResults.length === 0)
-    return (
-      <ListBackground>
-        <img src={logo_big} alt="배경 로고" />
-      </ListBackground>
-    );
-  if (measurementResults)
-    return (
-      <>
+  // if (loading || !measurementResults || measurementResults.length === 0)
+  //   return (
+  //     <ListBackground>
+  //       <img src={logo_big} alt="배경 로고" />
+  //     </ListBackground>
+  //   );
+  // if (measurementResults)
+  return (
+    <>
+      {(loading || !measurementResults || measurementResults.length === 0) && (
+        <ListBackground>
+          <img src={logo_big} alt="배경 로고" />
+        </ListBackground>
+      )}
+      {measurementResults && (
         <ListContent>
           {measurementResults.map(measurementResult => (
             <MeasurementResultBox key={measurementResult.MEASURE_ID}>
@@ -157,23 +163,16 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }
             </MeasurementResultBox>
           ))}
         </ListContent>
-      </>
-    );
+      )}
+    </>
+  );
 });
 
 function MeasurementResultList() {
   return (
     <>
       <PatientIdContext.Consumer>
-        {value =>
-          value.patientId ? (
-            <MeasurementResultItems id={value.patientId} />
-          ) : (
-            <ListBackground>
-              <img src={logo_big} alt="배경 로고" />
-            </ListBackground>
-          )
-        }
+        {value => <MeasurementResultItems id={value.patientId} />}
       </PatientIdContext.Consumer>
     </>
   );

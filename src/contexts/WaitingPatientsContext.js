@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext, useState } from "react";
+import React, { createContext, useReducer, useContext } from "react";
 import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
 import * as api from "./api";
 import { createHash } from "../common";
@@ -72,19 +72,17 @@ function patientsReducer(state, action) {
 const WaitingPatientsStateContext = createContext(null);
 const WaitingPatientsDispatchContext = createContext(null);
 // 환자 선택 ID Context
-export const PatientIdContext = createContext(null);
+// export const PatientIdContext = createContext(null);
 
 // Context 감싸는 Provider 컴포넌트
 export function WaitingPatientsProvider({ children }) {
   const [state, dispatch] = useReducer(patientsReducer, waitingPatientsState);
-  const [patientId, setPatientId] = useState("");
+  // const [patientId, setPatientId] = useState("");
 
   return (
     <WaitingPatientsStateContext.Provider value={state}>
       <WaitingPatientsDispatchContext.Provider value={dispatch}>
-        <PatientIdContext.Provider value={{ patientId, setPatientId }}>
-          {children}
-        </PatientIdContext.Provider>
+        {children}
       </WaitingPatientsDispatchContext.Provider>
     </WaitingPatientsStateContext.Provider>
   );
@@ -108,13 +106,13 @@ export function useWaitingPatientsDispatch() {
   return dispatch;
 }
 // 선택 환자 ID 조회
-export function usePatientId() {
-  const patientId = useContext(PatientIdContext);
-  if (!patientId) {
-    throw new Error("Can not find WaitingPatientsProvider");
-  }
-  return patientId;
-}
+// export function usePatientId() {
+//   const patientId = useContext(PatientIdContext);
+//   if (!patientId) {
+//     throw new Error("Can not find WaitingPatientsProvider");
+//   }
+//   return patientId;
+// }
 
 export const getWaitingPatients = createAsyncDispatcher(
   "GET_WAITING_PATIENTS",

@@ -8,7 +8,8 @@ import Button from "../Button";
 import ListContent from "./ListContent";
 import ListItem from "./ListItem";
 import ListItemCell from "./ListItemCell";
-import { useWaitingPatientsDispatch, usePatientId } from "../../contexts/WaitingPatientsContext";
+import { useWaitingPatientsDispatch } from "../../contexts/WaitingPatientsContext";
+import { usePatientId } from "../../contexts/PatientContext";
 import {
   usePatientsState,
   getPatients,

@@ -9,6 +9,7 @@ import ListTitle from "./ListTitle";
 import Button from "../Button";
 import { PateintsProvider } from "../../contexts/PatientListContext";
 import { WaitingPatientsProvider } from "../../contexts/WaitingPatientsContext";
+import { PatientIdProvider } from "../../contexts/PatientContext";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -41,18 +42,20 @@ function ListContainer() {
           <WaitingPatientList />
         </Grid>
         {/* 환자 리스트 */}
-        <PatientListContainer item lg={6} xs={12}>
-          <PateintsProvider>
-            <PatientList />
-          </PateintsProvider>
-        </PatientListContainer>
-        {/* 환자 측정 결과 리스트 */}
-        <Grid item lg={3} xs={12}>
-          <ListTitle style={{ justifyContent: "flex-end" }}>
-            <Button color="pink">측정 결과</Button>
-          </ListTitle>
-          <MeasurementResultList />
-        </Grid>
+        <PatientIdProvider>
+          <PatientListContainer item lg={6} xs={12}>
+            <PateintsProvider>
+              <PatientList />
+            </PateintsProvider>
+          </PatientListContainer>
+          {/* 환자 측정 결과 리스트 */}
+          <Grid item lg={3} xs={12}>
+            <ListTitle style={{ justifyContent: "flex-end" }}>
+              <Button color="pink">측정 결과</Button>
+            </ListTitle>
+            <MeasurementResultList />
+          </Grid>
+        </PatientIdProvider>
       </WaitingPatientsProvider>
     </Container>
   );
