@@ -17,12 +17,13 @@ import {
 } from "../../../contexts/PatientManagement/PatientListContext";
 import { getBirthday } from "../../../common";
 
-const Patient = React.memo(function Patient({ patient, dispatch, openModal, onClick, activeItem }) {
+const Patient = React.memo(function Patient({ patient, openModal, onActivePatientId, activeId }) {
+  const dispatch = useWaitingPatientsDispatch();
   return (
     <ListItem
       id={patient.PATIENT_ID}
-      onClick={() => onClick(patient.PATIENT_ID)}
-      className={activeItem === patient.PATIENT_ID && "active"}
+      onClick={() => onActivePatientId(patient.PATIENT_ID)}
+      className={activeId === patient.PATIENT_ID && "active"}
     >
       <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
       <ListItemCell>{patient.NAME}</ListItemCell>
@@ -54,12 +55,14 @@ const Patient = React.memo(function Patient({ patient, dispatch, openModal, onCl
   );
 });
 
-const Patients = React.memo(function PatientItems({ state, dispatch, setPatientId, openModal }) {
+const Patients = React.memo(function PatientItems({ openModal }) {
+  const state = usePatientsState();
   const { data: patients, loading, error, filteredData } = state;
-  const [activeItem, setActiveItem] = useState("");
-  const onClick = id => {
+  const [activeId, setactiveId] = useState("");
+  const { setPatientId } = usePatientId();
+  const onActivePatientId = id => {
     setPatientId(id);
-    setActiveItem(id);
+    setactiveId(id);
   };
   if (loading) return <div>로딩중</div>;
   if (error) return <div>불러오는 중에 에러가 발생하였습니다.</div>;
@@ -68,16 +71,17 @@ const Patients = React.memo(function PatientItems({ state, dispatch, setPatientI
       <Patient
         key={patient.PATIENT_ID}
         patient={patient}
-        dispatch={dispatch}
         openModal={openModal}
-        onClick={onClick}
-        activeItem={activeItem}
+        onActivePatientId={onActivePatientId}
+        activeId={activeId}
       />
     ));
   }
 });
 
 function PatientList() {
+  const patientsDispatch = usePatientsDispatch();
+
   const [isSortDown, setSortDown] = useState(false);
   const ordering = () => {
     setSortDown(!isSortDown);
@@ -89,7 +93,6 @@ function PatientList() {
     isOpen: false,
     title: ""
   });
-
   const openModal = useCallback((title, id) => {
     setModalOpen({
       isOpen: true,
@@ -97,7 +100,6 @@ function PatientList() {
       id: id
     });
   }, []);
-
   const closeModal = useCallback(
     () =>
       setModalOpen({
@@ -108,20 +110,13 @@ function PatientList() {
     [modalOpen]
   );
 
-  const { setPatientId } = usePatientId();
+  const search = e => {
+    patientsDispatch({
+      type: "SEARCH_PATIENT",
+      search: e.target.value
+    });
+  };
 
-  const dispatch = useWaitingPatientsDispatch();
-  const patientsState = usePatientsState();
-  const patientsDispatch = usePatientsDispatch();
-  const search = useCallback(
-    e => {
-      patientsDispatch({
-        type: "SEARCH_PATIENT",
-        search: e.target.value
-      });
-    },
-    [patientsDispatch]
-  );
   useEffect(() => {
     getPatients(patientsDispatch);
   }, [patientsDispatch]);
@@ -147,12 +142,7 @@ function PatientList() {
           <ListItemCell head>환자 번호</ListItemCell>
           <ListItemCell head></ListItemCell>
         </ListItem>
-        <Patients
-          dispatch={dispatch}
-          setPatientId={setPatientId}
-          state={patientsState}
-          openModal={openModal}
-        />
+        <Patients openModal={openModal} />
       </ListContent>
       <Modal
         isOpen={modalOpen.isOpen}

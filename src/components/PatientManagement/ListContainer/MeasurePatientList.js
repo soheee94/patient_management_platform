@@ -1,10 +1,12 @@
 import React from "react";
+import axios from "axios";
+import styled from "styled-components";
+
 import ListContent from "./ListComponent/ListContent";
 import ListItem from "./ListComponent/ListItem";
 import ListItemCell from "./ListComponent/ListItemCell";
-import styled from "styled-components";
+
 import { getBirthday, calculateAge } from "../../../common";
-import axios from "axios";
 
 const NoMeasurePatient = styled.div`
   display: flex;
