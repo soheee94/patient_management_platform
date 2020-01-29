@@ -36,10 +36,12 @@ function FullListContainer() {
       <WaitingPatientsProvider>
         {/* 측정 환자 리스트 */}
         <Grid item lg={3} xs={12}>
+          {/* 현재 측정 환자 리스트 */}
           <ListTitle>
             <span>현재 측정 환자</span>
           </ListTitle>
           <MeasurePatientList />
+          {/* 대기 환자 리스트 */}
           <ListTitle>
             <span>대기 환자</span>
           </ListTitle>
