@@ -1,21 +1,21 @@
 import React, { useState, useCallback, useEffect } from "react";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import Modal from "../Modal/Modal";
-import ListTitle from "./ListTitle";
-import Input from "../Input";
-import Button from "../Button";
-import ListContent from "./ListContent";
-import ListItem from "./ListItem";
-import ListItemCell from "./ListItemCell";
-import { useWaitingPatientsDispatch } from "../../contexts/WaitingPatientsContext";
-import { usePatientId } from "../../contexts/PatientContext";
+import Modal from "../../Modal/Modal";
+import ListTitle from "./ListComponent/ListTitle";
+import Input from "../../common/Input";
+import Button from "../../common/Button";
+import ListContent from "./ListComponent/ListContent";
+import ListItem from "./ListComponent/ListItem";
+import ListItemCell from "./ListComponent/ListItemCell";
+import { useWaitingPatientsDispatch } from "../../../contexts/PatientManagement/WaitingPatientsContext";
+import { usePatientId } from "../../../contexts/PatientManagement/PatientContext";
 import {
   usePatientsState,
   getPatients,
   usePatientsDispatch
-} from "../../contexts/PatientListContext";
-import { getBirthday } from "../../common";
+} from "../../../contexts/PatientManagement/PatientListContext";
+import { getBirthday } from "../../../common";
 
 const Patient = React.memo(function Patient({ patient, dispatch, openModal, onClick, activeItem }) {
   return (

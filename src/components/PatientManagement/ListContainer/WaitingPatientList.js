@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import IconButton from "../IconButton";
+import IconButton from "../../common/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import ListContent from "./ListContent";
-import ListItem from "./ListItem";
-import ListItemCell from "./ListItemCell";
-import { calculateAge, getBirthday } from "../../common";
+import ListContent from "./ListComponent/ListContent";
+import ListItem from "./ListComponent/ListItem";
+import ListItemCell from "./ListComponent/ListItemCell";
+import { calculateAge, getBirthday } from "../../../common";
 import {
   useWaitingPatientsState,
   useWaitingPatientsDispatch,
   getWaitingPatients
-} from "../../contexts/WaitingPatientsContext";
+} from "../../../contexts/PatientManagement/WaitingPatientsContext";
 
 const WaitingPatient = React.memo(function WaitingPatient({ waitingPatient, dispatch }) {
   const onDelete = () =>

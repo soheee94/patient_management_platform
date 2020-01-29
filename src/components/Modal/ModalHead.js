@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from "../IconButton";
+import IconButton from "../common/IconButton";
 import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogTitle from "@material-ui/core/DialogTitle";

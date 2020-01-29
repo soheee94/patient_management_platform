@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import logo_big from "../../assets/logo_big.png";
-import { PatientIdContext } from "../../contexts/PatientContext";
-import ListContent from "./ListContent";
-import useAsync from "../../useAsync";
-import { getPatientMeasurementList } from "../../contexts/api";
+import logo_big from "../../../assets/logo_big.png";
+import { PatientIdContext } from "../../../contexts/PatientManagement/PatientContext";
+import ListContent from "./ListComponent/ListContent";
+import useAsync from "../../../useAsync";
+import { getPatientMeasurementList } from "../../../contexts/api";
 
 const ListBackground = styled.div`
   height: calc(100% - 50px);

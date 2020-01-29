@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { createMuiTheme } from "@material-ui/core/styles";
-import Login from "./Login";
-import PatientManagement from "./PatientManagement";
-import Result from "./Result";
+import Login from "./pages/Login";
+import PatientManagement from "./pages/PatientManagement";
+import MeasurementResult from "./pages/MeasurementResult";
 
 const theme = createMuiTheme({
   palette: {
@@ -24,7 +24,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/patient" component={PatientManagement} />
-        <Route path="/result" component={Result} />
+        <Route path="/result" component={MeasurementResult} />
         <Route
           // 404
           render={({ location }) => (

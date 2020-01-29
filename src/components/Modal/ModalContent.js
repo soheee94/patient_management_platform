@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "../Button";
-import Input from "../Input";
-import Checkbox from "../Checkbox";
-import { usePatientsDispatch } from "../../contexts/PatientListContext";
+import Button from "../common/Button";
+import Input from "../common/Input";
+import Checkbox from "../common/Checkbox";
+import { usePatientsDispatch } from "../../contexts/PatientManagement/PatientListContext";
 import { now } from "../../common";
 import { getPatient } from "../../contexts/api";
 import useAsync from "../../useAsync";
-import { useWaitingPatientsDispatch } from "../../contexts/WaitingPatientsContext";
+import { useWaitingPatientsDispatch } from "../../contexts/PatientManagement/WaitingPatientsContext";
 
 const ModalContentBlock = withStyles({
   root: {

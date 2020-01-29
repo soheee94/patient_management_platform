@@ -1,18 +1,20 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import WaitingPatientList from "./WaitingPatientList";
-import MeasurePatientList from "./MeasurePatientList";
-import PatientList from "./PatientList";
-import MeasurementResultList from "./MeasurementResultList";
-import styled from "styled-components";
-import ListTitle from "./ListTitle";
-import Button from "../Button";
-import { PateintsProvider } from "../../contexts/PatientListContext";
-import { WaitingPatientsProvider } from "../../contexts/WaitingPatientsContext";
-import { PatientIdProvider } from "../../contexts/PatientContext";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
-const Container = styled(Grid)`
+import WaitingPatientList from "./ListContainer/WaitingPatientList";
+import MeasurePatientList from "./ListContainer/MeasurePatientList";
+import PatientList from "./ListContainer/PatientList";
+import MeasurementResultList from "./ListContainer/MeasurementResultList";
+import ListTitle from "./ListContainer/ListComponent/ListTitle";
+import Button from "../common/Button";
+
+import { PateintsProvider } from "../../contexts/PatientManagement/PatientListContext";
+import { WaitingPatientsProvider } from "../../contexts/PatientManagement/WaitingPatientsContext";
+import { PatientIdProvider } from "../../contexts/PatientManagement/PatientContext";
+
+const Wrapper = styled(Grid)`
   flex-grow: 1;
   height: calc(100vh - 100px);
   min-height: 768px;
@@ -27,10 +29,10 @@ const PatientListContainer = styled(Grid)`
   border-right: 1px solid ${props => props.theme.palette.gray};
 `;
 
-function ListContainer() {
+function FullListContainer() {
   const history = useHistory();
   return (
-    <Container container>
+    <Wrapper container>
       <WaitingPatientsProvider>
         {/* 측정 환자 리스트 */}
         <Grid item lg={3} xs={12}>
@@ -61,8 +63,8 @@ function ListContainer() {
           </Grid>
         </PatientIdProvider>
       </WaitingPatientsProvider>
-    </Container>
+    </Wrapper>
   );
 }
 
-export default React.memo(ListContainer);
+export default React.memo(FullListContainer);

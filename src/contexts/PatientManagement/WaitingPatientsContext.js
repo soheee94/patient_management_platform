@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useContext } from "react";
-import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
-import * as api from "./api";
-import { createHash } from "../common";
+import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "../asyncActionUtils";
+import * as api from "../api";
+import { createHash } from "../../common";
 
 // 전역 Context -> waitingPatients, patientId
 

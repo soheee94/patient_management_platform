@@ -1,7 +1,7 @@
-import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "./asyncActionUtils";
+import createAsyncDispatcher, { initialAsyncState, createAsyncHandler } from "../asyncActionUtils";
 import React, { createContext, useReducer, useContext } from "react";
-import * as api from "./api";
-import { createHash, getBirthday } from "../common";
+import * as api from "../api";
+import { createHash, getBirthday } from "../../common";
 
 const patientsState = initialAsyncState;
 const patientsHandler = createAsyncHandler("GET_PATIENTS");

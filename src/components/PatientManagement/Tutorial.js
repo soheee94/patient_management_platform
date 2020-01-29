@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "../IconButton";
+import IconButton from "../common/IconButton";
 
 const TutorialContainer = styled.div`
   top: 0;

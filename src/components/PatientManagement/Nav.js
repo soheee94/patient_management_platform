@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import logo from "../../assets/logo.png";
-import IconButton from "../IconButton";
+import IconButton from "../common/IconButton";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 
 const NavBlock = styled.nav`
-  height: 60px;
-  background-color: ${props => props.theme.palette.white};
-  color: ${props => props.theme.palette.black};
+  ${({ theme }) => `height: 60px;
+  background-color: ${theme.palette.white};
+  color: ${theme.palette.black};
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
-  /* logo */
+  // logo
   img {
     height: 25px;
-  }
+  }`}
 `;
 
 const NavRightMenu = styled.div`
@@ -26,8 +26,7 @@ const NavRightMenu = styled.div`
 const DropDown = styled.div`
   position: relative;
   width: auto;
-
-  /* IS OPEN */
+  /* isOpen */
   ${props =>
     props.open &&
     css`
@@ -36,7 +35,7 @@ const DropDown = styled.div`
         height: 100px;
         transition: all 0.7s ease;
       }
-      ${DropDownText}:after {
+      ${HospitalName}:after {
         margin-top: 5px;
         transform: rotate(-135deg);
         -webkit-transform: rotate(-135deg);
@@ -44,7 +43,7 @@ const DropDown = styled.div`
     `}
 `;
 
-const DropDownText = styled.button`
+const HospitalName = styled.div`
   color: ${props => props.theme.palette.black};
   font-family: "Noto Sans KR Bold";
   font-weight: bold;
@@ -53,9 +52,6 @@ const DropDownText = styled.button`
   height: 60px;
   display: flex;
   align-items: center;
-  background: none;
-  border: none;
-  outline: none;
   &:after {
     content: "";
     transition: all 0.3s;
@@ -94,27 +90,24 @@ const DropDownItems = styled.div`
 
 function Nav({ onTutorialOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const onClick = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
   return (
-    <>
-      <NavBlock>
-        <img src={logo} alt="logo" />
-        <NavRightMenu>
-          <DropDown open={isDropdownOpen}>
-            <DropDownText onClick={onClick}>바른손성형외과</DropDownText>
-            <DropDownItems>
-              <div>병원정보</div>
-              <div>로그아웃</div>
-            </DropDownItems>
-          </DropDown>
-          <IconButton label="tutorial" onClick={onTutorialOpen}>
-            <HelpOutlineIcon />
-          </IconButton>
-        </NavRightMenu>
-      </NavBlock>
-    </>
+    <NavBlock>
+      <img src={logo} alt="logo" />
+      <NavRightMenu>
+        <DropDown open={isDropdownOpen}>
+          <HospitalName onClick={() => setDropdownOpen(!isDropdownOpen)}>
+            바른손성형외과
+          </HospitalName>
+          <DropDownItems>
+            <div>병원정보</div>
+            <div>로그아웃</div>
+          </DropDownItems>
+        </DropDown>
+        <IconButton label="tutorial" onClick={onTutorialOpen}>
+          <HelpOutlineIcon />
+        </IconButton>
+      </NavRightMenu>
+    </NavBlock>
   );
 }
 

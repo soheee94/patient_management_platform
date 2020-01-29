@@ -1,9 +1,9 @@
 import React from "react";
-import ListContent from "./ListContent";
-import ListItem from "./ListItem";
-import ListItemCell from "./ListItemCell";
+import ListContent from "./ListComponent/ListContent";
+import ListItem from "./ListComponent/ListItem";
+import ListItemCell from "./ListComponent/ListItemCell";
 import styled from "styled-components";
-import { getBirthday, calculateAge } from "../../common";
+import { getBirthday, calculateAge } from "../../../common";
 import axios from "axios";
 
 const NoMeasurePatient = styled.div`
