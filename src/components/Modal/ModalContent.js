@@ -5,10 +5,10 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Checkbox from "../common/Checkbox";
-import { usePatientsDispatch } from "../../contexts/PatientManagement/PatientListContext";
 import { now } from "../../common";
 import { getPatient } from "../../contexts/api";
 import useAsync from "../../useAsync";
+import { usePatientsDispatch } from "../../contexts/PatientManagement/PatientListContext";
 import { useWaitingPatientsDispatch } from "../../contexts/PatientManagement/WaitingPatientsContext";
 
 const ModalContentBlock = withStyles({
@@ -121,6 +121,7 @@ function ModalContent({ onClose, id }) {
 
   const dispatch = usePatientsDispatch();
   const waitingPatientsDispatch = useWaitingPatientsDispatch();
+  // 환자 등록
   const submitPatient = e => {
     e.preventDefault();
     if (
@@ -144,10 +145,12 @@ function ModalContent({ onClose, id }) {
           ADDRESS: address.value
         }
       });
+      // 날짜 순 정렬
       dispatch({
         type: "ORDER_BY_DATE_AESC"
       });
 
+      // 수정 시, 대기열 환자도 동일하게 수정
       if (id) {
         waitingPatientsDispatch({
           type: "UPDATE_WAITING_PATIENT_FOR_LIST",
@@ -163,23 +166,24 @@ function ModalContent({ onClose, id }) {
     }
   };
 
+  // 환자 삭제
   const deletePatient = e => {
     if (window.confirm("정말로 삭제하시겠습니까?")) {
+      // 환자 리스트 삭제
       dispatch({
         type: "DELETE_PATIENT",
         id: id
       });
+      // 대기열 환자 삭제
       waitingPatientsDispatch({
         type: "DELETE_WAITING_PATIENT_FOR_LIST",
         id: id
       });
-
       onClose();
     }
   };
   return (
     <ModalContentBlock>
-      {/* onSubmit={} */}
       <form autoComplete="off" onSubmit={submitPatient}>
         <Input
           label="이름"
@@ -235,6 +239,7 @@ function ModalContent({ onClose, id }) {
           <Button color="black" type="submit">
             등록
           </Button>
+          {/* 수정 시 */}
           {id && (
             <Button color="pink" type="button" onClick={deletePatient}>
               삭제

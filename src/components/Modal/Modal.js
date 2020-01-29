@@ -15,7 +15,7 @@ const ModalTemplate = withStyles({
 
 function Modal({ isOpen, handleClose, title, id }) {
   return (
-    <ModalTemplate open={isOpen} onClose={handleClose}>
+    <ModalTemplate open={isOpen}>
       <ModalHead title={title} onClose={handleClose} />
       <ModalContent onClose={handleClose} id={id} />
     </ModalTemplate>
