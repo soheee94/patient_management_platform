@@ -10,6 +10,7 @@ import Button from "../Button";
 import { PateintsProvider } from "../../contexts/PatientListContext";
 import { WaitingPatientsProvider } from "../../contexts/WaitingPatientsContext";
 import { PatientIdProvider } from "../../contexts/PatientContext";
+import { useHistory } from "react-router-dom";
 
 const Container = styled(Grid)`
   flex-grow: 1;
@@ -27,6 +28,7 @@ const PatientListContainer = styled(Grid)`
 `;
 
 function ListContainer() {
+  const history = useHistory();
   return (
     <Container container>
       <WaitingPatientsProvider>
@@ -51,7 +53,9 @@ function ListContainer() {
           {/* 환자 측정 결과 리스트 */}
           <Grid item lg={3} xs={12}>
             <ListTitle style={{ justifyContent: "flex-end" }}>
-              <Button color="pink">측정 결과</Button>
+              <Button color="pink" onClick={() => history.push("/result")}>
+                측정 결과
+              </Button>
             </ListTitle>
             <MeasurementResultList />
           </Grid>

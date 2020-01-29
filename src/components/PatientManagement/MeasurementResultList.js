@@ -101,13 +101,6 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }
   const [state] = useAsync(() => getPatientMeasurementList(id), [id]);
   const { loading, data: measurementResults, error } = state;
   if (error) return <div>에러가 발생했습니다</div>;
-  // if (loading || !measurementResults || measurementResults.length === 0)
-  //   return (
-  //     <ListBackground>
-  //       <img src={logo_big} alt="배경 로고" />
-  //     </ListBackground>
-  //   );
-  // if (measurementResults)
   return (
     <>
       {(loading || !measurementResults || measurementResults.length === 0) && (

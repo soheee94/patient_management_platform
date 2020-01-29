@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { createMuiTheme } from "@material-ui/core/styles";
 import Login from "./Login";
 import PatientManagement from "./PatientManagement";
+import Result from "./Result";
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +24,7 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/patient" component={PatientManagement} />
+        <Route path="/result" component={Result} />
         <Route
           // 404
           render={({ location }) => (
