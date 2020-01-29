@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Noto Sans KR Regular";
+  src: url("./assets/font/NotoSans-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans KR Medium";
+  src: url("./assets/font/NotoSans-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Noto Sans KR Bold";
+  src: url("./assets/font/NotoSans-Bold.woff2") format("woff2");
+}
+body {
+  font-size: 14px;
+  color: #333;
+  font-family: "Noto Sans KR Regular";
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

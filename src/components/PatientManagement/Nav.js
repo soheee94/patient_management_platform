@@ -27,30 +27,35 @@ const DropDown = styled.div`
   position: relative;
   width: auto;
 
+  /* IS OPEN */
   ${props =>
     props.open &&
     css`
-      ${DropDownText}:after {
-        margin-top: 5px;
-        transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
-      }
       ${DropDownItems} {
         visibility: visible;
         height: 100px;
         transition: all 0.7s ease;
       }
+      ${DropDownText}:after {
+        margin-top: 5px;
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+      }
     `}
 `;
 
-const DropDownText = styled.div`
+const DropDownText = styled.button`
   color: ${props => props.theme.palette.black};
   font-family: "Noto Sans KR Bold";
+  font-weight: bold;
   padding: 10px 16px;
   cursor: pointer;
   height: 60px;
   display: flex;
   align-items: center;
+  background: none;
+  border: none;
+  outline: none;
   &:after {
     content: "";
     transition: all 0.3s;

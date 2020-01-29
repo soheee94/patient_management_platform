@@ -18,4 +18,4 @@ function PatientManagement() {
   );
 }
 
-export default React.memo(PatientManagement);
+export default PatientManagement;
