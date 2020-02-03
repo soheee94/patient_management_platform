@@ -92,12 +92,10 @@ function Nav({ onTutorialOpen }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   return (
     <NavBlock>
-      <img src={logo} alt="logo" />
+      <img src="" alt="LOGO" />
       <NavRightMenu>
         <DropDown open={isDropdownOpen}>
-          <HospitalName onClick={() => setDropdownOpen(!isDropdownOpen)}>
-            바른손성형외과
-          </HospitalName>
+          <HospitalName onClick={() => setDropdownOpen(!isDropdownOpen)}>[병원이름]</HospitalName>
           <DropDownItems>
             <div>병원정보</div>
             <div>로그아웃</div>

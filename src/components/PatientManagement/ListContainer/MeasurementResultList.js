@@ -26,78 +26,7 @@ const MeasurementResultBox = styled.div`
   &:hover {
     background-color: ${props => props.theme.palette.lightGray};
   }
-
-  & > div {
-    padding: 20px 5px;
-    border-bottom: 1px solid ${props => props.theme.palette.gray};
-    display: flex;
-    align-items: center;
-    &:last-of-type {
-      border-bottom: none;
-    }
-
-    span {
-      display: inline-block;
-      padding: 0 5px;
-    }
-  }
-
-  .date {
-    font-family: "Noto Sans KR Bold";
-  }
-
-  .cup-size {
-    font-family: "Noto Sans KR Medium";
-    &--detail {
-      color: ${props => props.theme.palette.pink};
-      font-family: "Noto Sans KR Bold";
-      font-size: 16px;
-    }
-  }
 `;
-
-const MeausrementResult = styled.div`
-  display: flex;
-  align-items: center;
-  & > div {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-    align-items: Center;
-    &:first-of-type {
-      margin-right: 10px;
-    }
-    &:last-of-type {
-      margin-left: 10px;
-    }
-
-    .data {
-      font-family: "Noto Sans KR Bold";
-      font-size: 16px;
-      margin: 0 10px;
-    }
-  }
-`;
-
-const calculateCupSize = abs => {
-  if (abs <= 7.5) {
-    return "AA";
-  } else if (7.5 < abs && abs <= 10) {
-    return "A";
-  } else if (10 < abs && abs <= 12.5) {
-    return "B";
-  } else if (12.5 < abs && abs <= 15) {
-    return "C";
-  } else if (15 < abs && abs <= 17.5) {
-    return "D";
-  } else if (17.5 < abs && abs <= 20) {
-    return "E";
-  } else if (20 < abs && abs <= 22.5) {
-    return "F";
-  } else if (22.5 < abs) {
-    return "G";
-  }
-};
 
 const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }) {
   const [state] = useAsync(() => getPatientMeasurementList(id), [id]);
@@ -106,56 +35,15 @@ const MeasurementResultItems = React.memo(function MeasurementResultItems({ id }
   if (loading || !measurementResults || measurementResults.length === 0)
     return (
       <ListBackground>
-        <img src={logo_big} alt="배경 로고" />
+        <img src="#" alt="Background LOGO" />
       </ListBackground>
     );
   if (measurementResults)
+    // ★ 프로젝트 별 결과 리스트 박스 다름
     return (
       <ListContent>
         {measurementResults.map(measurementResult => (
-          <MeasurementResultBox key={measurementResult.MEASURE_ID}>
-            <div>
-              <span className="date">{measurementResult.MEASURE_DATE.split(" ")[0]}</span>
-              <span className="cup-size">컵사이즈</span>
-              <span className="cup-size--detail">
-                {calculateCupSize(
-                  Math.abs(
-                    parseInt(measurementResult.BUST_SIZE) -
-                      parseInt(measurementResult.BOTTOM_BUST_SIZE)
-                  )
-                )}
-              </span>
-              <span className="cup-size">cup</span>
-            </div>
-            <MeausrementResult>
-              <div>
-                <span>좌측 가슴 부피</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.LEFT_VOLUME)}</span> cc
-                </span>
-              </div>
-              <div>
-                <span>우측 가슴 부피</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.RIGHT_VOLUME)}</span> cc
-                </span>
-              </div>
-            </MeausrementResult>
-            <MeausrementResult>
-              <div>
-                <span>가슴 둘레</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.BUST_SIZE)}</span> cm
-                </span>
-              </div>
-              <div>
-                <span>밑가슴 둘레</span>
-                <span>
-                  <span className="data">{parseInt(measurementResult.BOTTOM_BUST_SIZE)}</span> cm
-                </span>
-              </div>
-            </MeausrementResult>
-          </MeasurementResultBox>
+          <MeasurementResultBox key={measurementResult.MEASURE_ID}>측정 결과</MeasurementResultBox>
         ))}
       </ListContent>
     );
