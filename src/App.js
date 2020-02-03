@@ -5,6 +5,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import Login from "./pages/Login";
 import PatientManagement from "./pages/PatientManagement";
 import MeasurementResult from "./pages/MeasurementResult";
+import NotFound from "./pages/NotFound";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,12 +28,7 @@ function App() {
         <Route path="/result" component={MeasurementResult} />
         <Route
           // 404
-          render={({ location }) => (
-            <div>
-              <h2>Not Found 404</h2>
-              <p>{location.pathname}</p>
-            </div>
-          )}
+          render={({ location }) => <NotFound />}
         />
       </Switch>
     </ThemeProvider>
