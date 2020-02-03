@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ListContentBlock = styled.div`
   height: auto;
-  max-height: calc(100% - 60px);
+  max-height: calc(100% - 50px);
   overflow-y: auto;
   & > div {
     padding: 10px 15px;
