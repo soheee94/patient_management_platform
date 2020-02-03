@@ -35,7 +35,7 @@ const Patient = React.memo(function Patient({ patient, openModal, onActivePatien
           수정
         </Button>
         <Button
-          color="pink"
+          color="point"
           onClick={() =>
             dispatch({
               type: "ADD_WAITING_PATIENT",

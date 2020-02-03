@@ -5,6 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Checkbox as MaterialCheckbox } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
+import { rgba } from "polished";
 
 const FormGroupBlock = withStyles({
   root: {
@@ -16,8 +17,14 @@ const FormGroupBlock = withStyles({
 const FormCheckbox = styled(MaterialCheckbox)`
   && {
     color: ${props => props.theme.palette.gray};
-    &::checked {
-      color: ${props => props.theme.palette.pink};
+    &:hover {
+      background-color: ${props => rgba(props.theme.palette.point, 0.08)};
+    }
+    &.Mui-checked {
+      color: ${props => props.theme.palette.point};
+      &:hover {
+        background-color: ${props => rgba(props.theme.palette.point, 0.08)};
+      }
     }
     & + span {
       font-family: "Noto Sans KR Regular";

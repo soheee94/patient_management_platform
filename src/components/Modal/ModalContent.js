@@ -241,7 +241,7 @@ function ModalContent({ onClose, id }) {
           </Button>
           {/* 수정 시 */}
           {id && (
-            <Button color="pink" type="button" onClick={deletePatient}>
+            <Button color="point" type="button" onClick={deletePatient}>
               삭제
             </Button>
           )}

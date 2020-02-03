@@ -14,7 +14,7 @@ const theme = createMuiTheme({
     lightGray: "#e9ecef",
     gray: "#cccccc",
     darkGray: "#999999",
-    pink: "#e84d6a"
+    point: "blue"
   }
 });
 
