@@ -26,6 +26,7 @@ const NavRightMenu = styled.div`
 const DropDown = styled.div`
   position: relative;
   width: auto;
+  min-width: 130px;
   /* isOpen */
   ${props =>
     props.open &&
@@ -52,6 +53,7 @@ const HospitalName = styled.div`
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   &:after {
     content: "";
     transition: all 0.3s;
@@ -95,7 +97,7 @@ function Nav({ onTutorialOpen }) {
       <img src="" alt="LOGO" />
       <NavRightMenu>
         <DropDown open={isDropdownOpen}>
-          <HospitalName onClick={() => setDropdownOpen(!isDropdownOpen)}>[병원이름]</HospitalName>
+          <HospitalName onClick={() => setDropdownOpen(!isDropdownOpen)}>[ 병원이름 ]</HospitalName>
           <DropDownItems>
             <div>병원정보</div>
             <div>로그아웃</div>
