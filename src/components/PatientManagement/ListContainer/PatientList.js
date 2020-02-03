@@ -25,7 +25,7 @@ const Patient = React.memo(function Patient({ patient, openModal, onActivePatien
       onClick={() => onActivePatientId(patient.PATIENT_ID)}
       className={activeId === patient.PATIENT_ID && "active"}
     >
-      <ListItemCell>{patient.LAST_UPDATE}</ListItemCell>
+      <ListItemCell>{patient.LAST_UPDATE.split(" ")[0]}</ListItemCell>
       <ListItemCell>{patient.NAME}</ListItemCell>
       <ListItemCell>{patient.SEX}</ListItemCell>
       <ListItemCell>{getBirthday(patient.ID_NUMBER)}</ListItemCell>
