@@ -39,6 +39,7 @@ const ListItemBlock = styled.div`
   &.active{
     background-color: ${props => props.theme.palette.lightGray};
   }
+
 `;
 
 function ListItem({ children, head, onClick, ...rest }) {

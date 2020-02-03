@@ -71,7 +71,7 @@ class MeasurePatientList extends React.Component {
       return <NoMeasurePatient>측정 중인 환자가 없습니다</NoMeasurePatient>;
     const birthday = getBirthday(patient[0].ID_NUMBER);
     return (
-      <ListItem>
+      <ListItem isMeasuring>
         <ListItemCell>{patient[0].NAME}</ListItemCell>
         <ListItemCell>{patient[0].SEX}</ListItemCell>
         <ListItemCell>
