@@ -35,7 +35,7 @@ function FullListContainer() {
     <Wrapper container>
       <WaitingPatientsProvider>
         {/* 측정 환자 리스트 */}
-        <Grid item lg={3} md={3} xs={12}>
+        <Grid item lg={3} md={3} xs={3}>
           {/* 현재 측정 환자 리스트 */}
           <ListTitle>
             <span>현재 측정 환자</span>
@@ -49,13 +49,13 @@ function FullListContainer() {
         </Grid>
         {/* 환자 리스트 */}
         <PatientIdProvider>
-          <PatientListContainer item lg={6} md={6} xs={12}>
+          <PatientListContainer item lg={6} md={6} xs={6}>
             <PateintsProvider>
               <PatientList />
             </PateintsProvider>
           </PatientListContainer>
           {/* 환자 측정 결과 리스트 */}
-          <Grid item lg={3} md={3} xs={12}>
+          <Grid item lg={3} md={3} xs={3}>
             <ListTitle style={{ justifyContent: "flex-end" }}>
               <Button color="point" onClick={() => history.push("/result")}>
                 측정 결과

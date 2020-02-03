@@ -52,7 +52,7 @@ function NotFound({ history }) {
   return (
     <div>
       <NotFoundContainer>
-        <img src="#" alt="image for 404" />
+        <img src="#" alt="404" />
         <div>
           <p>ERROR</p>
           <p>찾을 수 없는 페이지 입니다.</p>
