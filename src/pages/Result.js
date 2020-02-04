@@ -1,7 +1,7 @@
 import React from "react";
 
-function MeasurementResult() {
+function Result() {
   return <div>측정결과</div>;
 }
 
-export default MeasurementResult;
+export default Result;
