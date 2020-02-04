@@ -26,6 +26,8 @@ class MeasurePatientList extends React.Component {
     };
   }
 
+  getMeasurePatient = 0;
+
   // 업데이트 전 확인
   shouldComponentUpdate(nextProps, nextState) {
     const { data: patient } = this.state;
@@ -52,9 +54,9 @@ class MeasurePatientList extends React.Component {
 
   // 렌더링 후 setInterval 설정
   componentDidMount() {
-    setInterval(() => {
+    this.getMeasurePatient = setInterval(() => {
       axios
-        .get("http://127.0.0.1/cordia/GetMeasurePatient.php")
+        .get("http://127.0.0.1/FIT-CHECKER/GetMeasurePatient.php")
         .then(response => {
           this.setState({ ...this.state, data: response.data });
         })
@@ -62,6 +64,11 @@ class MeasurePatientList extends React.Component {
           this.setState({ ...this.state, error: error });
         });
     }, 1000);
+  }
+
+  // 페이지 이동 시 interval 해제
+  componentWillUnmount() {
+    clearInterval(this.getMeasurePatient);
   }
 
   renderPatient = () => {
